@@ -1,7 +1,51 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { getFirebase } from "../services/firebase";
+import styles from "../styles/Home.module.css";
+import {
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  query,
+  where,
+  startAt,
+  endAt,
+} from "firebase/firestore/lite";
+
+export async function getServerSideProps() {
+  let props: {
+    comments: any[];
+  } = {
+    comments: [],
+  };
+  try {
+    const firebase = getFirebase();
+    if (firebase) {
+      const q = query(firebase.database.comment);
+      const data = await (await getDocs(q)).docs;
+      const data1 = await addDoc(firebase.database.comment, {
+        id: "ddddd",
+        vallue: "hy",
+      });
+      //   for (let i = 0; i < data.length; i++) {
+      //     console.log(data[i].data());
+      //   }
+      //   console.log("xxx", data);
+      props.comments = data.map((d) => d.data());
+    } else {
+      console.log("wrong");
+    }
+
+    // console.log("lll", props);
+  } catch (e) {
+    console.log(e);
+  }
+  return {
+    props,
+  };
+}
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +62,7 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
@@ -59,14 +103,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

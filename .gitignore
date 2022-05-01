@@ -32,3 +32,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+export
+
+**/firebase-export-*/
+database-debug.log
+firestore-debug.log
+ui-debug.log
