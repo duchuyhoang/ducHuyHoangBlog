@@ -12,7 +12,7 @@ import {
   connectFirestoreEmulator,
 } from "firebase/firestore/lite";
 import firebase, { getApps, getApp } from "firebase/app";
-import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getAuth, connectAuthEmulator, Auth } from "firebase/auth";
 const init = () => {
   try {
     let app = null;
@@ -24,15 +24,24 @@ const init = () => {
       firestore = getFirestore();
     } else {
       app = initializeApp({
-        apiKey: process.env.apiKey,
-        authDomain: process.env.authDomain,
-        projectId: process.env.projectId,
-        storageBucket: process.env.storageBucket,
-        messagingSenderId: process.env.messagingSenderId,
-        appId: process.env.appId,
-        measurementId: process.env.measurementId,
+        apiKey: "AIzaSyD63hodF2l2YG1qBYA3KrG_1lP6G34nHJY",
+        authDomain: "duchuyhoangblog-5e5df.firebaseapp.com",
+        databaseURL:
+          "https://duchuyhoangblog-5e5df-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "duchuyhoangblog-5e5df",
+        storageBucket: "duchuyhoangblog-5e5df.appspot.com",
+        messagingSenderId: "1096120152389",
+        appId: "1:1096120152389:web:a9dc5229dfdf01f9168e2c",
+        measurementId: "G-B61M3RRE1T",
+        // apiKey: process.env.apiKey,
+        // authDomain: process.env.authDomain,
+        // projectId: process.env.projectId,
+        // storageBucket: process.env.storageBucket,
+        // messagingSenderId: process.env.messagingSenderId,
+        // appId: process.env.appId,
+        // measurementId: process.env.measurementId,
       });
-	//     
+      //
       auth = getAuth();
       firestore = getFirestore();
       connectFirestoreEmulator(firestore, "localhost", 8080);
@@ -50,7 +59,7 @@ const init = () => {
       auth,
     };
   } catch (e) {
-    console.log('e',e);
+    console.log("e", e);
   }
 };
 
@@ -58,4 +67,8 @@ const services = init();
 
 export const getFirebase = () => {
   return services;
+};
+
+export const test = {
+  name: "dad",
 };

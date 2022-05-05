@@ -1,0 +1,11 @@
+@import "./reset";
+@import "./variable";
+@import "./mixin";
+@import "./base";
+
+@import "./component/navbar.scss";
+@import "./component/modal.scss";
+@import "./component/input.scss";
+body {
+  background-color: $color-primary-dark;
+}

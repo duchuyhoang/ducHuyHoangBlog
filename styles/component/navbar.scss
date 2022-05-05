@@ -1,0 +1,106 @@
+.nav {
+  padding: 5px;
+  position: fixed;
+  transition: all 0.2s;
+  will-change: auto;
+  z-index:101;
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%);
+  .row {
+    padding: 0px 15px;
+    box-sizing: border-box;
+  }
+  .contentContainer {
+    @include flex(center, flex-end);
+  }
+  .logo {
+    cursor: pointer;
+  }
+
+  &-item {
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+    position: relative;
+    text-transform: uppercase;
+    &:hover {
+      color: $text-hover-primary;
+    }
+    &:hover .dropDownMenu {
+      display: block;
+    }
+    .dropDownMenu {
+      position: absolute;
+      top: 100%;
+      left: 0%;
+      display: none;
+      background-color: rgba(0, 0, 0, 0.85);
+      width: 100%;
+      .dropDownItem {
+        padding: 10px;
+        color: $color-primary-light;
+        &:hover {
+          color: $text-hover-primary;
+        }
+      }
+    }
+  }
+
+  .accountContainer {
+    //   width: 20%;
+    margin-left: 10px;
+    @include flex(center, center);
+
+    & .item {
+      text-align: center;
+      font-weight: 600;
+      //   cursor: pointer;
+      display: flex;
+      .divide {
+        @include flex(flex-start, center);
+        margin: 0 8px;
+        padding: 5px;
+      }
+      p,
+      svg {
+        cursor: pointer;
+        fill: $color-primary-light;
+      }
+      p {
+        padding: 5px;
+      }
+      p:hover {
+        color: $text-hover-primary;
+      }
+    }
+  }
+}
+
+.nav-dark {
+  background-color: $color-primary-dark;
+  color: $color-primary-light;
+}
+.nav-light {
+  background-color: $color-primary-light;
+  color: $color-text-primary-dark;
+}
+.searchContainer {
+  position: fixed;
+  z-index: 100;
+  width: calc(100% - 10px);
+  top: 0px;
+  padding: 5px;
+  box-sizing: border-box;
+  transition: top 0.2s;
+  .searchIcon{
+	  position: absolute;
+	  top: 10px;
+	  left: 10px;
+	  fill: red;
+	  z-index: 1
+  }
+  .input{
+	  position: absolute;
+	  padding: 10px 10px 10px 30px;
+	  border: none;
+  }
+}
