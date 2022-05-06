@@ -6,6 +6,9 @@
 @import "./component/navbar.scss";
 @import "./component/modal.scss";
 @import "./component/input.scss";
+
+@import "./pages/home.scss";
+
 body {
-  background-color: $color-primary-dark;
+  // background-color: $color-primary-dark;
 }

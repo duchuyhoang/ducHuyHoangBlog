@@ -1,4 +1,4 @@
-import type { NextPage, NextPageContext } from "next";
+import type { GetStaticProps, NextPage, NextPageContext } from "next";
 import { getAuth, createUserWithEmailAndPassword, Auth } from "firebase/auth";
 import Head from "next/head";
 import Image from "next/image";
@@ -13,9 +13,12 @@ import {
   startAt,
   endAt,
 } from "firebase/firestore/lite";
-import { createContext, useContext } from "react";
-import { MDXProvider } from "@mdx-js/react";
 
+import { createContext, useContext } from "react";
+import { buildHostUrl } from "../common/utils";
+const os = require("os");
+
+// import { MDXProvider } from "@mdx-js/react";
 
 // export async function getStaticPaths() {}
 
@@ -66,14 +69,17 @@ const FirebaseContext = createContext(getFirebase());
 
 export const useFirebaseContext = () => useContext(FirebaseContext);
 
-const Home: NextPage = () => {
-  return (
-    <>
-        <div className="col-sm-5" style={{ height: 3000 }}>
-          ddd
-        </div>
-    </>
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+  const data = await fetch(
+    `${buildHostUrl((context as NextPageContext).req)}/api/hello`
   );
+  return {
+    props: {},
+  };
+};
+
+const Home: NextPage = () => {
+  return <>helllo</>;
 };
 
 export default Home;

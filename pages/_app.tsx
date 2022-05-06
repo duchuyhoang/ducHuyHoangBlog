@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Navbar />
       <div className="col-sm-5" style={{ height: 3000 }}>
         ddd
+        <Component {...pageProps} />
       </div>
     </FirebaseContext.Provider>
   );

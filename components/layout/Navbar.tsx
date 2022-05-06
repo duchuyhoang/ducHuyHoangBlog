@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Modal from "../shared/Modal";
@@ -12,40 +12,47 @@ import { getFirebase } from "../../services/firebase";
 import { useFirebaseContext } from "../../pages";
 import Input from "../shared/Input";
 import { AiOutlineSearch } from "react-icons/ai";
+import { GrFormClose } from "react-icons/gr";
 
 const Navbar = () => {
   const [currentWindowOffsetY, setWindowOffsetY] = useState(0);
-  const [isHideScrollBar, setIsHideScrollBar] = useState<boolean>(false);
+  // const [isHideScrollBar, setIsHideScrollBar] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState<boolean>(false);
   const [isSearchInputOpen, setIsSeachInputOpen] = useState<boolean>(false);
   const navRef = useRef<HTMLDivElement | null>(null);
-  const firstTimeLoadNav = useRef(true);
+  const [searchKeyWord, setSearchKeyWord] = useState<string>();
   const context = useFirebaseContext();
+  const [navbarHeight, setNavbarHeight] = useState<number>(0);
 
   useEffect(() => {
-    window.addEventListener("scroll", function (e: any) {
-      if (!firstTimeLoadNav.current) {
-        let windowScrollY = this.scrollY;
-        if (windowScrollY <= currentWindowOffsetY) {
-          setIsHideScrollBar(false);
-        } else {
-          setIsHideScrollBar(true);
-        }
-        setWindowOffsetY(windowScrollY);
-      } else firstTimeLoadNav.current = false;
-    });
-    return () => {
-      window.removeEventListener("scroll", function (e: any) {
-        let windowScrollY = this.scrollY;
-        if (windowScrollY <= currentWindowOffsetY) {
-          setIsHideScrollBar(false);
-        } else {
-          setIsHideScrollBar(true);
-        }
-      });
-    };
-  }, [currentWindowOffsetY]);
+    setNavbarHeight(navRef.current?.offsetHeight || 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navRef.current]);
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", function (e: any) {
+  //     if (!firstTimeLoadNav.current) {
+  //       let windowScrollY = this.scrollY;
+  //       if (windowScrollY <= currentWindowOffsetY) {
+  //         setIsHideScrollBar(false);
+  //       } else {
+  //         setIsHideScrollBar(true);
+  //       }
+  //       setWindowOffsetY(windowScrollY);
+  //     } else firstTimeLoadNav.current = false;
+  //   });
+  //   return () => {
+  //     window.removeEventListener("scroll", function (e: any) {
+  //       let windowScrollY = this.scrollY;
+  //       if (windowScrollY <= currentWindowOffsetY) {
+  //         setIsHideScrollBar(false);
+  //       } else {
+  //         setIsHideScrollBar(true);
+  //       }
+  //     });
+  //   };
+  // }, [currentWindowOffsetY]);
 
   const signUp = () => {
     // console.log(context);
@@ -80,11 +87,13 @@ const Navbar = () => {
         ref={navRef}
         className="nav nav-dark w-100"
         style={{
-          top: isHideScrollBar ? "-100px" : "0px",
+          // top: isHideScrollBar
+          //   ? (navRef.current?.offsetHeight || 0) * -1
+          //   : "0px",
           boxSizing: "border-box",
         }}
       >
-        <div className="row" style={{ borderBottom: "2px solid #404548" }}>
+        <div className="row">
           <div
             className="accountContainer col-12 d-flex"
             style={{ justifyContent: "flex-end" }}
@@ -117,7 +126,7 @@ const Navbar = () => {
           </div>
         </div>
         <section className="row">
-          <div className="col-3 logo">
+          <div className="col-2 logo">
             <Link href="/" passHref>
               <Image
                 src="/logo.png"
@@ -128,7 +137,7 @@ const Navbar = () => {
               />
             </Link>
           </div>
-          <div className="col-9 contentContainer">
+          <div className="col-10 contentContainer">
             <div className="nav-item">
               About me
               <ul className="dropDownMenu">
@@ -136,6 +145,15 @@ const Navbar = () => {
                 <li className="dropDownItem">Hello 2</li>
                 <li className="dropDownItem">Hello 3</li>
               </ul>
+            </div>
+            <div className="nav-item">
+              Platform
+            </div>
+            <div className="nav-item">
+              Solutions
+            </div>
+            <div className="nav-item">
+              Contact
             </div>
           </div>
         </section>
@@ -173,23 +191,39 @@ const Navbar = () => {
         style={{
           ...(isSearchInputOpen && {
             top: navRef.current?.offsetHeight || 0 + 4,
+            visibility: "visible",
           }),
         }}
       >
         <AiOutlineSearch
           className="searchIcon"
-          size={21}
+          size={18}
           onClick={() => {
             setIsSeachInputOpen((prev) => !prev);
           }}
         />
         <Input
-          value={"ddd"}
+          value={searchKeyWord}
           onChange={(e) => {
             console.log(e);
+            setSearchKeyWord(e.target.value);
+          }}
+        />
+        <GrFormClose
+          className="closeIcon"
+          size={18}
+          onClick={() => {
+            setIsSeachInputOpen(false);
+            setSearchKeyWord("");
           }}
         />
       </div>
+      <div
+        style={{
+          paddingBottom: navbarHeight + 5,
+          // display: isHideScrollBar ? "none" : "block",
+        }}
+      ></div>
     </>
   );
 };
