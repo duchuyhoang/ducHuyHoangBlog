@@ -1,0 +1,26 @@
+.recent-post {
+  padding: 10px;
+  &-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .slick-track {
+    padding: 1px;
+  }
+}
+.older-post {
+  padding: 10px;
+  &-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  &-container{
+	  display: flex;
+	  flex-direction: column;
+	  & > div{
+		  margin-bottom: 20px;
+	  }
+  }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Modal from "../shared/Modal";
+import { VscThreeBars } from "react-icons/vsc";
 import { FaGithub, FaFacebookSquare } from "react-icons/fa";
 import {
   signInWithEmailAndPassword,
@@ -21,6 +22,7 @@ const Navbar = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState<boolean>(false);
   const [isSearchInputOpen, setIsSeachInputOpen] = useState<boolean>(false);
   const navRef = useRef<HTMLDivElement | null>(null);
+  const [isHiddenSidebarOpen, setIsOpenSidebarOpen] = useState<boolean>(false);
   const [searchKeyWord, setSearchKeyWord] = useState<string>();
   const context = useFirebaseContext();
   const [navbarHeight, setNavbarHeight] = useState<number>(0);
@@ -87,13 +89,10 @@ const Navbar = () => {
         ref={navRef}
         className="nav nav-dark w-100"
         style={{
-          // top: isHideScrollBar
-          //   ? (navRef.current?.offsetHeight || 0) * -1
-          //   : "0px",
           boxSizing: "border-box",
         }}
       >
-        <div className="row">
+        <div className="row d-none d-sm-block d-md-block d-lg-block d-xl-block">
           <div
             className="accountContainer col-12 d-flex"
             style={{ justifyContent: "flex-end" }}
@@ -116,7 +115,7 @@ const Navbar = () => {
               </p>
               <span style={{ padding: 5 }}>
                 <AiOutlineSearch
-                  size={21}
+                  size={19}
                   onClick={() => {
                     setIsSeachInputOpen((prev) => !prev);
                   }}
@@ -125,19 +124,38 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <section className="row">
-          <div className="col-2 logo">
+        <section
+          className="row"
+          style={{
+            justifyContent: "space-between",
+          }}
+        >
+          <div
+            className="col-sm-3 d-sm-none d-md-none d-lg-none d-xl-none d-flex"
+            style={{
+              alignItems: "center",
+              //   justifyContent: "center",
+            }}
+          >
+            <AiOutlineSearch
+              size={25}
+              onClick={() => {
+                setIsSeachInputOpen((prev) => !prev);
+              }}
+            />
+          </div>
+          <div className="col-6 col-xl-2 col-lg-2 col-sm-3 col-md-2 logo">
             <Link href="/" passHref>
               <Image
                 src="/logo.png"
                 alt="logo"
                 //   layout="fill"
                 width={150}
-                height={80}
+                height={100}
               />
             </Link>
           </div>
-          <div className="col-10 contentContainer">
+          <div className="col-xl-8 col-sm-6 col-lg-5 col-md-5 col-7 contentContainer d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex">
             <div className="nav-item">
               About me
               <ul className="dropDownMenu">
@@ -146,14 +164,33 @@ const Navbar = () => {
                 <li className="dropDownItem">Hello 3</li>
               </ul>
             </div>
-            <div className="nav-item">
-              Platform
+            <div className="nav-item">Software</div>
+            <div className="nav-item">Tags</div>
+            {/* <div className="nav-item">Contact</div> */}
+          </div>
+          <div className="col-lg-4 col-md-5 col-sm-3 d-flex flex-row-reverse">
+            <div
+              className="accountContainer d-flex mt-2"
+              style={{ justifyContent: "flex-end" }}
+            >
+              <div className="item">
+                <span style={{ padding: 5 }} className="d-flex d-sm-none d-md-none d-lg-none d-xl-none">
+                  <VscThreeBars
+                    size={25}
+                    onClick={() => {
+                      setIsOpenSidebarOpen(true);
+                    }}
+                  />
+                </span>
+              </div>
             </div>
-            <div className="nav-item">
-              Solutions
-            </div>
-            <div className="nav-item">
-              Contact
+            <div className="expertContainer d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex">
+              <Link
+                href="https://www.facebook.com/croong.hoang"
+                //   className="expertBtn"
+              >
+                Talk to an expert
+              </Link>
             </div>
           </div>
         </section>
@@ -219,11 +256,47 @@ const Navbar = () => {
         />
       </div>
       <div
+        className="hideSidebar"
         style={{
-          paddingBottom: navbarHeight + 5,
-          // display: isHideScrollBar ? "none" : "block",
+          width: isHiddenSidebarOpen ? "100vw" : "0px",
+          visibility: isHiddenSidebarOpen ? "visible" : "hidden",
         }}
-      ></div>
+      >
+        <h2 className="title">
+          <div className="d-flex justify-space-between align-center">
+            <Link href="/" passHref>
+              <div
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  backgroundImage: "url('./logo.png')",
+                  backgroundSize: "contain",
+				  backgroundRepeat:"no-repeat",
+				  backgroundPosition:"center center"
+                }}
+              ></div>
+            </Link>
+            <GrFormClose
+              className="icon"
+              size={25}
+              onClick={() => {
+                setIsOpenSidebarOpen(false);
+              }}
+            />
+          </div>
+        </h2>
+        <div className="item-container">
+          <a href="" className="item">
+            About me
+          </a>
+          <a href="" className="item">
+            Software
+          </a>
+          <a href="" className="item">
+            Tags
+          </a>
+        </div>
+      </div>
     </>
   );
 };

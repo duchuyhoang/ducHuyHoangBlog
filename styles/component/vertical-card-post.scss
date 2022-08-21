@@ -1,0 +1,67 @@
+.vertical-card {
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  padding: 0px 0px 10px 0px;
+  margin: 0px 8px;
+  &:hover{
+	box-shadow: $hover-shadow;
+  }
+  &-img {
+    width: 100%;
+    height: 200px;
+    span {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &-content {
+    padding: 20px;
+  }
+
+  &-title {
+    color: $color-primary-dark;
+    font-size: 22px;
+    font-weight: 900;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    height: 65px;
+	box-sizing: border-box;
+    @include excerp(3);
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+  &-author,
+  &-date {
+    font-weight: 400;
+    display: block;
+    font-size: 15px;
+    text-decoration: none;
+    margin: 8px 0px;
+    font-style: italic;
+    color: $color-primary-dark;
+  }
+  &-author:hover {
+    text-decoration: underline;
+  }
+  &-bar{
+	  height: 3px;
+	  width: 55px;
+	  background-color: $color-primary-dark;
+	  margin: 20px 0px;
+  }
+  &-description {
+    color: $color-text-primary-light;
+    @include excerp(6);
+	font-size: 17px;
+	height: 105px;
+  }
+}

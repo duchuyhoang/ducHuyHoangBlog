@@ -1,0 +1,73 @@
+.feature-post {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  &::after {
+    content: "";
+    background: linear-gradient(
+      20deg,
+      rgba(37, 27, 63, 0.9) 25%,
+      rgba(82, 62, 142, 0.4) 90%
+    );
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  padding: 45px 40px;
+
+  &-tag {
+    background-color: $color-primary-dark;
+    color: $color-primary-light;
+    padding: 6px 15px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 80px;
+    width: 100px;
+    font-weight: bold;
+  }
+  &-info {
+    display: flex;
+    color: $color-primary-light;
+    font-style: italic;
+    span {
+      margin: 0 5px;
+    }
+  }
+  &-title-container {
+    margin: 10px 0px;
+    line-height: 1.1;
+    .title {
+      font-size: 30px;
+      color: $color-primary-light;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        opacity: 0.7;
+      }
+
+      .horizontalBar {
+        margin-top: 20px;
+        background-color: #7759c2;
+        height: 5px;
+        width: 95px;
+      }
+    }
+  }
+  &-content {
+    width: 85%;
+    color: $color-primary-light;
+	line-height: 20px;
+    a {
+      margin-left: 5px;
+      color: $color-primary-light;
+      font-weight: 500;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}

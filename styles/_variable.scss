@@ -1,11 +1,28 @@
-$color-primary-dark: #171E22;
-$color-primary-light: rgb(255, 255, 255);
-$color-text-primary-light: rgb(243 244 246);
+$color-primary-dark: #171e22;
+$color-primary-light: #fff;
+$color-text-primary-light: rgb(91, 105, 135);
 $color-text-primary-dark: #74717a;
-$text-hover-primary:#171E22;
+$text-hover-primary: #171e22;
+$hover-shadow:0 52px 30px -14px #d1d0d3;
+$border-color:#d1d0d3;
 $numbers: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 $w-numbers: (10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
+$spacer: 1rem;
+$totalContainerPadding:30px;
+$spaces: (
+  0,
+  $spacer * 0.25,
+  $spacer * 0.5,
+  $spacer,
+  $spacer * 1.5,
+  $spacer * 3
+);
 $colMax: 12;
+
+$small-width: 576px;
+$medium-width: 768px;
+$large-width: 992px;
+$extra-large: 1200px;
 
 $mobile-width: 600px;
 $tablet-width: 1024px;

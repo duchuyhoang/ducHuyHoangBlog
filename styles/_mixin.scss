@@ -1,11 +1,24 @@
-@mixin tablet {
-  @media only screen and (max-width: $tablet-width) {
+@mixin large {
+  @media screen and (min-width: $extra-large) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media screen and (min-width: $large-width) and (max-width: $extra-large) {
+    @content;
+  }
+}
+
+@mixin small {
+  // and (max-width: $large-width)
+  @media only screen and (min-width: $medium-width) and (max-width: $large-width) {
     @content;
   }
 }
 
 @mixin mobile {
-  @media only screen and (max-width: $mobile-width) {
+  @media only screen and (min-width: $small-width) and (max-width: $medium-width) {
     @content;
   }
 }
@@ -14,4 +27,13 @@
   display: flex;
   align-items: $align-item;
   justify-content: $justify-content;
+}
+
+@mixin excerp($lineCount: 3) {
+  -webkit-line-clamp: $lineCount;
+  display: block;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

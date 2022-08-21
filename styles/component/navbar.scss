@@ -1,23 +1,62 @@
 .nav {
   padding: 5px;
-  position: fixed;
+  position: sticky;
+  top: 0px;
   transition: all 0.2s;
   will-change: auto;
-  z-index:101;
+  z-index: 101;
+  svg {
+    fill: $color-primary-dark;
+  }
   background-color: #fff;
-  // box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%);
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%);
+  .expertContainer {
+    justify-content: center;
+    align-items: center;
+  }
+  .expertContainer a {
+    font-weight: 600;
+    color: $color-primary-dark;
+    min-width: 68px;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-family: Inter, "sans-serif";
+    line-height: 20px;
+    transition: background-color 0.2s ease-in-out;
+    @include mobile {
+      font-size: 16px;
+      padding: 3px;
+    }
+    &:hover {
+      background-color: #d1d0d3;
+    }
+  }
   .row {
     padding: 0px 15px;
     box-sizing: border-box;
   }
   .contentContainer {
-    @include flex(center, flex-start);
+    // @include flex(center, flex-start);
+    align-items: center;
+    justify-content: flex-start;
+    @include large {
+      justify-content: flex-start;
+    }
   }
   .logo {
     cursor: pointer;
     height: 70px;
-    span{
-      height: 100%!important;
+    @media only screen and (max-width: $small-width) {
+      text-align: center;
+    }
+    span {
+      height: 100% !important;
     }
   }
 
@@ -25,7 +64,7 @@
     font-size: 18px;
     cursor: pointer;
     // font-weight: 500;
-    color:$color-text-primary-dark;
+    color: $color-text-primary-dark;
     margin: 0 10px;
     position: relative;
     // text-transform: uppercase;
@@ -62,7 +101,7 @@
       font-weight: 600;
       //   cursor: pointer;
       display: flex;
-      color:$color-text-primary-dark;
+      color: $color-text-primary-dark;
       .divide {
         @include flex(flex-start, center);
         margin: 0 4px;
@@ -96,33 +135,66 @@
   z-index: 100;
   width: calc(100% - 10px);
   height: 70px;
-  @include flex(center,flex-start);
+  @include flex(center, flex-start);
   top: 0px;
   visibility: hidden;
   padding: 5px;
   box-sizing: border-box;
   transition: all 0.2s;
-  .searchIcon{
-	  position: absolute;
-    top:50%;
-    transform: translate(-50%,-50%);
+  .searchIcon {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
     left: 20px;
     fill: $color-primary-dark;
-	  z-index: 1
+    z-index: 1;
   }
-  .closeIcon{
-	  position: absolute;
+  .closeIcon {
+    position: absolute;
     right: 0px;
-    top:50%;
+    top: 50%;
     cursor: pointer;
-    transform: translate(-50%,-50%);
-
+    transform: translate(-50%, -50%);
   }
-  .input{
-	  position: absolute;
-	  padding: 10px 10px 10px 30px;
-	  border: none;
+  .input {
+    position: absolute;
+    padding: 10px 10px 10px 30px;
+    border: none;
     width: 100%;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  }
+}
+.hideSidebar {
+  transition: all 0.3s;
+  overflow: hidden;
+  position: fixed;
+  width: 0px;
+  z-index: 1000;
+  height: 100vh;
+  top: 0px;
+  box-sizing: border-box;
+  visibility: hidden;
+  padding: 10px;
+  background-color: #fff;
+  //   & .icon{
+  // 	position: absolute;
+  // 	top:10px;
+  // 	right: 10px;
+  //   }
+  & .title {
+    text-align: center;
+    color: $color-primary-dark;
+    margin-block-start: 0px;
+  }
+
+  & .item {
+    color: $color-primary-dark;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    &:hover {
+      background-color: red;
+    }
+    border-bottom: 1px solid $border-color;
   }
 }

@@ -1,0 +1,108 @@
+.about {
+  padding: 70px 10px;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  background-color: #f0f2f5;
+  &-content {
+    // @include large {
+    //   min-height: 600px;
+    // }
+    // @include medium {
+    //   min-height: 500px;
+    // }
+    // padding:0px 200px;
+    min-height: 270px;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: stretch;
+    & canvas {
+      height: 100% !important;
+      border-radius: 8px;
+      max-height: 300px;
+    }
+    .userAvatar {
+      // background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 300px;
+      margin-right: 10px;
+      height: 300px;
+      border-radius: 8px;
+      pointer-events: none;
+
+      @media only screen and (max-width: $small-width) {
+        margin-right: 0px;
+        margin-bottom: 10px;
+      }
+    }
+    .description {
+		min-height: 300px;
+      .name-wrapper {
+        padding-bottom: 10px;
+        border-bottom: 1px solid gray;
+      }
+      &-name {
+        font-family: Nunito, sans-serif;
+        font-size: 2rem;
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+      }
+      sub {
+        font-size: small;
+        font-style: italic;
+        font-weight: 700;
+        margin: 8px 0px;
+        color: #656565;
+        display: block;
+      }
+      &-wrapper {
+        margin-top: 20px;
+        line-height: 20px;
+        & i {
+          font-style: italic;
+        }
+        & q {
+          margin: 10px 0px;
+          color: #656565;
+          &::before {
+            content: open-quote;
+            width: 7px;
+          }
+          &::after {
+            content: close-quote;
+          }
+        }
+        .social-wrapper {
+          svg {
+            fill: black;
+            margin: 0px 2.5px;
+          }
+        }
+      }
+    }
+  }
+  &-tab-container {
+    flex-direction: column;
+    justify-content: center;
+    .tab-header-container {
+      .header-item-active {
+        background: black;
+        color: #fff;
+      }
+      .header-item {
+        font-size: 20px;
+        padding: 8px 10px;
+		margin:0px 5px;
+        cursor: pointer;
+		border-radius: 8px;
+        &:hover {
+          background: black;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

@@ -6,8 +6,17 @@
 @import "./component/navbar.scss";
 @import "./component/modal.scss";
 @import "./component/input.scss";
+@import "./component/footer.scss";
+@import "./component/feature-post.scss";
+@import "./component/vertical-card-post.scss";
+@import "./component/left-side-bar.scss";
+@import "./component/horizontal-card-post.scss";
+@import "./component/avatar.scss";
+
+
 
 @import "./pages/home.scss";
+@import "./pages/about.scss";
 
 body {
   // background-color: $color-primary-dark;

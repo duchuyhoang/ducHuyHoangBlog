@@ -1,12 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Nunito:ital,wght@0,400;0,700;1,400;1,700&family=Source+Code+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 body {
   font-family: "Inter", "sans-serif";
 }
 .d-flex {
   display: flex;
-}
-.d-none {
-  display: none;
 }
 .visibility-hidden {
   visibility: hidden;
@@ -24,6 +22,50 @@ body {
 .hide {
   opacity: 0;
 }
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@for $index from 0 through length($spaces)-1 {
+  $value: nth($spaces, $index + 1);
+  .m-#{$index} {
+    margin: $value !important;
+  }
+  .mt-#{$index} {
+    margin-top: $value !important;
+  }
+  .mr-#{$index} {
+    margin-right: $value !important;
+  }
+  .mb-#{$index} {
+    margin-bottom: $value !important;
+  }
+  .ml-#{$index} {
+    margin-left: $value !important;
+  }
+  .p-#{$index} {
+    padding: $value;
+  }
+  .pt-#{$index} {
+    padding-top: $value !important;
+  }
+  .pr-#{$index} {
+    padding-right: $value !important;
+  }
+  .pb-#{$index} {
+    padding-bottom: $value !important;
+  }
+  .pl-#{$index} {
+    padding-left: $value !important;
+  }
+}
+
+@each $space in $spaces {
+}
+
 @each $number in $w-numbers {
   .w-#{$number} {
     width: $number * 1%;
@@ -31,13 +73,122 @@ body {
 }
 
 @each $number in $numbers {
-  .col-#{$number} {
-    width: (100 * $number) / $colMax * 1%;
+  @include large {
+    .col-xl-#{$number} {
+      width: (100 * $number) / $colMax * 1% !important;
+    }
+  }
+  @include medium {
+    .col-lg-#{$number} {
+      width: (100 * $number) / $colMax * 1% !important;
+    }
+  }
+
+  @include small {
+    .col-md-#{$number} {
+      width: (100 * $number) / $colMax * 1% !important;
+    }
   }
 
   @include mobile {
     .col-sm-#{$number} {
-      width: (100 * $number) / $colMax * 1%;
+      width: (100 * $number) / $colMax * 1% !important;
     }
   }
+
+  .col-#{$number} {
+    width: (100 * $number) / $colMax * 1%;
+  }
+}
+
+// @include xl {
+//   .d-xl-none {
+//     display: none !important;
+//   }
+//   .d-xl-block {
+//     display: block !important;
+//   }
+//   .container {
+//     width: $extra-large - $totalContainerPadding;
+//   }
+// }
+
+@include large {
+  .d-xl-none {
+    display: none !important;
+  }
+  .d-xl-block {
+    display: block !important;
+  }
+  .d-xl-flex {
+    display: flex !important;
+  }
+  .container {
+    width: ($extra-large - $totalContainerPadding);
+  }
+}
+@include medium {
+  .d-lg-none {
+    display: none !important;
+  }
+  .d-lg-block {
+    display: block !important;
+  }
+  .d-lg-flex {
+    display: flex !important;
+  }
+  .container {
+    width: ($extra-large - $totalContainerPadding);
+  }
+}
+
+@include small {
+  .d-md-none {
+    display: none !important;
+  }
+  .d-md-block {
+    display: block !important;
+  }
+  .d-md-flex {
+    display: flex !important;
+  }
+  .container {
+    width: ($extra-large - $totalContainerPadding);
+  }
+}
+
+@include mobile {
+  .d-sm-none {
+    display: none !important;
+  }
+  .d-sm-block {
+    display: block !important;
+  }
+  .d-sm-flex {
+    display: flex !important;
+  }
+  .container {
+    width: ($extra-large - $totalContainerPadding);
+  }
+}
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+.align-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-space-around {
+  justify-content: space-around;
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+.d-none {
+  display: none;
+}
+.h-100 {
+  height: 100%;
 }
