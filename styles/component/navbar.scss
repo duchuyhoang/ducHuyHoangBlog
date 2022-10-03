@@ -67,6 +67,11 @@
     color: $color-text-primary-dark;
     margin: 0 10px;
     position: relative;
+	& a{
+		text-decoration: none;
+		font-size: inherit;
+		color: inherit;
+	}
     // text-transform: uppercase;
     &:hover {
       color: $text-hover-primary;
@@ -193,7 +198,7 @@
     text-decoration: none;
     display: block;
     &:hover {
-      background-color: red;
+      background-color: $border-color;
     }
     border-bottom: 1px solid $border-color;
   }

@@ -1,0 +1,11 @@
+.post-tag {
+  padding: 3px 8px;
+  line-height: 1rem;
+  font-size: 0.8rem;
+  display: inline-block;
+  border-radius: 9999px;
+  border:1px solid $border-color;
+  a {
+    font-weight: 400;
+  }
+}

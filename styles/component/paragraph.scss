@@ -1,0 +1,12 @@
+.paragraph {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  margin-bottom: 1em;
+  margin: 0 0 10px;
+  color: $color-primary-dark;
+  & a{
+	text-decoration: none;
+  }
+}

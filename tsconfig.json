@@ -6,6 +6,9 @@
       "dom.iterable",
       "esnext"
     ],
+	"typeRoots": [
+		"./type"
+	],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,7 +20,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+	"noImplicitAny": false,
+	"allowUnusedLabels": true
   },
   "include": [
     "next-env.d.ts",

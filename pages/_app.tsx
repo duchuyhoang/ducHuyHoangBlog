@@ -1,35 +1,38 @@
-import "../styles/index.scss";
-import type { AppProps } from "next/app";
-import { createContext, useContext } from "react";
-import { getFirebase } from "../services/firebase";
-import Navbar from "../components/layout/Navbar";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Footer from "../components/layout/Footer";
-import { MDXProvider } from "@mdx-js/react";
-
-import Message from "../Message";
-const FirebaseContext = createContext(getFirebase());
+import '../styles/index.scss'
+import type { AppProps } from 'next/app'
+import React, { createContext, useContext, ReactElement } from 'react'
+import { getFirebase } from '../services/firebase'
+import Navbar from '../components/layout/Navbar'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import Footer from '../components/layout/Footer'
+import { MDXProvider } from '@mdx-js/react'
+import { Provider } from 'react-redux'
+import Message from '../Message'
+import store from '../redux'
+const FirebaseContext = createContext(getFirebase())
 
 const components = {
-  p: Message,
-};
-
-export const useFirebaseContext = () => useContext(FirebaseContext);
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <FirebaseContext.Provider value={getFirebase()}>
-      <Navbar />
-      <div
-        className="w-100 d-flex"
-        style={{ minHeight: "calc(100vh - 270px)" }}
-      >
-        {/* <MDXProvider components={components}> */}
-        <Component {...pageProps} />
-        {/* </MDXProvider> */}
-      </div>
-      <Footer />
-    </FirebaseContext.Provider>
-  );
+  p: Message
 }
-export default MyApp;
+
+export const useFirebaseContext = () => useContext(FirebaseContext)
+function MyApp({ Component, pageProps }: AppProps): ReactElement {
+  return (
+    <Provider store={store}>
+      <FirebaseContext.Provider value={getFirebase()}>
+        <Navbar />
+        <div
+          className="w-100 position-relative"
+          style={{ minHeight: 'calc(100vh - 270px)' }}
+        >
+          {/* <MDXProvider components={components}> */}
+          <Component {...pageProps} />
+          {/* </MDXProvider> */}
+        </div>
+        <Footer />
+      </FirebaseContext.Provider>
+    </Provider>
+  )
+}
+export default MyApp

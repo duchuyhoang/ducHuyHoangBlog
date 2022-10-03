@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import { Maybe } from "../../common/type";
 import { IAuthor } from "../def/author";
 export interface IPost {
   author: IAuthor;

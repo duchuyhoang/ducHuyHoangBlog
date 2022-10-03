@@ -1,0 +1,12 @@
+.wrapper {
+  @include flex(center, center);
+  top:0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  
+  .image {
+    // background
+  }
+}

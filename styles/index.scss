@@ -1,22 +1,25 @@
-@import "./reset";
-@import "./variable";
-@import "./mixin";
-@import "./base";
+@import './reset';
+@import './variable';
+@import './mixin';
+@import './base';
 
-@import "./component/navbar.scss";
-@import "./component/modal.scss";
-@import "./component/input.scss";
-@import "./component/footer.scss";
-@import "./component/feature-post.scss";
-@import "./component/vertical-card-post.scss";
-@import "./component/left-side-bar.scss";
-@import "./component/horizontal-card-post.scss";
-@import "./component/avatar.scss";
+@import './component/navbar.scss';
+@import './component/modal.scss';
+@import './component/input.scss';
+@import './component/footer.scss';
+@import './component/feature-post.scss';
+@import './component/vertical-card-post.scss';
+@import './component/left-side-bar.scss';
+@import './component/horizontal-card-post.scss';
+@import './component/avatar.scss';
+@import './component/button.scss';
+@import './component/paragraph.scss';
+@import './component/tag.scss';
+@import './component/post-header.scss';
 
-
-
-@import "./pages/home.scss";
-@import "./pages/about.scss";
+@import './pages/home.scss';
+@import './pages/about.scss';
+@import './pages/404.scss';
 
 body {
   // background-color: $color-primary-dark;

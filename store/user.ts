@@ -1,5 +1,4 @@
 import { Action,AnyAction } from "redux";
-import type { Maybe } from "../common/type";
 
 export type UserInfo = {
   token: Maybe<string>;
