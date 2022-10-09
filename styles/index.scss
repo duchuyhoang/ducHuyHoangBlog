@@ -16,10 +16,13 @@
 @import './component/paragraph.scss';
 @import './component/tag.scss';
 @import './component/post-header.scss';
+@import './component/code-block.scss';
+
 
 @import './pages/home.scss';
 @import './pages/about.scss';
 @import './pages/404.scss';
+@import './pages/post.scss';
 
 body {
   // background-color: $color-primary-dark;

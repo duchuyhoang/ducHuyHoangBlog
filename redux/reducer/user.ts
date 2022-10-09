@@ -1,4 +1,3 @@
-
 export interface IUser {
   name: string
   age: number
@@ -9,8 +8,8 @@ const initialState: IUser = {
   age: 10
 }
 
-const handler: HandlerStrategy<IUser> = {
-  hello: (state: IUser, payload: any) => {
+const handler: HandlerStrategy<IUser, number> = {
+  hello: (state: IUser, payload) => {
     console.log(state, payload)
     return state
   }

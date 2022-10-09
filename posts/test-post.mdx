@@ -19,20 +19,63 @@ tags: [News, Tech]
   avatar={'/self.jpg'}
   date={"20201222"}
   minuteRead={6}
+  author={{
+    name: "Đức Huy Hoàng",
+    avatar: "/self.jpg"
+  }}
   />
-  ## Hello world !!!
-  <p>
+  ## Hello world !!! [Duck Duck Go](https://duckduckgo.com)
   Google Summer of Code (GSoC) is a 10-week program that enlists contributors to work on open source projects in collaboration with open source organizations. For GSoC 2022, GitLab offered four projects to GSoC contributors. The contributors completed each of the projects with the guidance from GitLab team members who mentored them and provided regular feedback and assistance when needed.
-  </p>
-  ```
-{
-  "firstName": "John",
-  "lastName": "Smith",
-  "age": 25
+  
+  
+Hello {"huyy1"}
+
+```css filename="awesome.scss"
+.code-wrapper {
+  background-color: $code-block-color;
+  position: relative;
+  padding: 16px 0px;
+  border-radius: 8px;
+  color: $code-block-text-color;
+  margin-top: -1px;
+  span {
+    line-height: 1.5;
+    // color: $code-block-text-color!important;
+  }
+  .linenumber {
+    min-width: 2em !important;
+  }
+  .copy-wrappper {
+    @include flex(center, center);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px;
+    cursor: pointer;
+  }
+}
+
+.language-wrapper {
+  background-color: $code-block-color;
+  color: $code-block-text-color;
+  margin-left: 15px;
+  padding: 5px 10px;
+  width: fit-content;
+  z-index: 1;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 ```
-  <div style={{height:"1000px"}}></div>
-  <div id="comment">Hello</div>
-  <PostImage src="https://tknightz.github.io/images/collects/hashtable.jpg"/>
 
+<div style={{ height: '1000px' }}></div>
+<div id="comment">Hello</div>
+<PostImage src="https://tknightz.github.io/images/collects/hashtable.jpg" />
+<Tags 
+tags={["News", "Tech"]}
+/>
 </Layout>

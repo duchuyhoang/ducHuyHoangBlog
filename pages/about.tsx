@@ -46,7 +46,7 @@ const About = () => {
             // }}
           ></div>
           {currentPerson === Person.ME && (
-            <div className="col-12 col-md-6 col-lg-6 col-xl-6 h-100 description">
+            <div className="col-12 col-md-6 col-lg-6 col-xl-6 p-2 h-100 description">
               <div className="name-wrapper">
                 <h1 className="description-name">Hoàng Đức Huy</h1>
                 <sub>I do backend, frontend React, Vue.</sub>

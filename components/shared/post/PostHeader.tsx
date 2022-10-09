@@ -3,15 +3,17 @@ import Avatar from '../Avatar'
 import Tag, { ITag } from './Tag'
 import moment from 'moment'
 import { FaCalendarAlt } from 'react-icons/fa'
+import { IAuthor } from '../../def/author'
 interface IPostHeader {
   header: string
   tags: string[]
   avatar: Maybe<string>
   date: string
   minuteRead: string | number
+  author: IAuthor
 }
 const Dot = (props = {}) => (
-  <div className="mr-1" {...props}>
+  <div className="ml-1 mr-1" {...props}>
     -
   </div>
 )
@@ -21,7 +23,8 @@ const PostHeader = ({
   tags = [],
   avatar,
   date,
-  minuteRead
+  minuteRead,
+  author
 }: IPostHeader) => {
   return (
     <div className="post-header mt-4">
@@ -30,18 +33,27 @@ const PostHeader = ({
           <Tag value={tag} key={`tag_` + index} />
         ))}
       </div>
-      <h1 className="w-50 text-center col-8 col-sm-10">{header}</h1>
-      <Avatar src={avatar || ''} width={80} height={80} />
+      <h1 className="w-50 text-center col-9 col-sm-10">{header}</h1>
       <div className="mt-4 d-flex align-center">
-        <FaCalendarAlt className="mr-2" style={{ fill: '#171e22' }} size={17} />
-        <Dot />
-        <p className="mr-2">{minuteRead} minutes read</p>
-        <Dot />
-        <p className="mr-2">
+        <div className="d-flex align-center">
+          <FaCalendarAlt
+            className="mr-2"
+            style={{ fill: '#171e22' }}
+            size={17}
+          />
+
           {moment(date).isValid() ? `${moment(date).format('DD-MM-YYYY')}` : ''}
-        </p>
+        </div>
         <Dot />
-		<a href="#comment">Bình luận</a>
+        <p>{minuteRead} minutes read</p>
+        <Dot />
+        <a href="#comment">Bình luận</a>
+      </div>
+      <div className="mt-4">
+        <Avatar src={avatar || ''} width={90} height={90} />
+      </div>
+      <div className="mt-4 d-flex align-center justify-center">
+        {author?.name || 'Anomyous'}
       </div>
     </div>
   )

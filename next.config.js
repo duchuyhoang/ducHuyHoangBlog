@@ -20,6 +20,7 @@ const withMDX = require("@next/mdx")({
 const withTM = require("next-transpile-modules")([
   "gsap",
   "hover-effect",
+  "react-syntax-highlighter"
 ]);
 module.exports = withTM(withMDX({
   // Append the default value with md extensions

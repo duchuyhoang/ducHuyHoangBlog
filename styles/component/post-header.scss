@@ -11,10 +11,4 @@
 	font-weight: 400;
 	margin-block-start: 0px;
   }
-  .tag-wrapper {
-    @include flex(center, center);
-    & a {
-      margin: 0px 5px;
-    }
-  }
 }

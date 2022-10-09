@@ -11,10 +11,10 @@ import { Provider } from 'react-redux'
 import Message from '../Message'
 import store from '../redux'
 const FirebaseContext = createContext(getFirebase())
-
-const components = {
-  p: Message
-}
+import {components} from "./post/[id]";
+// const components = {
+//   p: Message
+// }
 
 export const useFirebaseContext = () => useContext(FirebaseContext)
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
@@ -26,9 +26,9 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
           className="w-100 position-relative"
           style={{ minHeight: 'calc(100vh - 270px)' }}
         >
-          {/* <MDXProvider components={components}> */}
-          <Component {...pageProps} />
-          {/* </MDXProvider> */}
+          <MDXProvider components={components}>
+            <Component {...pageProps} />
+          </MDXProvider>
         </div>
         <Footer />
       </FirebaseContext.Provider>

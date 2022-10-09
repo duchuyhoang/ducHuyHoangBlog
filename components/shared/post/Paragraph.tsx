@@ -5,7 +5,7 @@ import React from 'react'
 // }
 
 const Paragraph = ({ children, ...rest }) => {
-  console.log(rest)
+  console.log(children, rest)
   return <p className="paragraph">{children}</p>
 }
 

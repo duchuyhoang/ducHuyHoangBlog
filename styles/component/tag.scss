@@ -1,11 +1,20 @@
 .post-tag {
-  padding: 3px 8px;
+  padding: 5px 8px;
   line-height: 1rem;
   font-size: 0.8rem;
   display: inline-block;
   border-radius: 9999px;
-  border:1px solid $border-color;
+  border: 1px solid $border-color;
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
   a {
     font-weight: 400;
+  }
+}
+
+.tag-wrapper {
+  @include flex(center, center);
+  & a {
+    margin: 0px 5px;
   }
 }

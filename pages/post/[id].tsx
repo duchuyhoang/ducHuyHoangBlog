@@ -1,7 +1,7 @@
 import React from 'react'
 import fs from 'fs'
 import path from 'path'
-import { GetStaticProps, NextPageContext } from 'next'
+import remarkMdxCodeMeta from 'remark-mdx-code-meta'
 import matter from 'gray-matter'
 import { makeid } from '../../common/utils'
 import { POST_FOLDER_NAME } from '../../common/constants'
@@ -14,10 +14,15 @@ import Layout from '../../components/shared/post/Layout'
 import PostHeader from '../../components/shared/post/PostHeader'
 import PostImage from '../../components/shared/post/PostImage'
 import SubHeader from '../../components/shared/post/SubHeader'
+import CodeBlock from '../../components/shared/post/CodeBlock'
+import Tags from '../../components/shared/post/Tags'
 
+import { compileSync } from 'xdm'
+import Link from 'next/link'
 export type IPost = {
   fileMetadata: { [key: string]: any }
   content: any
+  compliedSource: any
 }
 
 export async function getStaticPaths() {
@@ -47,26 +52,32 @@ export async function getStaticProps(context: any) {
 
   const fileNameList = fs.readdirSync(path.join('posts'))
   let content = '',
-    fileMetadata = {}
+    fileMetadata = {},
+    compliedSource = ''
 
   for (let i = 0; i < fileNameList.length; i++) {
     const fileContent = matter(
       fs.readFileSync(path.join(POST_FOLDER_NAME, fileNameList[i]).toString())
     )
     if (fileContent?.data?.slug === id) {
-      content = fileContent.content
-      fileMetadata = fileContent.data
+      ;(content = fileContent.content), (fileMetadata = fileContent.data)
       break
     }
   }
+  console.log('c', content)
   return {
     props: {
-      content: await serialize(content),
-      fileMetadata
+      content: await serialize(content, {
+        mdxOptions: {
+          remarkPlugins: [remarkMdxCodeMeta]
+        }
+      }),
+      fileMetadata,
+      compliedSource
     }
   }
 }
-const components = {
+export const components = {
   Message,
   Avatar,
   p: Paragraph,
@@ -74,10 +85,15 @@ const components = {
   PostHeader,
   PostImage,
   img: PostImage,
-  h2: SubHeader
+  h2: SubHeader,
+  a: Link,
+  pre: CodeBlock,
+  CodeBlock: CodeBlock,
+  Tags: Tags
 }
 const Post = (props: IPost) => {
   const { content, fileMetadata } = props
   return <MDXRemote {...content} components={components} />
 }
+
 export default Post

@@ -1,13 +1,13 @@
 import React from 'react'
 
-export interface ITag{
-	value:string
+export interface ITag {
+  value: string
 }
 
-const Tag = ({ value }) => {
+const Tag = ({ value, ...rest }) => {
   {
     return (
-      <a className="post-tag" href={`/tag?tag=${value}`}>
+      <a className="post-tag" href={`/tag?tag=${value}`} {...rest}>
         {value}
       </a>
     )
