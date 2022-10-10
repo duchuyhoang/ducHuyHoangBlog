@@ -1,9 +1,21 @@
 .paragraph {
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 18px;
   margin-bottom: 1em;
   margin: 0 0 10px;
-  color: $color-primary-dark;
+  color: inherit;
+  a {
+    text-decoration: none;
+  }
+  code {
+    border-radius: 4px;
+    padding: 3px 6px;
+    background-color: #f1f1f1;
+    color: #476582;
+    font-size: 0.875em;
+  }
+  a code {
+    color: #646cff;
+  }
 }

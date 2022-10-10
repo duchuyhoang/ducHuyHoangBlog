@@ -1,9 +1,56 @@
 .layout {
+  p,
+  li {
+    line-height: 28px;
+  }
   & a {
     text-decoration: none;
     color: $link-color;
     &:hover {
       text-decoration: underline;
     }
+  }
+  .hr {
+    height: 1px;
+    background-color: $border-color;
+    border: none;
+  }
+  & ul,
+  ol {
+    padding-left: 1em;
+    // list-style-type: decimal;
+    li {
+      padding: 8px 0px;
+	  font-size: 18px;
+      ul,
+      ol {
+        margin-top: 8px;
+      }
+    }
+  }
+  .subHeader {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    &:hover a {
+      opacity: 1;
+    }
+    a {
+      position: absolute;
+      right: 100%;
+      padding-right: 5px;
+      opacity: 0;
+      cursor: pointer;
+      text-decoration: none;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  div[id] {
+    scroll-margin-block-start: 120px;
   }
 }

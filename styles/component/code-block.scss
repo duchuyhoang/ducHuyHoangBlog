@@ -1,28 +1,30 @@
 .code-wrapper {
   background-color: $code-block-color;
   position: relative;
-  padding: 16px 0px;
   border-radius: 8px;
   color: $code-block-text-color;
   margin-top: -1px;
-  span {
+  pre{
+	padding:16px;
     line-height: 1.5;
-	// color: $code-block-text-color!important;
   }
   .linenumber{
-	min-width: 2em!important;
+	min-width: 1.5em!important;
+	text-align: left!important;
+	padding-right: 0px!important;
   }
   .copy-wrappper {
     @include flex(center, center);
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.05);
     z-index: 3;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     position: absolute;
     top: 8px;
     right: 8px;
 	cursor: pointer;
+	opacity: 0.7;
   }
 }
 
@@ -30,7 +32,8 @@
   background-color: $code-block-color;
   color: $code-block-text-color;
   margin-left: 15px;
-  padding: 8px 10px;
+  font-size:1rem;
+  padding: 5px 10px;
   width: fit-content;
   z-index: 1;
   border-top-left-radius: 5px;

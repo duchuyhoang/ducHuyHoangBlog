@@ -16,9 +16,11 @@ import PostImage from '../../components/shared/post/PostImage'
 import SubHeader from '../../components/shared/post/SubHeader'
 import CodeBlock from '../../components/shared/post/CodeBlock'
 import Tags from '../../components/shared/post/Tags'
+import Line from '../../components/shared/post/Line'
+import PostLink from '../../components/shared/post/PostLink'
+import Quote from '../../components/shared/post/Quote'
+import Comment from '../../components/shared/post/Comment'
 
-import { compileSync } from 'xdm'
-import Link from 'next/link'
 export type IPost = {
   fileMetadata: { [key: string]: any }
   content: any
@@ -26,11 +28,9 @@ export type IPost = {
 }
 
 export async function getStaticPaths() {
-  //   console.log(path.join("posts"));
   const fileNameList = fs.readdirSync(path.join('posts'))
-  //   console.log(fileList);
+
   const idList = fileNameList.map(fileName => {
-    // console.log(matter(file));
     const fileContent = fs.readFileSync(path.join(POST_FOLDER_NAME, fileName))
     return {
       params: {
@@ -64,7 +64,6 @@ export async function getStaticProps(context: any) {
       break
     }
   }
-  console.log('c', content)
   return {
     props: {
       content: await serialize(content, {
@@ -77,6 +76,7 @@ export async function getStaticProps(context: any) {
     }
   }
 }
+
 export const components = {
   Message,
   Avatar,
@@ -86,10 +86,13 @@ export const components = {
   PostImage,
   img: PostImage,
   h2: SubHeader,
-  a: Link,
+  a: PostLink,
   pre: CodeBlock,
   CodeBlock: CodeBlock,
-  Tags: Tags
+  Quote: Quote,
+  Tags: Tags,
+  hr: Line,
+  Comment: Comment
 }
 const Post = (props: IPost) => {
   const { content, fileMetadata } = props

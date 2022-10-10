@@ -136,14 +136,14 @@ const CodeBlock = props => {
   return (
     <>
       <SyntaxHighlighter
-        showLineNumbers
+        showLineNumbers={!!props.showLine}
         CodeTag={CodeTag}
         PreTag={PreTag({
           handleCopy: handleClickCopy,
           language,
           fileName
         })}
-        children={props.children.props.children}
+        children={props.children.props.children.trim()}
         language={language}
         style={{
           ...vs2015,

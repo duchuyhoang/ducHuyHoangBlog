@@ -6,11 +6,13 @@ import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css'
 import scss from 'react-syntax-highlighter/dist/esm/languages/hljs/scss'
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python'
 import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php'
+import bash from 'react-syntax-highlighter/dist/esm/languages/hljs/bash'
+import powershell from 'react-syntax-highlighter/dist/esm/languages/hljs/powershell'
 
 import { IoLogoNodejs } from 'react-icons/io'
 import { DiPython, DiSass } from 'react-icons/di'
 import { FaPhp } from 'react-icons/fa'
-import { SiCss3, SiTypescript } from 'react-icons/si'
+import { SiCss3, SiTypescript, SiGnubash, SiPowershell } from 'react-icons/si'
 
 export const LanguageIconMap = {
   javascript: IoLogoNodejs,
@@ -21,6 +23,8 @@ export const LanguageIconMap = {
   php: FaPhp,
   sass: DiSass,
   css: SiCss3,
+  bash: SiGnubash,
+  powershell: SiPowershell
 }
 
 SyntaxHighlighter.registerLanguage('javascript', js)
@@ -32,7 +36,7 @@ SyntaxHighlighter.registerLanguage('scss', scss)
 SyntaxHighlighter.registerLanguage('tsx', ts)
 SyntaxHighlighter.registerLanguage('python', python)
 SyntaxHighlighter.registerLanguage('php', php)
+SyntaxHighlighter.registerLanguage('powershell', powershell)
+SyntaxHighlighter.registerLanguage('bash', bash)
 
-export default SyntaxHighlighter;
-
-
+export default SyntaxHighlighter

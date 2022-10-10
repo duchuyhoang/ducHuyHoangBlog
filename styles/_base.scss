@@ -2,10 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 body {
   overflow-x: hidden;
-  font-family: 'Inter', 'sans-serif';
+  font-family: "Inter var experimental", "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-html{
-	scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
 }
 .d-flex {
   display: flex;
@@ -202,6 +202,6 @@ html{
 .position-absolute {
   position: absolute;
 }
-.text-center{
-	text-align: center;
+.text-center {
+  text-align: center;
 }

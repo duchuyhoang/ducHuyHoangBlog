@@ -1,81 +1,114 @@
 ---
-slug: test-post
+slug: cai-dat-tailwind-css
 title: Test post
 date: 22/12/2020
-image: https://about.gitlab.com/images/blogimages/red-team-process/pexels-andrey-grushnikov-707676_crop.jpeg
-author:
-  {
-    name: Đức Huy Hoàng,
-    avatar: https://scontent.fhan5-9.fna.fbcdn.net/v/t39.30808-1/278772092_1858982077628572_3996416688530263542_n.jpg?stp=c0.40.240.240a_dst-jpg_p240x240&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yo5-R8jYKIcAX9GKPmu&_nc_ht=scontent.fhan5-9.fna&oh=00_AT9DsmsKUiknoprisDFzvuO8LVkMQoB9peQXOwLgGhEUqA&oe=629838E7
-  }
+image: /tailwindBg.jpg
+author: { name: Đức Huy Hoàng, avatar: /self.jpg }
 description: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, ipsa eum! Modi eius odio tempore, repudiandae libero debitis illum facilis beatae, autem expedita fuga corrupti saepe nemo obcaecati ipsam aut?
-tags: [News, Tech]
+tags: [News, Tech, Tailwind CSS, Frontend]
 ---
 
 <Layout>
   <PostHeader 
-  header="Arm Open Source makes a seamless migration to GitLab" 
-  tags={["News", "Tech"]}
+  header="Tìm hiểu về Tailwind CSS và cài đặt cho dự án React" 
+  tags={["Tech","Frontend","CSS","Tailwind CSS"]}
   avatar={'/self.jpg'}
-  date={"20201222"}
-  minuteRead={6}
+  date={"20220910"}
+  minuteRead={10}
   author={{
     name: "Đức Huy Hoàng",
     avatar: "/self.jpg"
   }}
   />
-  ## Hello world !!! [Duck Duck Go](https://duckduckgo.com)
-  Google Summer of Code (GSoC) is a 10-week program that enlists contributors to work on open source projects in collaboration with open source organizations. For GSoC 2022, GitLab offered four projects to GSoC contributors. The contributors completed each of the projects with the guidance from GitLab team members who mentored them and provided regular feedback and assistance when needed.
-  
-  
-Hello {"huyy1"}
+!['tailwindBg'](/tailwindBg.jpg)
 
-```css filename="awesome.scss"
-.code-wrapper {
-  background-color: $code-block-color;
-  position: relative;
-  padding: 16px 0px;
-  border-radius: 8px;
-  color: $code-block-text-color;
-  margin-top: -1px;
-  span {
-    line-height: 1.5;
-    // color: $code-block-text-color!important;
-  }
-  .linenumber {
-    min-width: 2em !important;
-  }
-  .copy-wrappper {
-    @include flex(center, center);
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.05);
-    z-index: 3;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    padding: 4px;
-    cursor: pointer;
-  }
-}
+Bạn đang lo lắng vì đặt tên class, sợ bị trùng css không mong muốn,hay đang muốn một framework giống bootstrap
+để tận dụng được các class dùng chung mà không viết lại quá nhiều. TailwindCSS là framwork dành cho bạn
 
-.language-wrapper {
-  background-color: $code-block-color;
-  color: $code-block-text-color;
-  margin-left: 15px;
-  padding: 5px 10px;
-  width: fit-content;
-  z-index: 1;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+<div id="whyTailwind">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#whyTailwind) Tailwind CSS là gì ?
+
+- Tailwind css là một utility-first CSS framework nó hỗ trợ phát triển xây dựng nhanh chóng giao diện người dùng, nó cũng có điểm chung giống như Bootstrap &
+  điểm làm nó nổi bật hơn cả đó là chúng ta có thể tùy biến phát triển css theo cách mà chúng ta định nghĩa ra.
+- Hoặc là chúng ta có thể thêm các class của tailwind vào 1 class để dùng chung sau này
+
+---
+
+</div>
+
+<div id="tailwindSetup">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindSetup) Cài đặt Tailwind CSS cho dự án React
+
+Sau đây mình sẽ giới thiệu cho các bạn cách cài đặt Tailwind trong Reactjs nhé.
+Chúng ta dùng [`Create React App`](https://create-react-app.dev/) nhé
+
+- Đầu tiên các bạn tạo 1 dự án React:
+
+```bash filename="newReactApp.sh" showLine={false}
+// Init project của chúng ta
+npx create-react-app react-with-tailwind
+cd react-with-tailwind
+```
+
+- Tiếp theo chúng ta cài các dependency cần thiết:
+
+```bash filename="installDependency.sh" showLine={false}
+npm install -D tailwindcss postcss autoprefixer
+// Sau đó init tailwind CSS trong project của chúng ta
+npx tailwindcss init -p
+```
+
+- Okay chúng ta vào file tailwind.config.js vừa tạo và config như sau:
+
+```js filename="tailwind.config.js" showLine={false}
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+  theme: {
+    extend: {}
+  },
+  plugins: []
 }
 ```
 
-<div style={{ height: '1000px' }}></div>
-<div id="comment">Hello</div>
-<PostImage src="https://tknightz.github.io/images/collects/hashtable.jpg" />
+- Và thêm `@tailwind` directives vào file index.css của bạn:
+
+```css filename="index.css" showLine={false}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+<Quote title={"Chú ý"} type={"WARNING"}>
+Kiểm tra ``package.json`` của bạn nếu ``react-scripts`` >= 5 thì có thể chạy ok <br/>
+Còn nếu  ``package.json`` của bạn nếu ``react-scripts`` < 5 thì bạn cần phải config thêm craco:
+[``Ở đây``](https://www.npmjs.com/package/@craco/craco)
+</Quote>
+
+- Cuối cùng là thử chạy nào:
+
+```js filename="App.js" showLine={true}
+export default function App() {
+  return <h1 className="text-3xl font-bold underline">Hello world!</h1>
+}
+```
+
+<div id="tailwindConclusionNext">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindConclusionNext) Kết luận
+
+Vậy là mình đã giới thiệu qua cho các bạn cách cài đặt TailwindCSS với React rùi.Hãy tiếp tục đến với
+[bài tiếp theo](/post/cach-dung-tailwind) của mình để biết được các cú pháp lẫn tiện ích 
+của Tailwind nha
+
+</div>
+
+---
+
+</div>
+
+<Comment slug={'cai-dat-tailwind-css'} />
+
 <Tags 
-tags={["News", "Tech"]}
+tags={["News", "Tech","Tailwind CSS"]}
 />
 </Layout>
