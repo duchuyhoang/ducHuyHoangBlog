@@ -1,0 +1,277 @@
+---
+slug: cach-dung-tailwind-css-phan-1
+title: Giới thiệu các directives đặc biệt và cách dùng TailwindCSS
+date: 10/10/2022
+image: /tailwindBg.jpg
+author: { name: Đức Huy Hoàng, avatar: /self.jpg }
+description: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, ipsa eum! Modi eius odio tempore, repudiandae libero debitis illum facilis beatae, autem expedita fuga corrupti saepe nemo obcaecati ipsam aut?
+tags: [News, Tech, Tailwind CSS, Frontend]
+---
+
+<Layout>
+  <PostHeader 
+  header="Giới thiệu các directives đặc biệt và cách dùng TailwindCSS" 
+  tags={["Tech","Frontend","CSS","Tailwind CSS"]}
+  avatar={'/self.jpg'}
+  date={"20221010"}
+  minuteRead={10}
+  author={{
+    name: "Đức Huy Hoàng",
+    avatar: "/self.jpg"
+  }}
+  >
+  </PostHeader>
+  !['tailwindBg'](/tailwindBg.jpg)
+
+Chào các bạn qua bài trước chắc hẳn các bạn đã có thể cài đặt TailwindCSS
+cho dự án của mình rồi nếu các bạn bỏ lỡ thì nó [ở đây](/post/cai-dat-tailwind-css).
+Hôm nay chúng ta tiếp tục với việc tìm hiểu TailwindCSS qua các ví dụ.
+
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindFunctionIndex) Mục lục
+
+- [Core concepts](#tailwindFunctionIndex)
+  - [Điểm mới khi dùng Tailwind CSS](#tailwindNew)
+  - [Utilities trong Tailwind CSS](#tailwindUtilities)
+    - [Pseudo classes](#tailwindUtilityPseudoClasses)
+	- [Pseudo elements](#tailwindUtilityPseudoElements)
+	- [Media queries](#tailwindUtilityMediaQuery)
+	- [Attribute selectors](#tailwindUtilityAttributeSelector)
+  - [Responsive design](#tailwindResponsive)	
+    - [Default break points của Tailwind CSS](#tailwindResponsiveDefault)
+    - [Điều chỉnh breakpoints Tailwind CSS](#tailwindResponsiveCustomizingConfig)
+- Hoặc là chúng ta có thể thêm các class của tailwind vào 1 class để dùng chung sau này
+
+---
+
+<div id="tailwindFunctionIndex">
+<article id="tailwindNew">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindNew) Điểm mới khi dùng Tailwind CSS
+
+- Tailwind cho phép chúng ta reuse lại các class CSS có sẵn (tương tự Bootstrap)
+  điểm khác biệt là Bootstrap dành cho element còn Tailwind là property. Lấy ví dụ
+  Bootrap có các class như `modal`,`btn`,... các class này đã được đóng gói để trở thành
+  một element hoàn chỉnh còn Tailwind của chúng ta chỉ là các thuộc tính `bg-sky-500`,`rounded`, ...
+
+- Các class kiểu thuộc tính của Bootstrap cũng có như `position-relative`,`border`, ...
+  nhưng về độ đa dạng và độ mềm dẻo thì chắc chắn không thể bằng Tailwind được.
+
+- **Về responsive** Tailwind có thể cho chúng ta inline style được lẫn cả các
+  [pseudo-classes](https://www.w3schools.com/css/css_pseudo_classes.asp),
+  [pseudo-elements](https://www.w3schools.com/css/css_pseudo_elements.asp),
+  [attribute selectors](https://www.w3schools.com/css/css_attribute_selectors.asp)
+</article>
+
+<article id="tailwindUtilities">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindUtilities) Utilities trong Tailwind CSS
+
+<section id="tailwindUtilityPseudoClasses">
+- Với Pseudo classes:
+```jsx filename="App.js"
+// Hover button example
+<button className="rounded text-white text-center px-2 py-1 bg-sky-500 hover:bg-sky-700">
+Button
+</button>
+
+// Input focus example
+<input type="email"
+  className="mt-3 rounded px-2 py-1 text-slate-900 border-slate-300 border outline-none focus:ring-1 focus:ring-sky-500 focus:invalid:ring-red-500 invalid:border-red-500"
+  placeholder="Email only..."/>
+
+// Style children base on parent pseudo class. Add ``group`` to parent
+<div aria-label="Parent" className="group bg-sky-500 hover:bg-black">
+<div aria-label="Children">
+	<p className="group-hover:text-red-500">Hover parent to see me change color to red</p>
+	<p className="group-hover:text-green-500">Hover parent to see me change color to green</p>
+</div>
+</div>
+
+// Style next sibling based on another sibling. Add ``peer`` to a previous sibling (only previous siblings can be marked as peers)
+<input type={"email"} placeholder="Email only..."
+className="mt-3 rounded px-2 py-1 text-slate-900 border-slate-300 border outline-none focus:ring-1 focus:ring-sky-500 focus:invalid:ring-red-500 invalid:border-red-500 peer"
+/>
+<p className="text-red-500 invisible peer-invalid:visible">Email invalid</p>
+```
+---
+</section>
+
+
+<section id="tailwindUtilityPseudoElements">
+- Với Pseudo elements:
+
+```jsx filename="App.js"
+// First letter uppercase and placeholder italic
+<p className="first-letter:uppercase">hello world</p>
+<input type="text" placeholder="Type here"
+className="first-letter:uppercase rounded px-2 py-1 border border-sky-500 outline-none placeholder:italic"
+/>
+
+// Before and after
+<label class="block">
+  <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+    Email
+  </span>
+  <input type="email" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="you@example.com" />
+</label>
+```
+---
+</section>
+
+<section id="tailwindUtilityMediaQuery">
+- Với Media queries:<br/>
+  - Có lẽ các bạn đều đã quen thuộc với [Grid system](https://getbootstrap.com/docs/4.0/layout/grid/) của 
+Bootstrap với 1 class ``row`` làm parent container và các class ``col-{number}``, ``col-sm-{number}``, ...
+Chúng ta có thể triển khai grid system của Boostrap bằng Tailwind và nhiều hơn thế nữa.
+
+```jsx filename="App.js"
+// Example col grid system using Tailwind
+<div className="flex h-10 flex-wrap" aria-label="Parent">
+	<div className="w-2/3 sm:w-full lg:w-1/2 bg-zinc-900"></div>
+	<div className="w-1/3 lg:w-1/2 bg-red-500"></div>		
+</div>
+```
+---
+</section>
+
+<section id="tailwindUtilityAttributeSelector">
+- Với attribute selectors:<br/>
+  - Dưới đây là 1 ví dụ của mình về Tailwind với attribute selector.Trong ví dụ này mình áp dụng cả 
+[``arbitrary values``](https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values)
+
+```jsx filename="App.js"
+
+// _ mean whitespace so when it compiled all children with author="Huy" attribute will
+have background red
+<div className="[&_[author='Huy']]:bg-red-500">
+	<p author={"Huy"}>Huy</p>
+</div>
+
+// Or you can change like this to make current element background red if it had author="Huy"
+
+<div className="[&[author='Huy']]:bg-red-500" author={"Huy"}>
+	<p>Huy</p>
+</div>
+
+// Copy both of codes and run to see the difference between them ^^
+```
+</section>
+---
+</article>
+
+<article id="tailwindResponsive">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindResponsive) Responsive trong Tailwind CSS
+
+<section id="tailwindResponsiveDefault">
+- Config breakpoints mặc định của  Tailwind
+
+<table>
+<tr>
+    <th>Prefix</th>
+    <th>Minimum width</th>
+    <th>CSS</th>
+</tr>
+<tr>
+    <td>{'`'}sm{'`'}</td>
+    <td>640px</td>
+    <td>{'`'}@media (min-width: 640px) { '{ ... }' }{'`'}</td>
+</tr>
+<tr>
+    <td>{'`'}md{'`'}</td>
+    <td>768px</td>
+    <td>{'`'}@media (min-width: 768px) { '{ ... }' }{'`'}</td>
+</tr>
+<tr>
+    <td>{'`'}lg{'`'}</td>
+    <td>1024px</td>
+    <td>{'`'}@media (min-width: 1024px) { '{ ... }' }{'`'}</td>
+</tr>
+<tr>
+    <td>{'`'}xl{'`'}</td>
+    <td>1280px</td>
+    <td>{'`'}@media (min-width: 1280px) { '{ ... }' }{'`'}</td>
+</tr>
+<tr>
+    <td>{'`'}2xl{'`'}</td>
+    <td>1536px</td>
+    <td>{'`'}@media (min-width: 1536px) { '{ ... }' }{'`'}</td>
+</tr>
+</table>
+
+Để dùng các breakpoint cùng với style chỉ định chúng ta dùng cú pháp:
+
+```jsx filename="App.js"
+// Breakpoints from above corresponding with style class  
+<div class="w-16 md:w-32 lg:w-48 h-6 bg-slate-800"></div>
+```
+
+<div className="mt-3 mb-3">
+Tailwind CSS responsive sử dụng ``mobile first breakpoint system`` giống như
+Bootrap.
+</div>
+
+```jsx filename="App.js"
+// Don't use sm: to target mobile devices because only on screens 640px or wider, not on smaller screen
+<div className="sm:w-1/2"></div>
+
+// Tailwind breakpoints only include a min-width and don’t include a max-width
+// So we just need targeting a single breakpoint if screen width is not wider than md so div's width 100%
+<div className="w-full md:w-1/2 h-6 bg-slate-800"></div>
+```
+---
+</section>
+
+<section id="tailwindResponsiveCustomizingConfig">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindResponsiveCustomizingConfig) Responsive trong Tailwind CSS
+
+- Custom lại breakpoints của Tailwind
+
+```js filename="tailwind.config.js"
+/** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
+module.exports = {
+  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
+  theme: {
+    extend: {
+      screens: {
+        tablet: "640px",
+        // => @media (min-width: 640px) { ... }
+
+        laptop: "1024px",
+        // => @media (min-width: 1024px) { ... }
+
+        desktop: "1280px",
+        // => @media (min-width: 1280px) { ... }
+      },
+    },
+  },
+  screens: {
+    ...defaultTheme.screens,
+    sm: "576px",
+    // => @media (min-width: 576px) { ... }
+
+    md: "960px",
+    // => @media (min-width: 960px) { ... }
+
+    lg: "1440px",
+    // => @media (min-width: 1440px) { ... }
+  },
+  plugins: [],
+};
+
+```
+- Ở đây chúng ta có thêm breakpoint vào ``theme`` trong ``extend`` những key: 
+``tablet``, ``laptop``, ``desktop``.
+- Và overwrite các breakpoints có sẵn của Tailwind.
+</section>
+
+---
+</article>
+
+</div>
+
+<Comment slug={'cach-dung-tailwind-css-phan-1'} />
+
+<Tags 
+tags={["Tech","Frontend","CSS","Tailwind CSS"]}
+/>
+</Layout>

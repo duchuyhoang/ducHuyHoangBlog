@@ -21,7 +21,7 @@
     // list-style-type: decimal;
     li {
       padding: 8px 0px;
-	  font-size: 18px;
+      font-size: 18px;
       ul,
       ol {
         margin-top: 8px;
@@ -50,7 +50,35 @@
       }
     }
   }
-  div[id] {
+  div[id],
+  section[id] {
     scroll-margin-block-start: 120px;
+  }
+
+  code {
+    border-radius: 4px;
+    padding: 3px 6px;
+    background-color: #f1f1f1;
+    color: #476582;
+    font-size: 0.875em;
+  }
+  a code {
+    color: #646cff;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+	margin-bottom: 1.5rem;
+  }
+
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
   }
 }

@@ -268,9 +268,9 @@ const Navbar = () => {
             <Link href="/" passHref>
               <div
                 style={{
-                  width: '70px',
-                  height: '70px',
-                  backgroundImage: "url('./logo.png')",
+                  width: '120px',
+                  height: '80px',
+                  backgroundImage: "url('/logo.png')",
                   backgroundSize: 'contain',
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center center'

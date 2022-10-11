@@ -125,7 +125,7 @@ const CodeBlock = props => {
     [props.children]
   )
   const language = useMemo(() => {
-    const extracted = props?.children?.props?.className.split('-')[1]
+    const extracted = props?.children?.props?.className?.split('-')[1]
     return extracted ? extracted : 'javascript'
   }, [props?.children?.props?.className])
 
@@ -143,7 +143,7 @@ const CodeBlock = props => {
           language,
           fileName
         })}
-        children={props.children.props.children.trim()}
+        children={props.children.props.children?.trim()}
         language={language}
         style={{
           ...vs2015,
