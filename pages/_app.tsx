@@ -6,12 +6,9 @@ import Navbar from '../components/layout/Navbar'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Footer from '../components/layout/Footer'
-import { MDXProvider } from '@mdx-js/react'
 import { Provider } from 'react-redux'
-import Message from '../Message'
 import store from '../redux'
 const FirebaseContext = createContext(getFirebase())
-import {components} from "./post/[id]";
 // const components = {
 //   p: Message
 // }
@@ -26,9 +23,7 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
           className="w-100 position-relative"
           style={{ minHeight: 'calc(100vh - 270px)' }}
         >
-          <MDXProvider components={components}>
             <Component {...pageProps} />
-          </MDXProvider>
         </div>
         <Footer />
       </FirebaseContext.Provider>

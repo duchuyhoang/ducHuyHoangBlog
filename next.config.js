@@ -4,6 +4,9 @@ module.exports = {
   images: {
     domains: ["about.gitlab.com"],
   },
+  eslint:{
+	ignoreDuringBuilds: true,
+  }
 };
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
@@ -28,4 +31,7 @@ module.exports = withTM(withMDX({
   images: {
     domains: ["about.gitlab.com"],
   },
+  eslint:{
+	ignoreDuringBuilds: true,
+  }
 }));

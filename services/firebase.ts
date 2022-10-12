@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 import {
   getFirestore,
   collection,
@@ -10,14 +10,15 @@ import {
   endAt,
   runTransaction,
   connectFirestoreEmulator,
+  Firestore,
 } from "firebase/firestore/lite";
 import firebase, { getApps, getApp } from "firebase/app";
 import { getAuth, connectAuthEmulator, Auth } from "firebase/auth";
 const init = () => {
   try {
-    let app = null;
-    let auth = null,
-      firestore = null;
+    let app:Maybe<FirebaseApp> = null;
+    let auth:Maybe<Auth> = null,
+      firestore:Maybe<Firestore> = null;
     if (getApps().length) {
       app = getApps()[0];
       auth = getAuth();
@@ -67,8 +68,4 @@ const services = init();
 
 export const getFirebase = () => {
   return services;
-};
-
-export const test = {
-  name: "dad",
 };

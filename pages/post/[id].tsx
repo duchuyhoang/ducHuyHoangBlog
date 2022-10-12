@@ -7,7 +7,6 @@ import { makeid } from '../../common/utils'
 import { POST_FOLDER_NAME } from '../../common/constants'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
-import Message from '../../Message'
 import Avatar from '../../components/shared/Avatar'
 import Paragraph from '../../components/shared/post/Paragraph'
 import Layout from '../../components/shared/post/Layout'
@@ -78,7 +77,6 @@ export async function getStaticProps(context: any) {
 }
 
 export const components = {
-  Message,
   Avatar,
   p: Paragraph,
   Layout,

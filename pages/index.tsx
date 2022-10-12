@@ -2,7 +2,7 @@ import type { GetStaticProps, NextPage, NextPageContext } from "next";
 import { getAuth, createUserWithEmailAndPassword, Auth } from "firebase/auth";
 import Head from "next/head";
 import Image from "next/image";
-import { getFirebase, test } from "../services/firebase";
+import { getFirebase } from "../services/firebase";
 import {
   doc,
   getDoc,
