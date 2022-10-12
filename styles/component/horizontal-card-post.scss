@@ -1,5 +1,12 @@
 .horizontal-card {
-  @include flex(flex-start, flex-start);
+  @include flex(stretch, flex-start);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  transition: box-shadow .3s ease;
+  padding: 10px;
+
+  &:hover{
+	box-shadow: 0 32px 50px -24px #d1d0d3;
+  }
 
   &-img {
     // height: 120px;
@@ -15,8 +22,12 @@
 	  @include excerp(1);
       color: $color-primary-dark;
       font-size: 22px;
+	  margin-bottom: 5px;
       font-weight: 600;
       text-decoration: none;
+	  &:hover{
+		text-decoration: underline
+	  }
     }
     & .info {
       @include flex(center, flex-start);
@@ -38,6 +49,7 @@
     & .description {
       color: $color-text-primary-light;
 	  max-height: 75px;
+	  line-height: 20px;
 	  @include excerp($lineCount: 3);
     }
 	& .date{

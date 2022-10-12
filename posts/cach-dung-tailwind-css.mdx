@@ -1,16 +1,16 @@
 ---
 slug: cach-dung-tailwind-css-phan-1
-title: Giới thiệu các directives đặc biệt và cách dùng TailwindCSS
+title: Giới thiệu các directives đặc biệt và cách dùng TailwindCSS (phần 1)
 date: 10/10/2022
 image: /tailwindBg.jpg
 author: { name: Đức Huy Hoàng, avatar: /self.jpg }
-description: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, ipsa eum! Modi eius odio tempore, repudiandae libero debitis illum facilis beatae, autem expedita fuga corrupti saepe nemo obcaecati ipsam aut?
+description: Chào các bạn qua bài trước chắc hẳn các bạn đã có thể cài đặt TailwindCSS cho dự án của mình rồi nếu các bạn bỏ lỡ thì nó ở đây.Hôm nay chúng ta tiếp tục với việc tìm hiểu TailwindCSS qua các ví dụ.
 tags: [News, Tech, Tailwind CSS, Frontend]
 ---
 
 <Layout>
   <PostHeader 
-  header="Giới thiệu các directives đặc biệt và cách dùng TailwindCSS" 
+  header="Giới thiệu các directives đặc biệt và cách dùng TailwindCSS (phần 1)" 
   tags={["Tech","Frontend","CSS","Tailwind CSS"]}
   avatar={'/self.jpg'}
   date={"20221010"}
@@ -39,7 +39,8 @@ Hôm nay chúng ta tiếp tục với việc tìm hiểu TailwindCSS qua các v�
   - [Responsive design](#tailwindResponsive)	
     - [Default break points của Tailwind CSS](#tailwindResponsiveDefault)
     - [Điều chỉnh breakpoints Tailwind CSS](#tailwindResponsiveCustomizingConfig)
-- Hoặc là chúng ta có thể thêm các class của tailwind vào 1 class để dùng chung sau này
+  - [Dark Mode](#tailwindDarkMode)
+  - [Tái sử dụng style](#tailwindReusingStyles)
 
 ---
 
@@ -134,7 +135,7 @@ Chúng ta có thể triển khai grid system của Boostrap bằng Tailwind và 
 
 <section id="tailwindUtilityAttributeSelector">
 - Với attribute selectors:<br/>
-  - Dưới đây là 1 ví dụ của mình về Tailwind với attribute selector.Trong ví dụ này mình áp dụng cả 
+  - Dưới đây là 1 ví dụ của mình với attribute selector.Trong ví dụ này mình áp dụng cả 
 [``arbitrary values``](https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values)
 
 ```jsx filename="App.js"
@@ -259,19 +260,127 @@ module.exports = {
 };
 
 ```
+
+<Quote title={"Về cú pháp"} type={"INFO"}>
 - Ở đây chúng ta có thêm breakpoint vào ``theme`` trong ``extend`` những key: 
 ``tablet``, ``laptop``, ``desktop``.
 - Và overwrite các breakpoints có sẵn của Tailwind.
+</Quote>
+
+
 </section>
 
 ---
 </article>
 
+<article id="tailwindDarkMode">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindDarkMode) Dark Mode
+
+Tiếp theo là một tính năng mà rất nhiều website đã triển khai, đó là
+``Dark Mode``. Tailwind đã bao gồm thuộc tính ``dark`` cái mà sẽ giúp
+chúng ta style lại website khi mà dark mode được kích hoạt.
+<br/>
+Trước hết chung ta thêm config vào file ``tailwind.config.js``
+
+```js filename="tailwind.config.js"
+module.exports = {
+  darkMode: 'class',
+  // ...
+}
+```
+<div className="mt-3 mb-3">
+Sau đây là 1 ví dụ nhỏ về cách tích hợp ``Dark Mode`` của Tailwind
+</div>
+```jsx filename="App.jsx" showLine={true}
+import React, { useEffect, useState } from "react";
+export const App = () => {
+  // I'm using a state because sometime you want to update dark mode based on
+  // something like local storage maybe
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  useEffect(() => {
+    let htmlElement = document.documentElement;
+    if (isDarkMode && htmlElement) {
+      htmlElement.classList.add("dark");
+    } else {
+      htmlElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
+  const handleChangeMode = () => {
+    setIsDarkMode((prev) => !prev);
+  };
+  return (
+    <>
+      <section
+        className="w-screen h-screen flex items-center justify-center bg-slate-300 dark:bg-gray-900"
+      >
+        <button
+          className="p-2 border border-solid border-gray-900 rounded focus:border-sky-500 focus:ring-1 bg-sky-300"
+          onClick={handleChangeMode}
+        >
+          Change mode
+        </button>
+      </section>
+    </>
+  );
+};
+```
+---
+</article>
+
+<article id="tailwindReusingStyles">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindReusingStyles) Tái sử dụng style trong TailwindCSS
+
+Bootstrap có các class với style có thể hiểu được dưới dạng elements.Chúng ta hoàn toàn có thể
+thực hiện ý tưởng đó với Tailwind.
+
+```jsx filename="App.jsx"
+<button class="btn-primary">
+  Save changes
+</button>
+```
+<div className="mt-3 mb-3">
+Và file CSS
 </div>
 
-<Comment slug={'cach-dung-tailwind-css-phan-1'} />
+```css filename="index.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  }
+}
+```
+
+<Quote title={"Lưu ý"} type={"WARNING"}>
+Bất kể bạn làm gì, đừng dùng ``@apply`` chỉ để làm mọi thứ {'"'}cleaner{'"'} vì:
+
+- Bạn cần phải nghĩ tên class cho style mới.
+- Bạn cần phải nhảy qua nhảy lại giữa các file.
+- Tạo style mới dễ phá vỡ các style khác vì CSS là ``global``
+- Gói CSS bundle sẽ lớn hơn yepp
+</Quote>
+---
+</article>
+
+<article id="tailwindConclusionNext">
+## [<img src="/hashtag.svg" width="20px" height="20px"/>](#tailwindConclusionNext) Kết luận
+Với phần 1 này mình đã giới thiệu cho các bạn cú pháp đơn giản của TailwindCSS rồi.
+Hãy tiếp tục với phần 2 về các function và nhiều thứ nâng cao hơn [ở đây]() nhé
+
+</article>
+
+
+</div>
 
 <Tags 
 tags={["Tech","Frontend","CSS","Tailwind CSS"]}
 />
+
+<Comment slug={'cach-dung-tailwind-css-phan-1'} />
+
+
 </Layout>

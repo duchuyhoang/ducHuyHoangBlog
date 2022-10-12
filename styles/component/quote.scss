@@ -2,23 +2,23 @@
   border-radius: 8px;
   padding: 10px 10px 0px 10px;
   line-height: 24px;
-  p {
+  & * {
     font-size: 14px !important;
   }
   &.info {
     $color: #646cff;
     border: 1px solid $color;
     color: $color;
-	background-color: rgba(100, 108, 255, .08);
+    background-color: rgba(100, 108, 255, 0.08);
   }
   &.warning {
-    $color:rgba(255, 197, 23);
+    $color: rgba(255, 197, 23);
     border: 1px solid rgba($color, 0.5);
     color: #ad850e;
     background-color: rgba($color, 0.05);
   }
   &.danger {
-    $color:#ed3c50;
+    $color: #ed3c50;
     border: 1px solid rgba($color, 0.5);
     color: #ab2131;
     background-color: rgba($color, 0.05);
@@ -28,5 +28,9 @@
     font-size: 22px;
     margin-block-start: 0px;
     margin-block-end: 5px;
+  }
+  ul {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
   }
 }

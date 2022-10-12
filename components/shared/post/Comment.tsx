@@ -5,7 +5,7 @@ interface IComment {
 }
 
 const Comment = ({ slug,...rest }: IComment) => {
-  return <div id="comment" {...rest}>Comment zone to do</div>
+  return <div id="comment" className='mb-3' {...rest}>Comment zone to do</div>
 }
 
 export default Comment

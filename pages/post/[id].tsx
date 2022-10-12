@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import fs from 'fs'
 import path from 'path'
 import remarkMdxCodeMeta from 'remark-mdx-code-meta'
@@ -96,6 +96,11 @@ export const components = {
 }
 const Post = (props: IPost) => {
   const { content, fileMetadata } = props
+  useEffect(()=>{
+	if(fileMetadata?.title){
+		document.title= fileMetadata.title;
+	}
+  },[fileMetadata])
   return <MDXRemote {...content} components={components} />
 }
 

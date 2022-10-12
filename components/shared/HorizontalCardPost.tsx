@@ -23,12 +23,16 @@ const HorizontalCardPost = ({
           </Link>
           <div className="d-flex w-100">
             <div className="col-lg-10 col-md-10 col-sm-9 col-7 info mt-1 mb-1">
-              <p>{author.name}</p>
+              <p>{author?.name}</p>
               <span className="ml-1 mr-1">on</span>
-              {tags.map((tag, key) => (
-                <Link href={`/${tag}`} passHref key={"tag_" + key}>
+              {tags?.map((tag, index) => (
+				<>
+                <Link href={`/tag?tag=${tag}`} passHref key={"tag_" + index}>
                   <a>{tag}</a>
                 </Link>
+				{index !== tags.length - 1 && <span>,</span>}
+				
+				</>
               ))}
             </div>
 			<div className="col-lg-2 col-md-2 col-sm-3 col-5 d-flex align-center">

@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import SyntaxHighlighter, { LanguageIconMap } from '../SyntaxHighLighter'
-import vs2015 from 'react-syntax-highlighter/dist/esm/styles/hljs/vs2015'
-
+import vs from 'react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus'
 import { HiClipboard } from 'react-icons/hi'
 import { TiTick } from 'react-icons/ti'
 
@@ -146,59 +145,8 @@ const CodeBlock = props => {
         children={props.children.props.children?.trim()}
         language={language}
         style={{
-          ...vs2015,
-          'hljs-comment': {
-            color: '#A6ACCD',
-            fontStyle: 'initial'
-          },
-          'hljs-keyword': {
-            color: '#C792EA'
-          },
-          'hljs-built_in': {
-            color: '#89DDFF'
-          },
-          'hljs-name': {
-            color: '#89DDFF'
-          },
-          'hljs-selector-tag': {
-            color: '#89DDFF'
-          },
-          'hljs-tag': {
-            color: '#89DDFF'
-          },
-          'hljs-string': {
-            color: '#C3E88D'
-          },
-          'hljs-attr': {
-            color: '#C792EA'
-          },
-          'hljs-addition': {
-            color: '#F07178'
-          },
-          'hljs-literal': {
-            color: '#F07178'
-          },
-          'hljs-section': {
-            color: '#F07178'
-          },
-          'hljs-template-tag': {
-            color: '#F07178'
-          },
-          'hljs-template-variable': {
-            color: '#F07178'
-          },
-          'hljs-title': {
-            color: '#F07178'
-          },
-          'hljs-type': {
-            color: '#F07178'
-          },
-          'hljs-selector-class': {
-            color: '#FFCB6B'
-          },
-          'hljs-number': {
-            color: '#FFCB6B'
-          }
+          ...vs,
+          
         }}
       />
     </>
