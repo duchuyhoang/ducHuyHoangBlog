@@ -10,7 +10,9 @@ import { MDXRemote } from 'next-mdx-remote'
 import Avatar from '../../components/shared/Avatar'
 import Paragraph from '../../components/shared/post/Paragraph'
 import Layout from '../../components/shared/post/Layout'
-import PostHeader from '../../components/shared/post/PostHeader'
+import PostHeader, {
+  IPostHeader
+} from '../../components/shared/post/PostHeader'
 import PostImage from '../../components/shared/post/PostImage'
 import SubHeader from '../../components/shared/post/SubHeader'
 import CodeBlock from '../../components/shared/post/CodeBlock'
@@ -21,7 +23,7 @@ import Quote from '../../components/shared/post/Quote'
 import Comment from '../../components/shared/post/Comment'
 
 export type IPost = {
-  fileMetadata: { [key: string]: any }
+  fileMetadata: { slug: string } & IPostHeader
   content: any
   compliedSource: any
 }
@@ -94,12 +96,24 @@ export const components = {
 }
 const Post = (props: IPost) => {
   const { content, fileMetadata } = props
-  useEffect(()=>{
-	if(fileMetadata?.title){
-		document.title= fileMetadata.title;
-	}
-  },[fileMetadata])
-  return <MDXRemote {...content} components={components} />
+  useEffect(() => {
+    if (fileMetadata?.title) {
+      document.title = fileMetadata.title
+    }
+  }, [fileMetadata])
+
+  const { slug, tags, ...rest } = fileMetadata
+
+  return (
+    <Layout>
+      <PostHeader {...rest} tags={tags} />
+      <MDXRemote {...content} components={components} />
+
+      <Tags tags={tags} />
+
+      <Comment slug={slug} />
+    </Layout>
+  )
 }
 
 export default Post

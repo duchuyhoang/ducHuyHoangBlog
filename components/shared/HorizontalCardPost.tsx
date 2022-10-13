@@ -18,7 +18,7 @@ const HorizontalCardPost = ({
       </div>
       <div className="col-9">
         <div className="horizontal-card-content-container ml-2">
-          <Link href={slug} passHref>
+          <Link href={`/post/${slug}`} passHref>
             <a className="title">{title}</a>
           </Link>
           <div className="d-flex w-100">
