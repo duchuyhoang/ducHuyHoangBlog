@@ -14,7 +14,7 @@ const FirebaseContext = createContext(getFirebase())
 // }
 
 export const useFirebaseContext = () => useContext(FirebaseContext)
-function MyApp({ Component, pageProps }: AppProps): ReactElement {
+const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
   return (
     <Provider store={store}>
       <FirebaseContext.Provider value={getFirebase()}>
@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
           className="w-100 position-relative"
           style={{ minHeight: 'calc(100vh - 270px)' }}
         >
-            <Component {...pageProps} />
+          <Component {...pageProps} />
         </div>
         <Footer />
       </FirebaseContext.Provider>

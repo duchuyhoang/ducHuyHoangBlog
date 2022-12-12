@@ -4,14 +4,12 @@ export interface ITag {
   value: string
 }
 
-const Tag = ({ value, ...rest }) => {
-  {
-    return (
-      <a className="post-tag" href={`/tag?tag=${value}`} {...rest}>
-        {value}
-      </a>
-    )
-  }
+const Tag = ({ value, ...rest }: ITag) => {
+  return (
+    <a className="post-tag" href={`/tag?tag=${value}`} {...rest}>
+      {value}
+    </a>
+  )
 }
 
 export default Tag

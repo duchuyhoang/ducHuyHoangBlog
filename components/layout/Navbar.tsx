@@ -28,7 +28,7 @@ const Navbar = () => {
   const [navbarHeight, setNavbarHeight] = useState<number>(0)
 
   useEffect(() => {
-    setNavbarHeight(navRef.current?.offsetHeight || 0)
+    setNavbarHeight(navRef.current?.offsetHeight ?? 0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navRef.current])
   const handleCloseHiddenSideBar = useCallback(() => {
@@ -64,26 +64,26 @@ const Navbar = () => {
     const services = getFirebase()
     // console.log("hello", services);
 
-    if (services?.auth)
-      createUserWithEmailAndPassword(
-        services?.auth,
-        'huyhoang10032000@gmail.com',
-        '10032000'
-      )
-        .then(userCredential => {
-          // Signed in
-          const user = userCredential.user
-          console.log(userCredential)
-          // ...
-        })
-        .catch(error => {
-          console.log(error, error.code)
-          console.log(error.message)
+    // if (services?.auth)
+    //   createUserWithEmailAndPassword(
+    //     services?.auth,
+    //     'huyhoang10032000@gmail.com',
+    //     '10032000'
+    //   )
+    //     .then(userCredential => {
+    //       // Signed in
+    //       const user = userCredential.user
+    //       console.log(userCredential)
+    //       // ...
+    //     })
+    //     .catch(error => {
+    //       console.log(error, error.code)
+    //       console.log(error.message)
 
-          const errorCode = error.code
-          const errorMessage = error.message
-          // ..
-        })
+    //       const errorCode = error.code
+    //       const errorMessage = error.message
+    //       // ..
+    //     })
   }
 
   return (
@@ -228,7 +228,7 @@ const Navbar = () => {
         className="searchContainer"
         style={{
           ...(isSearchInputOpen && {
-            top: navRef.current?.offsetHeight || 0 + 4,
+            top: navRef.current?.offsetHeight ?? 0 + 4,
             visibility: 'visible'
           })
         }}
@@ -270,7 +270,7 @@ const Navbar = () => {
                 style={{
                   width: '120px',
                   height: '80px',
-                  backgroundImage: "url('/logo.png')",
+                  backgroundImage: 'url("/logo.png")',
                   backgroundSize: 'contain',
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center center'
@@ -288,10 +288,7 @@ const Navbar = () => {
         </h2>
         <div className="item-container">
           <Link href="/about" passHref>
-            <a
-              className="item"
-              onClick={handleCloseHiddenSideBar}
-            >
+            <a className="item" onClick={handleCloseHiddenSideBar}>
               About me
             </a>
           </Link>

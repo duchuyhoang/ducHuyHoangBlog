@@ -1,7 +1,7 @@
-import Link from "next/link";
-import React from "react";
-import moment from "moment";
-import { IPost } from "./FeaturePost";
+import Link from 'next/link'
+import React from 'react'
+import moment from 'moment'
+import { IPost } from './FeaturePost'
 const HorizontalCardPost = ({
   author,
   date,
@@ -9,7 +9,7 @@ const HorizontalCardPost = ({
   slug,
   description,
   image,
-  tags,
+  tags
 }: IPost) => {
   return (
     <div className="horizontal-card">
@@ -26,25 +26,24 @@ const HorizontalCardPost = ({
               <p>{author?.name}</p>
               <span className="ml-1 mr-1">on</span>
               {tags?.map((tag, index) => (
-				<>
-                <Link href={`/tag?tag=${tag}`} passHref key={"tag_" + index}>
-                  <a>{tag}</a>
-                </Link>
-				{index !== tags.length - 1 && <span>,</span>}
-				
-				</>
+                <>
+                  <Link href={`/tag?tag=${tag}`} passHref key={`tag_${index}`}>
+                    <a>{tag}</a>
+                  </Link>
+                  {index !== tags.length - 1 && <span>,</span>}
+                </>
               ))}
             </div>
-			<div className="col-lg-2 col-md-2 col-sm-3 col-5 d-flex align-center">
-				<span className="mr-1">•</span>
-				<p className="date">{moment(date).format("YYYY-MM-DD")}</p>
-			</div>
+            <div className="col-lg-2 col-md-2 col-sm-3 col-5 d-flex align-center">
+              <span className="mr-1">•</span>
+              <p className="date">{moment(date).format('YYYY-MM-DD')}</p>
+            </div>
           </div>
           <div className="description">{description}</div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HorizontalCardPost;
+export default HorizontalCardPost

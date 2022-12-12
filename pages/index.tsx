@@ -1,8 +1,10 @@
-import type { GetStaticProps, NextPage, NextPageContext } from "next";
-import { getAuth, createUserWithEmailAndPassword, Auth } from "firebase/auth";
-import Head from "next/head";
-import Image from "next/image";
-import { getFirebase } from "../services/firebase";
+import React, { createContext, useContext, useMemo } from 'react'
+
+import type { GetStaticProps, NextPage, NextPageContext } from 'next'
+import { getAuth, createUserWithEmailAndPassword, Auth } from 'firebase/auth'
+import Head from 'next/head'
+import Image from 'next/image'
+import { getFirebase } from '../services/firebase'
 import {
   doc,
   getDoc,
@@ -11,20 +13,18 @@ import {
   query,
   where,
   startAt,
-  endAt,
-} from "firebase/firestore/lite";
-import Slider from "react-slick";
-import { createContext, useContext, useMemo } from "react";
-import { buildHostUrl } from "../common/utils";
-import FeaturePost from "../components/shared/FeaturePost";
-import VerticalCardPost from "../components/shared/VerticalCardPost";
-import LeftSideBar from "../components/layout/LeftSideBar";
-import HorizontalCardPost from "../components/shared/HorizontalCardPost";
-import fs from "fs";
-import path from "path";
-import getConfig from "next/config";
-import matter from "gray-matter";
-import { IPost } from "../components/shared/FeaturePost";
+  endAt
+} from 'firebase/firestore/lite'
+import Slider from 'react-slick'
+import { buildHostUrl } from '../common/utils'
+import FeaturePost, { IPost } from '../components/shared/FeaturePost'
+import VerticalCardPost from '../components/shared/VerticalCardPost'
+import LeftSideBar from '../components/layout/LeftSideBar'
+import HorizontalCardPost from '../components/shared/HorizontalCardPost'
+import fs from 'fs'
+import path from 'path'
+import getConfig from 'next/config'
+import matter from 'gray-matter'
 // import { MDXProvider } from "@mdx-js/react";
 
 // export async function getStaticPaths() {}
@@ -72,9 +72,9 @@ import { IPost } from "../components/shared/FeaturePost";
 //   };
 // }
 
-const FirebaseContext = createContext(getFirebase());
+const FirebaseContext = createContext(getFirebase())
 
-export const useFirebaseContext = () => useContext(FirebaseContext);
+export const useFirebaseContext = () => useContext(FirebaseContext)
 
 // export const getServerSideProps: GetStaticProps = async (context: any) => {
 //   const data = await fetch(
@@ -86,20 +86,20 @@ export const useFirebaseContext = () => useContext(FirebaseContext);
 // };
 
 export const getStaticProps = async () => {
-  const files = fs.readdirSync(path.join("posts"));
-  const listPost: IPost[] = [];
+  const files = fs.readdirSync(path.join('posts'))
+  const listPost: IPost[] = []
   for (const file of files) {
-    const fileContent = fs.readFileSync(path.join("posts", file), "utf-8");
-    const matterFileContent = matter(fileContent);
-    listPost.push(matterFileContent.data as IPost);
+    const fileContent = fs.readFileSync(path.join('posts', file), 'utf-8')
+    const matterFileContent = matter(fileContent)
+    listPost.push(matterFileContent.data as IPost)
   }
   return {
-    props: { listPost },
-  };
-};
+    props: { listPost }
+  }
+}
 
 const Home: NextPage = (props: any) => {
-  const { listPost } = props;
+  const { listPost } = props
   const settings = useMemo(
     () => ({
       dots: true,
@@ -107,27 +107,27 @@ const Home: NextPage = (props: any) => {
       speed: 500,
       slidesToShow: 3,
       slidesToScroll: 1,
-      arrows: false,
+      arrows: false
     }),
     []
-  );
+  )
   return (
     <>
       <div className="row">
         <section
           className="col-3 d-xl-block d-lg-block d-md-block d-sm-none d-none"
-          style={{ background: "#f2f1f5" }}
+          style={{ background: '#f2f1f5' }}
           //   , width: "310px"
         >
           <LeftSideBar
             tags={[
-              "All",
-              "News",
-              "Release",
-              "Algorithm",
-              "DevOps",
-              "Security",
-              "Design",
+              'All',
+              'News',
+              'Release',
+              'Algorithm',
+              'DevOps',
+              'Security',
+              'Design'
             ]}
           />
         </section>
@@ -139,40 +139,40 @@ const Home: NextPage = (props: any) => {
               <div className="col-4">
                 <VerticalCardPost
                   title={
-                    "Learn Python with Pj! Part 4 - Dictionaries and Files adakdad akdakldad aklda;ldkad;ladk dâdjaj"
+                    'Learn Python with Pj! Part 4 - Dictionaries and Files adakdad akdakldad aklda;ldkad;ladk dâdjaj'
                   }
                   description={
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat itaque vitae, neque ullam sapiente dolor repudiandae accusamus optio consequatur repellat, voluptate praesentium, consequuntur quibusdam nostrum explicabo architecto? Impedit, cum illo. adadadnaldkad dajdakldjada kajdajkld dnada"
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat itaque vitae, neque ullam sapiente dolor repudiandae accusamus optio consequatur repellat, voluptate praesentium, consequuntur quibusdam nostrum explicabo architecto? Impedit, cum illo. adadadnaldkad dajdakldjada kajdajkld dnada'
                   }
                   author={{
-                    name: "Huy hoang",
-                    avatar: "he",
+                    name: 'Huy hoang',
+                    avatar: 'he'
                   }}
                   date={new Date()}
-                  slug={"hello"}
+                  slug={'hello'}
                   image={
-                    "https://about.gitlab.com/images/blogimages/nobl9_1.jpeg"
+                    'https://about.gitlab.com/images/blogimages/nobl9_1.jpeg'
                   }
-                  tags={["News", "Release", "Algorithm"]}
+                  tags={['News', 'Release', 'Algorithm']}
                 />
               </div>
 
               <div className="col-4">
                 <VerticalCardPost
                   title={
-                    "Learn Python with Pj! Part 4 - Dictionaries and Files adakdad akdakldad aklda;ldkad;ladk dâdjaj"
+                    'Learn Python with Pj! Part 4 - Dictionaries and Files adakdad akdakldad aklda;ldkad;ladk dâdjaj'
                   }
                   description={
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat itaque vitae, neque ullam sapiente dolor repudiandae accusamus optio consequatur repellat, voluptate praesentium, consequuntur quibusdam nostrum explicabo architecto? Impedit, cum illo. adadadnaldkad dajdakldjada kajdajkld dnada"
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat itaque vitae, neque ullam sapiente dolor repudiandae accusamus optio consequatur repellat, voluptate praesentium, consequuntur quibusdam nostrum explicabo architecto? Impedit, cum illo. adadadnaldkad dajdakldjada kajdajkld dnada'
                   }
                   author={{
-                    name: "Huy hoang",
-                    avatar: "he",
+                    name: 'Huy hoang',
+                    avatar: 'he'
                   }}
                   date={new Date()}
-                  slug={"hello"}
+                  slug={'hello'}
                   image={
-                    "https://about.gitlab.com/images/blogimages/nobl9_1.jpeg"
+                    'https://about.gitlab.com/images/blogimages/nobl9_1.jpeg'
                   }
                   tags={[]}
                 />
@@ -180,31 +180,31 @@ const Home: NextPage = (props: any) => {
 
               <div className="col-4">
                 <VerticalCardPost
-                  title={"Hello world"}
-                  description={"dakdadlkadmalkdjalkjaclkajaad"}
+                  title={'Hello world'}
+                  description={'dakdadlkadmalkdjalkjaclkajaad'}
                   author={{
-                    name: "Huy hoang 123",
-                    avatar: "he",
+                    name: 'Huy hoang 123',
+                    avatar: 'he'
                   }}
                   date={new Date()}
-                  slug={"hello1"}
+                  slug={'hello1'}
                   tags={[]}
-                  image={"https://about.gitlab.com/images/blogimages/locks.jpg"}
+                  image={'https://about.gitlab.com/images/blogimages/locks.jpg'}
                 />
               </div>
               <div className="col-4">
                 <VerticalCardPost
-                  title={"Hello world"}
-                  description={"dakdadlkadmalkdjalkjaclkajaad"}
+                  title={'Hello world'}
+                  description={'dakdadlkadmalkdjalkjaclkajaad'}
                   author={{
-                    name: "Huy hoang 123",
-                    avatar: "he",
+                    name: 'Huy hoang 123',
+                    avatar: 'he'
                   }}
                   tags={[]}
                   date={new Date()}
-                  slug={"hello2"}
+                  slug={'hello2'}
                   image={
-                    "https://about.gitlab.com/images/blogimages/eosecurity.jpg"
+                    'https://about.gitlab.com/images/blogimages/eosecurity.jpg'
                   }
                 />
               </div>
@@ -215,7 +215,7 @@ const Home: NextPage = (props: any) => {
             <h3 className="older-post-title ml-4 mt-4">Older post</h3>
             <div className="older-post-container">
               {listPost.map((post: IPost, index: number) => (
-                <HorizontalCardPost {...post} key={"horizontal_" + index} />
+                <HorizontalCardPost {...post} key={`horizontal_${index}`} />
               ))}
 
               {/* <HorizontalCardPost
@@ -255,7 +255,7 @@ const Home: NextPage = (props: any) => {
         </section>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

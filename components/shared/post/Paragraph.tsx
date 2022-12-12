@@ -1,10 +1,10 @@
 import React from 'react'
 
-// interface IParagraph {
-//   content: any
-// }
+interface IParagraph {
+  children: React.ReactNode
+}
 
-const Paragraph = ({ children, ...rest }) => {
+const Paragraph = ({ children, ...rest }: IParagraph) => {
   return <p className="paragraph">{children}</p>
 }
 

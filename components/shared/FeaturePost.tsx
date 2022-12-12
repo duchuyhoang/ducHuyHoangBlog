@@ -1,14 +1,14 @@
-import Link from "next/link";
-import React from "react";
-import { IAuthor } from "../def/author";
+import Link from 'next/link'
+import React from 'react'
+import { IAuthor } from '../def/author'
 export interface IPost {
-  author: IAuthor;
-  date: Maybe<Date>;
-  title: string;
-  slug: string;
-  description: string;
-  image?: string;
-  tags: string[];
+  author: IAuthor
+  date: Maybe<Date>
+  title: string
+  slug: string
+  description: string
+  image?: string
+  tags: string[]
 }
 
 const FeaturePost = () => {
@@ -17,10 +17,10 @@ const FeaturePost = () => {
       className="feature-post"
       style={{
         backgroundImage:
-          "url('https://about.gitlab.com/images/blogimages/red-team-process/pexels-andrey-grushnikov-707676_crop.jpeg')",
+          'url("https://about.gitlab.com/images/blogimages/red-team-process/pexels-andrey-grushnikov-707676_crop.jpeg")'
       }}
     >
-      <div style={{ zIndex: 10, position: "relative" }}>
+      <div style={{ zIndex: 10, position: 'relative' }}>
         <div className="feature-post-tag">Feature Post</div>
         <div className="feature-post-info">
           <a>Huy</a>
@@ -45,7 +45,7 @@ const FeaturePost = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FeaturePost;
+export default FeaturePost

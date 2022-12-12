@@ -11,10 +11,10 @@ declare global {
       payload: DispatchAction<ActionPayload>['payload']
     ) => T
   }
-  type IPerson = {
+  interface IPerson {
     name: string
   }
-  type IPerson = {
+  interface IPerson {
     age: number
   }
 }

@@ -4,5 +4,6 @@
   "semi": false,
   "singleQuote": true,
   "bracketSameLine": false,
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "bracketSpacing": true
 }

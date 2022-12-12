@@ -1,20 +1,17 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 
 export interface IInputProps {
-  value: any;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  inputProps?: DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >;
+  value: any
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  placeholder?: string
+  inputProps?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 }
 
 const Input = ({
   placeholder,
   value,
   onChange,
-  inputProps = {},
+  inputProps = {}
 }: IInputProps) => {
   return (
     <>
@@ -27,7 +24,7 @@ const Input = ({
         onChange={onChange}
       />
     </>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

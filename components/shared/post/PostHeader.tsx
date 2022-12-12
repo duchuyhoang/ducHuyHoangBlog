@@ -28,7 +28,7 @@ const PostHeader = ({
     <div className="post-header mt-4">
       <div className="tag-wrapper mb-3">
         {tags.map((tag, index) => (
-          <Tag value={tag} key={`tag_` + index} />
+          <Tag value={tag} key={`tag_${index}`} />
         ))}
       </div>
       <h1 className="w-50 text-center col-9 col-sm-10">{title}</h1>

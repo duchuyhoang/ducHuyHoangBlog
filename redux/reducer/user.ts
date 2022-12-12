@@ -18,4 +18,5 @@ const handler: HandlerStrategy<IUser, number> = {
 export const userReducer = (
   state: IUser = initialState,
   { type, payload }: DispatchAction<string>
-) => (handler[type] ? handler[type](state, payload) : state)
+): // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+IUser => (handler[type] ? handler[type](state, payload) : state)

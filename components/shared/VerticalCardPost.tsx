@@ -1,6 +1,6 @@
-import Link from "next/link";
-import React from "react";
-import { IPost } from "./FeaturePost";
+import Link from 'next/link'
+import React from 'react'
+import { IPost } from './FeaturePost'
 
 const VerticalCardPost = ({
   author,
@@ -8,7 +8,7 @@ const VerticalCardPost = ({
   title,
   slug,
   description,
-  image,
+  image
 }: IPost) => {
   return (
     <div className="vertical-card">
@@ -39,7 +39,7 @@ const VerticalCardPost = ({
         <p className="vertical-card-description">{description}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default VerticalCardPost;
+export default VerticalCardPost

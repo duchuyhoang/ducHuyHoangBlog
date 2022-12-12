@@ -1,6 +1,10 @@
+import React from 'react'
 import Link from 'next/link'
-
-const PostLink = props => {
+export interface IPostLInk {
+  href: string
+  children: React.ReactNode
+}
+const PostLink = (props: IPostLInk) => {
   const { href, children } = props
   return (
     <Link href={href} passHref>

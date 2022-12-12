@@ -4,7 +4,7 @@ import vs from 'react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus'
 import { HiClipboard } from 'react-icons/hi'
 import { TiTick } from 'react-icons/ti'
 
-const CodeTag = props => {
+const CodeTag = (props: any) => {
   //   console.log('code', props)
   //   const listElement = useMemo(() => {
   //     let filteredList = props.children ? props.children.filter(v => !!v)[0] : []
@@ -56,6 +56,7 @@ const PreTag = ({
   language: string
   fileName: string
 }) => {
+  // eslint-disable-next-line react/display-name
   return preProps => {
     const [isCopied, setIsCopied] = useState<boolean>(false)
 
@@ -104,7 +105,7 @@ const PreTag = ({
   }
 }
 
-const CodeBlock = props => {
+const CodeBlock = (props: any) => {
   const handleClickCopy = useCallback(
     (okCb, failedCb) => {
       const content = props.children.props.children
@@ -125,7 +126,7 @@ const CodeBlock = props => {
   )
   const language = useMemo(() => {
     const extracted = props?.children?.props?.className?.split('-')[1]
-    return extracted ? extracted : 'javascript'
+    return extracted || 'javascript'
   }, [props?.children?.props?.className])
 
   const fileName = useMemo(() => {
@@ -142,11 +143,11 @@ const CodeBlock = props => {
           language,
           fileName
         })}
+        // eslint-disable-next-line react/no-children-prop
         children={props.children.props.children?.trim()}
         language={language}
         style={{
-          ...vs,
-          
+          ...vs
         }}
       />
     </>

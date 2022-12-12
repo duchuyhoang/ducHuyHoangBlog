@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react'
 
 export interface IAvatar {
-  src: string;
-  width?: number;
-  height?: number;
+  src: string
+  width?: number
+  height?: number
 }
 
 const Avatar = (props: IAvatar) => {
-  const { src, width = 70, height = 70 } = props;
+  const { src, width = 70, height = 70 } = props
   return (
     <>
       <img src={src} width={width} height={height} className="avatar" />
     </>
-  );
-};
-export default Avatar;
+  )
+}
+export default Avatar

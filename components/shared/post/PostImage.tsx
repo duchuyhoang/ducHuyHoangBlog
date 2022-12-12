@@ -1,6 +1,8 @@
 import React from 'react'
-
-const PostImage = ({ src, ...rest }) => {
+export interface IPostImage {
+  src: string
+}
+const PostImage = ({ src, ...rest }: IPostImage) => {
   return (
     <div
       className="w-100"

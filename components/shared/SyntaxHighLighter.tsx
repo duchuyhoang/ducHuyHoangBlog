@@ -1,5 +1,4 @@
-import React from 'react'
-import { PrismLight as SyntaxHighlighter, } from 'react-syntax-highlighter'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
 import js from 'react-syntax-highlighter/dist/esm/languages/prism/javascript'
 import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
 import css from 'react-syntax-highlighter/dist/esm/languages/prism/css'
@@ -47,58 +46,57 @@ SyntaxHighlighter.registerLanguage('tsx', tsx)
 
 export default SyntaxHighlighter
 
-
-export const hljsOverrideStyles={
-	'hljs-comment': {
-		color: '#A6ACCD',
-		fontStyle: 'initial'
-	  },
-	  'hljs-keyword': {
-		color: '#C792EA'
-	  },
-	  'hljs-built_in': {
-		color: '#89DDFF'
-	  },
-	  'hljs-name': {
-		color: '#89DDFF'
-	  },
-	  'hljs-selector-tag': {
-		color: '#89DDFF'
-	  },
-	  'hljs-tag': {
-		color: '#89DDFF'
-	  },
-	  'hljs-string': {
-		color: '#C3E88D'
-	  },
-	  'hljs-attr': {
-		color: '#C792EA'
-	  },
-	  'hljs-addition': {
-		color: '#F07178'
-	  },
-	  'hljs-literal': {
-		color: '#F07178'
-	  },
-	  'hljs-section': {
-		color: '#F07178'
-	  },
-	  'hljs-template-tag': {
-		color: '#F07178'
-	  },
-	  'hljs-template-variable': {
-		color: '#F07178'
-	  },
-	  'hljs-title': {
-		color: '#F07178'
-	  },
-	  'hljs-type': {
-		color: '#F07178'
-	  },
-	  'hljs-selector-class': {
-		color: '#FFCB6B'
-	  },
-	  'hljs-number': {
-		color: '#FFCB6B'
-	  }
+export const hljsOverrideStyles = {
+  'hljs-comment': {
+    color: '#A6ACCD',
+    fontStyle: 'initial'
+  },
+  'hljs-keyword': {
+    color: '#C792EA'
+  },
+  'hljs-built_in': {
+    color: '#89DDFF'
+  },
+  'hljs-name': {
+    color: '#89DDFF'
+  },
+  'hljs-selector-tag': {
+    color: '#89DDFF'
+  },
+  'hljs-tag': {
+    color: '#89DDFF'
+  },
+  'hljs-string': {
+    color: '#C3E88D'
+  },
+  'hljs-attr': {
+    color: '#C792EA'
+  },
+  'hljs-addition': {
+    color: '#F07178'
+  },
+  'hljs-literal': {
+    color: '#F07178'
+  },
+  'hljs-section': {
+    color: '#F07178'
+  },
+  'hljs-template-tag': {
+    color: '#F07178'
+  },
+  'hljs-template-variable': {
+    color: '#F07178'
+  },
+  'hljs-title': {
+    color: '#F07178'
+  },
+  'hljs-type': {
+    color: '#F07178'
+  },
+  'hljs-selector-class': {
+    color: '#FFCB6B'
+  },
+  'hljs-number': {
+    color: '#FFCB6B'
+  }
 }

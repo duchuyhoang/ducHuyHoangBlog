@@ -14,7 +14,7 @@ const Tags = ({ tags }: { tags: string[] }) => {
       <BsTags size={26} />
       <h3 className="mr-2 ml-2">Tags:</h3>
       {tags.map((tag, index) => (
-        <Tag value={tag} key={`tag_` + index} />
+        <Tag value={tag} key={`tag_${index}`} />
       ))}
     </div>
   )

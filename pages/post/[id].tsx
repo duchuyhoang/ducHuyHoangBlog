@@ -22,7 +22,7 @@ import PostLink from '../../components/shared/post/PostLink'
 import Quote from '../../components/shared/post/Quote'
 import Comment from '../../components/shared/post/Comment'
 
-export type IPost = {
+export interface IPost {
   fileMetadata: { slug: string } & IPostHeader
   content: any
   compliedSource: any
@@ -52,16 +52,17 @@ export async function getStaticProps(context: any) {
   }
 
   const fileNameList = fs.readdirSync(path.join('posts'))
-  let content = '',
-    fileMetadata = {},
-    compliedSource = ''
+  let content = ''
+  let fileMetadata = {}
+  const compliedSource = ''
 
   for (let i = 0; i < fileNameList.length; i++) {
     const fileContent = matter(
       fs.readFileSync(path.join(POST_FOLDER_NAME, fileNameList[i]).toString())
     )
     if (fileContent?.data?.slug === id) {
-      ;(content = fileContent.content), (fileMetadata = fileContent.data)
+      content = fileContent.content
+      fileMetadata = fileContent.data
       break
     }
   }
@@ -88,9 +89,9 @@ export const components = {
   h2: SubHeader,
   a: PostLink,
   pre: CodeBlock,
-  CodeBlock: CodeBlock,
-  Quote: Quote,
-  Tags: Tags,
+  CodeBlock,
+  Quote,
+  Tags,
   hr: Line,
   Comment: Comment
 }

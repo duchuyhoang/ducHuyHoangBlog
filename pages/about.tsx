@@ -1,38 +1,39 @@
-import Link from "next/link";
-import React, { useCallback, useEffect, useState } from "react";
-import { AiOutlineMail } from "react-icons/ai";
-import { FaFacebookSquare, FaGithub, FaLinkedin } from "react-icons/fa";
-import HoverEffect from "hover-effect";
+import Link from 'next/link'
+import React, { useCallback, useEffect, useState } from 'react'
+import { AiOutlineMail } from 'react-icons/ai'
+import { FaFacebookSquare, FaGithub, FaLinkedin } from 'react-icons/fa'
+import HoverEffect from 'hover-effect'
 
 enum Person {
-  ME = "ME",
-  LOVE = "LOVE",
+  ME = 'ME',
+  LOVE = 'LOVE'
 }
 
 const About = () => {
-  const [hoverEffect, setHoverEffect] = useState<any>(null);
-  const [currentPerson, setCurrentPerson] = useState<Person>(Person.ME);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [hoverEffect, setHoverEffect] = useState<any>(null)
+  const [currentPerson, setCurrentPerson] = useState<Person>(Person.ME)
 
   const handleClick = useCallback(() => {
     if (currentPerson === Person.ME) {
-      hoverEffect.next();
-      setCurrentPerson(Person.LOVE);
+      hoverEffect.next()
+      setCurrentPerson(Person.LOVE)
     } else {
-      hoverEffect.previous();
-      setCurrentPerson(Person.ME);
+      hoverEffect.previous()
+      setCurrentPerson(Person.ME)
     }
-  }, [hoverEffect, currentPerson]);
+  }, [hoverEffect, currentPerson])
 
   useEffect(() => {
     const hover = new HoverEffect({
-      parent: document.querySelector("#userAvatar"),
+      parent: document.querySelector('#userAvatar'),
       intensity: 0.5,
-      image1: "./self.jpg",
-      image2: "./logo.jpg",
-      displacementImage: "./distortion.png",
-    });
-    setHoverEffect(hover);
-  }, []);
+      image1: './self.jpg',
+      image2: './logo.jpg',
+      displacementImage: './distortion.png'
+    })
+    setHoverEffect(hover)
+  }, [])
 
   return (
     <section className="about w-100">
@@ -66,22 +67,22 @@ const About = () => {
                     href="https://www.instagram.com/duchuy_h/?hl=en"
                     passHref
                   >
-                    <a target={"_blank"}>
+                    <a target={'_blank'}>
                       <FaLinkedin size={25} />
                     </a>
                   </Link>
                   <Link href="https://www.facebook.com/croong.hoang" passHref>
-                    <a target={"_blank"}>
+                    <a target={'_blank'}>
                       <FaFacebookSquare size={25} />
                     </a>
                   </Link>
                   <Link href="https://github.com/duchuyhoang" passHref>
-                    <a target={"_blank"}>
+                    <a target={'_blank'}>
                       <FaGithub size={25} />
                     </a>
                   </Link>
                   <Link href="mailto:huyhoang10032000@gmail.com" passHref>
-                    <a target={"_blank"}>
+                    <a target={'_blank'}>
                       <AiOutlineMail size={25} />
                     </a>
                   </Link>
@@ -91,18 +92,18 @@ const About = () => {
           )}
           {currentPerson === Person.LOVE && (
             <div className="col-12 col-md-6 col-lg-6 col-xl-6 h-100 description">
-				<div className="name-wrapper">
+              <div className="name-wrapper">
                 <h1 className="description-name">Nguyễn Ngọc Anh</h1>
                 <sub>Cô sinh viên NEU ^^</sub>
               </div>
-			</div>
+            </div>
           )}
         </div>
 
         <ul className="d-flex justify-center tab-header-container w-100 mt-5">
           <li
             className={`header-item ${
-              currentPerson === Person.ME && "header-item-active"
+              currentPerson === Person.ME ? 'header-item-active' : ''
             } `}
             onClick={handleClick}
           >
@@ -110,7 +111,7 @@ const About = () => {
           </li>
           <li
             className={`header-item ${
-              currentPerson === Person.LOVE && "header-item-active"
+              currentPerson === Person.LOVE ? 'header-item-active' : ''
             }`}
             onClick={handleClick}
           >
@@ -119,7 +120,7 @@ const About = () => {
         </ul>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default About;
+export default About
