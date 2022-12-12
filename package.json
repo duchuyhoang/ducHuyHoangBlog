@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "kill": "npx kill-port 3000 9099 8080 9000 9199 4000",
     "start": "npm run kill && concurrently \"next dev\" \"npm run emulator:start\"",
     "lint": "next lint",
