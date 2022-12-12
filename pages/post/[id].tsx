@@ -104,14 +104,14 @@ const Post = (props: IPost) => {
   }, [fileMetadata])
 
   const { slug, tags, ...rest } = fileMetadata
+  
 
   return (
     <Layout>
       <PostHeader {...rest} tags={tags} />
-      <MDXRemote {...content} components={components} />
+      <MDXRemote {...content} components={components} lazy/>
 
-      <Tags tags={tags} />
-
+      <Tags tags={tags}></Tags>
       <Comment slug={slug} />
     </Layout>
   )

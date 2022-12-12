@@ -1,11 +1,25 @@
 .horizontal-card {
   @include flex(stretch, flex-start);
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
-  transition: box-shadow .3s ease;
+  transition: box-shadow 0.3s ease;
   padding: 10px;
+  height: 140px;
+  @include mobile {
+    height: 120px;
+  }
+  cursor: pointer;
 
-  &:hover{
-	box-shadow: 0 32px 50px -24px #d1d0d3;
+  &:hover {
+    box-shadow: 0 32px 50px -24px #d1d0d3;
+  }
+  & .image {
+    overflow: hidden;
+    & img {
+      transition: all 0.5s;
+    }
+  }
+  & .image:hover img {
+    transform: scale(1.2);
   }
 
   &-img {
@@ -19,15 +33,20 @@
     @include flex(flex-start, flex-start);
     flex-direction: column;
     & .title {
-	  @include excerp(1);
+      @include excerp(1);
       color: $color-primary-dark;
-      font-size: 22px;
-	  margin-bottom: 5px;
+	  @include medium{
+		font-size: 22px;
+		line-height: 30px;
+	  };
+      font-size: 18px;
+      margin-bottom: 5px;
       font-weight: 600;
       text-decoration: none;
-	  &:hover{
-		text-decoration: underline
-	  }
+      line-height: 22px;
+      &:hover {
+        text-decoration: underline;
+      }
     }
     & .info {
       @include flex(center, flex-start);
@@ -48,12 +67,16 @@
     }
     & .description {
       color: $color-text-primary-light;
-	  max-height: 75px;
-	  line-height: 20px;
-	  @include excerp($lineCount: 3);
+      max-height: 75px;
+      line-height: 20px;
+      @include excerp($lineCount: 2);
+	  font-size: 14px;
+	  @include medium{
+		font-size: 16px;
+	  }
     }
-	& .date{
-		font-size: 14px;
-	}
+    & .date {
+      font-size: 14px;
+    }
   }
 }

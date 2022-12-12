@@ -4,6 +4,7 @@ import Tag, { ITag } from './Tag'
 import moment from 'moment'
 import { FaCalendarAlt } from 'react-icons/fa'
 import { IAuthor } from '../../def/author'
+import Link from "next/link"
 export interface IPostHeader {
   title: string
   tags: string[]
@@ -45,7 +46,7 @@ const PostHeader = ({
         <Dot />
         <p>{minuteRead} minutes read</p>
         <Dot />
-        <a href="#comment">Bình luận</a>
+        <Link href="#comment">Bình luận</Link>
       </div>
       <div className="mt-4">
         <Avatar src={author?.avatar || ''} width={90} height={90} />

@@ -147,7 +147,7 @@ const Navbar = () => {
               }}
             />
           </div>
-          <div className="col-6 col-xl-2 col-lg-2 col-sm-3 col-md-2 logo">
+          <div className="col-6 col-xl-2 col-lg-2 col-sm-3 col-md-2 logo text-center">
             <Link href="/" passHref>
               <Image
                 src="/logo.png"
@@ -158,7 +158,7 @@ const Navbar = () => {
               />
             </Link>
           </div>
-          <div className="col-xl-8 col-sm-6 col-lg-5 col-md-5 col-7 contentContainer d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex">
+          <div className="col-xl-8 col-sm-6 col-lg-5 col-md-5 col-7 contentContainer d-none d-md-flex d-lg-flex d-xl-flex">
             <div className="nav-item">
               <Link href={'/about'}> About me</Link>
             </div>
@@ -174,7 +174,7 @@ const Navbar = () => {
               <div className="item">
                 <span
                   style={{ padding: 5 }}
-                  className="d-flex d-sm-none d-md-none d-lg-none d-xl-none"
+                  className="d-flex d-sm-none d-xl-none"
                 >
                   <VscThreeBars
                     size={25}

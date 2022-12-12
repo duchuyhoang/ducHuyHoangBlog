@@ -115,7 +115,7 @@ const Home: NextPage = (props: any) => {
     <>
       <div className="row">
         <section
-          className="col-3 d-xl-block d-lg-block d-md-block d-sm-none d-none"
+          className="col-3 d-md-block d-sm-none d-none"
           style={{ background: '#f2f1f5' }}
           //   , width: "310px"
         >

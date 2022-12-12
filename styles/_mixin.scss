@@ -1,24 +1,25 @@
 @mixin large {
-  @media screen and (min-width: $extra-large) {
+  @media screen and (min-width: $large-width) {
     @content;
   }
 }
 
 @mixin medium {
-  @media screen and (min-width: $large-width) and (max-width: $extra-large) {
+  @media screen and (min-width: $medium-width) {
     @content;
   }
 }
 
 @mixin small {
   // and (max-width: $large-width)
-  @media only screen and (min-width: $medium-width) and (max-width: $large-width) {
+  @media only screen and (min-width: $small-width) {
     @content;
   }
 }
+// and (max-width: $medium-width)
 
 @mixin mobile {
-  @media only screen and (min-width: $small-width) and (max-width: $medium-width) {
+  @media only screen and (min-width: $small-width) {
     @content;
   }
 }

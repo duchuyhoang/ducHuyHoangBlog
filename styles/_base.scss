@@ -2,7 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 body {
   overflow-x: hidden;
-  font-family: "Inter var experimental", "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Inter var experimental', 'Inter var', ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Helvetica, Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 html {
   scroll-behavior: smooth;
@@ -77,24 +80,24 @@ html {
 }
 
 @each $number in $numbers {
+//   @include large {
+//     .col-xl-#{$number} {
+//       width: (100 * $number) / $colMax * 1% !important;
+//     }
+//   }
   @include large {
-    .col-xl-#{$number} {
-      width: (100 * $number) / $colMax * 1% !important;
-    }
-  }
-  @include medium {
     .col-lg-#{$number} {
       width: (100 * $number) / $colMax * 1% !important;
     }
   }
 
-  @include small {
+  @include medium {
     .col-md-#{$number} {
       width: (100 * $number) / $colMax * 1% !important;
     }
   }
 
-  @include mobile {
+  @include small {
     .col-sm-#{$number} {
       width: (100 * $number) / $colMax * 1% !important;
     }
@@ -117,20 +120,36 @@ html {
 //   }
 // }
 
-@include large {
-  .d-xl-none {
+@include small {
+  .d-sm-none {
     display: none !important;
   }
-  .d-xl-block {
+  .d-sm-block {
     display: block !important;
   }
-  .d-xl-flex {
+  .d-sm-flex {
     display: flex !important;
   }
   .container {
     width: ($extra-large - $totalContainerPadding);
   }
 }
+
+@include medium {
+  .d-md-none {
+    display: none !important;
+  }
+  .d-md-block {
+    display: block !important;
+  }
+  .d-md-flex {
+    display: flex !important;
+  }
+  .container {
+    width: ($extra-large - $totalContainerPadding);
+  }
+}
+
 @include medium {
   .d-lg-none {
     display: none !important;
@@ -146,14 +165,14 @@ html {
   }
 }
 
-@include small {
-  .d-md-none {
+@include large {
+  .d-xl-none {
     display: none !important;
   }
-  .d-md-block {
+  .d-xl-block {
     display: block !important;
   }
-  .d-md-flex {
+  .d-xl-flex {
     display: flex !important;
   }
   .container {
@@ -161,20 +180,6 @@ html {
   }
 }
 
-@include mobile {
-  .d-sm-none {
-    display: none !important;
-  }
-  .d-sm-block {
-    display: block !important;
-  }
-  .d-sm-flex {
-    display: flex !important;
-  }
-  .container {
-    width: ($extra-large - $totalContainerPadding);
-  }
-}
 .flex-row-reverse {
   flex-direction: row-reverse;
 }
