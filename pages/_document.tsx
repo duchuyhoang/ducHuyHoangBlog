@@ -6,6 +6,7 @@ const Document = () => {
     <Html>
       <Head>
         <meta property="custom" content="addaad" />
+        <base href="/ducHuyHoangBlog/"></base>
       </Head>
 
       <body>
