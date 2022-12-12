@@ -2,13 +2,16 @@
   "name": "duc-huy-hoang-blog",
   "version": "0.1.0",
   "private": true,
+  "homepage": "ducHuyHoangBlog",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
+    "export": "next export",
     "kill": "npx kill-port 3000 9099 8080 9000 9199 4000",
     "start": "npm run kill && concurrently \"next dev\" \"npm run emulator:start\"",
     "lint": "next lint",
-    "emulator:start": "firebase emulators:start --import=./export --export-on-exit"
+    "emulator:start": "firebase emulators:start --import=./export --export-on-exit",
+    "start:prod": "next start"
   },
   "types": "type.d.ts",
   "dependencies": {
