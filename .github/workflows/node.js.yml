@@ -36,4 +36,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
+          clean: true
           folder: out # The folder the action should deploy.

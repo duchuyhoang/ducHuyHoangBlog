@@ -38,6 +38,8 @@ module.exports = withTM(
     },
     eslint: {
       ignoreDuringBuilds: true
-    }
+    },
+    basePath: '/ducHuyHoangBlog',
+    assetPrefix: '/ducHuyHoangBlog'
   })
 )
