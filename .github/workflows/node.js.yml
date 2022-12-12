@@ -33,4 +33,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         token: ${{ secrets.ACCESS_KEY }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
         folder: out # The folder the action should deploy.
