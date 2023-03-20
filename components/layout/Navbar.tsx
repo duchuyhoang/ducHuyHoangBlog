@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useLayoutEffect
+} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Modal from '../shared/Modal'
@@ -12,9 +18,14 @@ import {
 import { getFirebase } from '../../services/firebase'
 import { useFirebaseContext } from '../../pages'
 import Input from '../shared/Input'
-import { AiOutlineSearch } from 'react-icons/ai'
+import { AiFillInstagram, AiOutlineSearch } from 'react-icons/ai'
 import { GrFormClose } from 'react-icons/gr'
+import { Row, Col } from 'react-bootstrap'
+import { FiSun, FiMoon } from 'react-icons/fi'
+import { BsMoon, BsSun } from 'react-icons/bs'
 
+import { THEME } from '../../common/enum'
+import { useTheme } from '../shared/Theme'
 const Navbar = () => {
   const [currentWindowOffsetY, setWindowOffsetY] = useState(0)
   // const [isHideScrollBar, setIsHideScrollBar] = useState<boolean>(false);
@@ -26,6 +37,15 @@ const Navbar = () => {
   const [searchKeyWord, setSearchKeyWord] = useState<string>()
   const context = useFirebaseContext()
   const [navbarHeight, setNavbarHeight] = useState<number>(0)
+  const { theme, setTheme } = useTheme()
+
+  useLayoutEffect(() => {
+    document.documentElement.setAttribute('theme', 'light')
+  }, [])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('theme', theme.toLowerCase())
+  }, [theme])
 
   useEffect(() => {
     setNavbarHeight(navRef.current?.offsetHeight ?? 0)
@@ -94,8 +114,9 @@ const Navbar = () => {
         style={{
           boxSizing: 'border-box'
         }}
+        id="navbar"
       >
-        <div className="row d-none d-sm-block d-md-block d-lg-block d-xl-block">
+        {/* <div className="row d-none d-sm-block d-md-block d-lg-block d-xl-block">
           <div
             className="accountContainer col-12 d-flex"
             style={{ justifyContent: 'flex-end' }}
@@ -116,57 +137,199 @@ const Navbar = () => {
               >
                 Sign up
               </p>
-              <span style={{ padding: 5 }}>
-                <AiOutlineSearch
-                  size={19}
-                  onClick={() => {
-                    setIsSeachInputOpen(prev => !prev)
-                  }}
-                />
-              </span>
             </div>
           </div>
-        </div>
+        </div> */}
         <section
           className="row"
           style={{
             justifyContent: 'space-between'
           }}
         >
-          <div
-            className="col-sm-3 d-sm-none d-md-none d-lg-none d-xl-none d-flex"
-            style={{
-              alignItems: 'center'
-              //   justifyContent: "center",
-            }}
-          >
-            <AiOutlineSearch
-              size={25}
-              onClick={() => {
-                setIsSeachInputOpen(prev => !prev)
-              }}
-            />
-          </div>
-          <div className="col-6 col-xl-2 col-lg-2 col-sm-3 col-md-2 logo text-center">
-            <Link href="/" passHref>
-              <Image
-                src="/logo.png"
-                alt="logo"
-                //   layout="fill"
-                width={150}
-                height={100}
+          <Row className="flex-nowrap">
+            <Col className="d-flex d-md-none align-items-center p-0" xs="1">
+              <AiOutlineSearch
+                size={25}
+                style={{
+                  fill: theme === THEME.DARK ? '#fff' : '#070615'
+                }}
+                onClick={() => {
+                  setIsSeachInputOpen(prev => !prev)
+                }}
               />
-            </Link>
-          </div>
-          <div className="col-xl-8 col-sm-6 col-lg-5 col-md-5 col-7 contentContainer d-none d-md-flex d-lg-flex d-xl-flex">
-            <div className="nav-item">
-              <Link href={'/about'}> About me</Link>
-            </div>
-            <div className="nav-item">Software</div>
-            <div className="nav-item">Tags</div>
-            {/* <div className="nav-item">Contact</div> */}
-          </div>
-          <div className="col-lg-4 col-md-5 col-sm-3 d-flex flex-row-reverse">
+            </Col>
+
+            {/* <div
+              className="col-sm-3 d-sm-none d-md-none d-lg-none d-xl-none d-flex"
+              style={{
+                alignItems: 'center'
+                //   justifyContent: "center",
+              }}
+            ></div> */}
+
+            <Col col="6" xs="10" md="3" lg="2" className="logo text-center">
+              <Link href="/" passHref>
+                <Image
+                  src="/logo.png"
+                  alt="logo"
+                  //   layout="fill"
+                  width={150}
+                  height={100}
+                />
+              </Link>
+            </Col>
+
+            <Col
+              col="6"
+              sm="9"
+              lg="10"
+              className="contentContainer d-none d-md-flex justify-content-end"
+            >
+              <Row className="d-flex">
+                <div className="nav-item">
+                  <Link href={'/'}> Home</Link>
+                </div>
+                <div className="nav-item">
+                  <Link href={'/about'}> About me</Link>
+                </div>
+                <div className="nav-item">Software</div>
+                <div className="nav-item">Tags</div>
+              </Row>
+
+              <Row
+                className="d-flex flex-nowrap"
+                style={{
+                  width: 'max-content'
+                }}
+              >
+                <span
+                  className="nav-item"
+                  style={{ padding: '0px', margin: '0px 5px' }}
+                >
+                  <Link href="https://www.facebook.com/croong.hoang" passHref>
+                    <a target={'_blank'}>
+                      <FaFacebookSquare
+                        size={25}
+                        style={{
+                          fill: theme === THEME.DARK ? '#fff' : '#070615'
+                        }}
+                      />
+                    </a>
+                  </Link>
+                </span>
+                <span
+                  className="nav-item"
+                  style={{ padding: '0px', margin: '0px 5px' }}
+                >
+                  <Link href="https://github.com/duchuyhoang" passHref>
+                    <a target={'_blank'}>
+                      <FaGithub
+                        size={25}
+                        style={{
+                          fill: theme === THEME.DARK ? '#fff' : '#070615'
+                        }}
+                      />
+                    </a>
+                  </Link>
+                </span>
+                <span
+                  className="nav-item"
+                  style={{
+                    padding: '0px',
+                    margin: '0px 5px',
+                    marginRight: '30px'
+                  }}
+                >
+                  <Link
+                    href="https://www.instagram.com/duchuy_h/?hl=en"
+                    passHref
+                  >
+                    <a target={'_blank'}>
+                      <AiFillInstagram
+                        size={25}
+                        style={{
+                          fill: theme === THEME.DARK ? '#fff' : '#070615'
+                        }}
+                      />
+                    </a>
+                  </Link>
+                </span>
+                <span
+                  style={{
+                    padding: '0px 5px',
+                    width: '30px',
+                    marginBottom: '3px'
+                  }}
+                >
+                  {theme === THEME.DARK ? (
+                    <BsSun
+                      style={{
+                        cursor: 'pointer',
+                        fill: theme === THEME.DARK ? '#fff' : '#070615'
+                      }}
+                      size={21}
+                      onClick={() => {
+                        setTheme(THEME.LIGHT)
+                      }}
+                    />
+                  ) : (
+                    <BsMoon
+                      style={{
+                        cursor: 'pointer',
+                        fill: theme === THEME.DARK ? '#fff' : '#070615'
+                      }}
+                      size={19}
+                      onClick={() => {
+                        setTheme(THEME.DARK)
+                      }}
+                    />
+                  )}
+                </span>
+
+                <span
+                  style={{
+                    padding: '0px 5px',
+                    marginBottom: '3px',
+                    width: 'max-content'
+                  }}
+                >
+                  <AiOutlineSearch
+                    style={{
+                      cursor: 'pointer',
+                      fill: theme === THEME.DARK ? '#fff' : '#070615'
+                    }}
+                    size={23}
+                    onClick={() => {
+                      setIsSeachInputOpen(prev => !prev)
+                    }}
+                  />
+                </span>
+              </Row>
+            </Col>
+
+            <Col className="d-flex d-md-none p-0 align-items-center justify-content-end">
+              <div
+                className="accountContainer d-flex mt-2"
+                style={{ justifyContent: 'flex-end' }}
+              >
+                <div className="item">
+                  <span style={{ padding: 5 }} className="d-flex">
+                    <VscThreeBars
+                      size={25}
+                      style={{
+                        fill: theme === THEME.DARK ? '#fff' : '#070615'
+                      }}
+                      onClick={() => {
+                        setIsOpenSidebarOpen(true)
+                      }}
+                    />
+                  </span>
+                </div>
+              </div>
+            </Col>
+          </Row>
+
+          {/* <div className="col-lg-4 col-md-5 col-sm-3 d-flex flex-row-reverse">
             <div
               className="accountContainer d-flex mt-2"
               style={{ justifyContent: 'flex-end' }}
@@ -178,6 +341,9 @@ const Navbar = () => {
                 >
                   <VscThreeBars
                     size={25}
+                    style={{
+                      fill: theme === THEME.DARK ? '#fff' : '#070615'
+                    }}
                     onClick={() => {
                       setIsOpenSidebarOpen(true)
                     }}
@@ -185,15 +351,7 @@ const Navbar = () => {
                 </span>
               </div>
             </div>
-            <div className="expertContainer d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex">
-              <Link
-                href="https://www.facebook.com/croong.hoang"
-                //   className="expertBtn"
-              >
-                Talk to an expert
-              </Link>
-            </div>
-          </div>
+          </div> */}
         </section>
 
         <Modal
@@ -224,38 +382,7 @@ const Navbar = () => {
           </>
         </Modal>
       </nav>
-      <div
-        className="searchContainer"
-        style={{
-          ...(isSearchInputOpen && {
-            top: navRef.current?.offsetHeight ?? 0 + 4,
-            visibility: 'visible'
-          })
-        }}
-      >
-        <AiOutlineSearch
-          className="searchIcon"
-          size={18}
-          onClick={() => {
-            setIsSeachInputOpen(prev => !prev)
-          }}
-        />
-        <Input
-          value={searchKeyWord}
-          onChange={e => {
-            console.log(e)
-            setSearchKeyWord(e.target.value)
-          }}
-        />
-        <GrFormClose
-          className="closeIcon"
-          size={18}
-          onClick={() => {
-            setIsSeachInputOpen(false)
-            setSearchKeyWord('')
-          }}
-        />
-      </div>
+
       <div
         className="hideSidebar"
         style={{
@@ -270,7 +397,7 @@ const Navbar = () => {
                 style={{
                   width: '120px',
                   height: '80px',
-                  backgroundImage: 'url("/logo.png")',
+                  backgroundImage: 'url("/ducHuyHoangBlog/logo.png")',
                   backgroundSize: 'contain',
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center center'

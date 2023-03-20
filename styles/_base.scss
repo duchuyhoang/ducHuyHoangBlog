@@ -6,6 +6,7 @@ body {
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
     Helvetica, Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  background-color: var(--color-body) !important;
 }
 html {
   scroll-behavior: smooth;
@@ -35,6 +36,10 @@ html {
   margin-right: auto;
   margin-left: auto;
 }
+
+// a {
+//   color: var(--hover-primary) !important;
+// }
 
 @for $index from 0 through length($spaces)-1 {
   $value: nth($spaces, $index + 1);
@@ -80,32 +85,32 @@ html {
 }
 
 @each $number in $numbers {
-//   @include large {
-//     .col-xl-#{$number} {
-//       width: (100 * $number) / $colMax * 1% !important;
-//     }
-//   }
-  @include large {
-    .col-lg-#{$number} {
-      width: (100 * $number) / $colMax * 1% !important;
-    }
-  }
+  //   @include large {
+  //     .col-xl-#{$number} {
+  //       width: (100 * $number) / $colMax * 1% !important;
+  //     }
+  //   }
+  // @include large {
+  //   .col-lg-#{$number} {
+  //     width: (100 * $number) / $colMax * 1% !important;
+  //   }
+  // }
 
-  @include medium {
-    .col-md-#{$number} {
-      width: (100 * $number) / $colMax * 1% !important;
-    }
-  }
+  // @include medium {
+  //   .col-md-#{$number} {
+  //     width: (100 * $number) / $colMax * 1% !important;
+  //   }
+  // }
 
-  @include small {
-    .col-sm-#{$number} {
-      width: (100 * $number) / $colMax * 1% !important;
-    }
-  }
+  // @include small {
+  //   .col-sm-#{$number} {
+  //     width: (100 * $number) / $colMax * 1% !important;
+  //   }
+  // }
 
-  .col-#{$number} {
-    width: (100 * $number) / $colMax * 1%;
-  }
+  // .col-#{$number} {
+  //   width: (100 * $number) / $colMax * 1%;
+  // }
 }
 
 // @include xl {

@@ -4,7 +4,7 @@ import Tag, { ITag } from './Tag'
 import moment from 'moment'
 import { FaCalendarAlt } from 'react-icons/fa'
 import { IAuthor } from '../../def/author'
-import Link from "next/link"
+import Link from 'next/link'
 export interface IPostHeader {
   title: string
   tags: string[]
@@ -32,7 +32,7 @@ const PostHeader = ({
           <Tag value={tag} key={`tag_${index}`} />
         ))}
       </div>
-      <h1 className="w-50 text-center col-9 col-sm-10">{title}</h1>
+      <h1 className="text-center col-9 col-sm-10">{title}</h1>
       <div className="mt-4 d-flex align-center">
         <div className="d-flex align-center">
           <FaCalendarAlt
@@ -40,8 +40,11 @@ const PostHeader = ({
             style={{ fill: '#171e22' }}
             size={17}
           />
-
-          {moment(date).isValid() ? `${moment(date).format('DD-MM-YYYY')}` : ''}
+          <p>
+            {moment(date).isValid()
+              ? `${moment(date).format('DD-MM-YYYY')}`
+              : ''}
+          </p>
         </div>
         <Dot />
         <p>{minuteRead} minutes read</p>

@@ -3,6 +3,10 @@ import React from 'react'
 import moment from 'moment'
 import { IPost } from './FeaturePost'
 import { NextRouter, useRouter } from 'next/router'
+import ShowMoreText from './ShowMore'
+import { THEME } from '../../common/enum'
+import { useTheme } from './Theme'
+import { BiCalendar } from 'react-icons/bi'
 const HorizontalCardPost = ({
   author,
   date,
@@ -13,18 +17,29 @@ const HorizontalCardPost = ({
   tags
 }: IPost) => {
   const router: NextRouter = useRouter()
+  const { theme } = useTheme()
 
-  const handleRedirect = () => {
-    router.push(`/post/${slug}`)
+  const handleRedirect = async () => {
+    await router.push(`/post/${slug}`)
   }
 
   return (
-    <div className="horizontal-card" onClick={handleRedirect}>
-      <div className="col-5 col-md-3 image">
+    <div
+      className="horizontal-card flex-sm-nowrap"
+      onClick={handleRedirect}
+      style={{
+        boxShadow:
+          theme === THEME.LIGHT
+            ? '1px 1px 6px rgba(216, 216, 216, 0.5)'
+            : 'none'
+        // backgroundColor:theme === THEME.LIGHT ? "none" : ""
+      }}
+    >
+      <div className="image col-12 col-sm-3">
         <img src={image} alt="" className="horizontal-card-img" />
       </div>
-      <div className="col-7 col-md-9">
-        <div className="horizontal-card-content-container ml-2">
+      <div className="p-2 p-sm-3">
+        <div className="horizontal-card-content-container ml-2 mr-2">
           <Link href={`/post/${slug}`} passHref>
             <a className="title">{title}</a>
           </Link>
@@ -42,11 +57,16 @@ const HorizontalCardPost = ({
               ))}
             </div>
             <div className="col-lg-2 col-md-2 col-sm-12 col-12 d-flex align-center">
-              <span className="mr-1">•</span>
-              <p className="date">{moment(date).format('YYYY-MM-DD')}</p>
+              <span className="mr-1 mb-1">
+                <BiCalendar />
+              </span>
+              <p className="date mb-0">{moment(date).format('YYYY-MM-DD')}</p>
             </div>
           </div>
-          <div className="description">{description}</div>
+          <div className="description">
+            {description}
+            {/* <ShowMoreText lines={4}>{description}</ShowMoreText> */}
+          </div>
         </div>
       </div>
     </div>

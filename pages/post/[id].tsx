@@ -21,6 +21,7 @@ import Line from '../../components/shared/post/Line'
 import PostLink from '../../components/shared/post/PostLink'
 import Quote from '../../components/shared/post/Quote'
 import Comment from '../../components/shared/post/Comment'
+import Container from '../../components/layout/Container'
 
 export interface IPost {
   fileMetadata: { slug: string } & IPostHeader
@@ -104,16 +105,17 @@ const Post = (props: IPost) => {
   }, [fileMetadata])
 
   const { slug, tags, ...rest } = fileMetadata
-  
 
   return (
+    // <Container>
     <Layout>
       <PostHeader {...rest} tags={tags} />
-      <MDXRemote {...content} components={components} lazy/>
+      <MDXRemote {...content} components={components} lazy />
 
       <Tags tags={tags}></Tags>
       <Comment slug={slug} />
     </Layout>
+    // </Container>
   )
 }
 

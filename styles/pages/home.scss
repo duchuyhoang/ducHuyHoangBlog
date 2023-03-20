@@ -1,12 +1,26 @@
 .recent-post {
   padding: 10px;
+  .slick-slide {
+    margin: 0 10px;
+  }
+
+  /* the parent */
+  .slick-list {
+    margin: 0 -10px;
+  }
   &-title {
     font-size: 20px;
     font-weight: 400;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: var(--color-text);
   }
   .slick-track {
     padding: 1px;
+    display: flex;
+    flex-wrap: nowrap;
   }
 }
 .older-post {
@@ -16,11 +30,26 @@
     font-weight: 400;
     margin-bottom: 10px;
   }
-  &-container{
-	  display: flex;
-	  flex-direction: column;
-	  & > div{
-		  margin-bottom: 20px;
-	  }
+  &-container {
+    display: flex;
+    flex-direction: column;
+    & > div {
+      margin-bottom: 20px;
+    }
+  }
+}
+.intro {
+  height: 250px;
+  width: 100%;
+  background: url('/ducHuyHoangBlog/intro.jpeg');
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    font-size: 40px;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #fff;
   }
 }

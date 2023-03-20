@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 import { IAuthor } from '../def/author'
+import ShowMoreText from './ShowMore'
+
 export interface IPost {
   author: IAuthor
   date: Maybe<Date>
@@ -9,6 +11,16 @@ export interface IPost {
   description: string
   image?: string
   tags: string[]
+}
+
+const FeaturePostWrapper = () => {
+  return (
+    <section className="feature-post-wrapper">
+      <FeaturePost />
+      <FeaturePost />
+      <FeaturePost />
+    </section>
+  )
 }
 
 const FeaturePost = () => {
@@ -36,16 +48,23 @@ const FeaturePost = () => {
           </Link>
         </div>
         <p className="feature-post-content">
-          GitLab allows companies to do away with the many point solutions that
-          have been digitally duct taped together and instead bring all DevOps
-          functionalities together in ONE place
-          <Link href="/hello" passHref>
-            <a>Read on</a>
-          </Link>
+          <ShowMoreText
+            lines={4}
+            more={
+              <Link href="/hello" passHref>
+                <a>Read on</a>
+              </Link>
+            }
+            expandByClick={false}
+          >
+            GitLab allows companies to do away with the many point solutions
+            that have been digitally duct taped together and instead bring all
+            DevOps functionalities together in ONE place
+          </ShowMoreText>
         </p>
       </div>
     </div>
   )
 }
 
-export default FeaturePost
+export default FeaturePostWrapper

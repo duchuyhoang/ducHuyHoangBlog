@@ -6,6 +6,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "extends": [
+    "next/core-web-vitals",
     "plugin:react/recommended",
     "standard-with-typescript",
     "eslint:recommended",
@@ -51,8 +52,15 @@
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "rules": {
     "@typescript-eslint/dot-notation": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    
     "quotes": ["error", "single"],
     "multiline-ternary": ["off"],
-    "space-before-function-paren": ["off"]
+    "space-before-function-paren": ["off"],
+    "strict": ["error", "global"],
+    "prefer-const": "error"
   }
 }

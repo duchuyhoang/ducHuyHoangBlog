@@ -1,9 +1,54 @@
+.feature-post-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0px !important;
+  @media screen and (min-width: $medium-width) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 15px;
+    max-height: 700px;
+    & .feature-post:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+      height: 590px;
+      &-tag {
+      }
+    }
+    .feature-post:not(:first-child) {
+      & {
+        $class: feature-post;
+        height: 287px;
+        padding: 10px;
+        overflow: hidden;
+        .#{$class}-tag {
+          margin-bottom: 5px;
+        }
+        .#{$class}-info {
+          p {
+            margin-top: 0px;
+            margin-block-end: 0px;
+          }
+        }
+        .#{$class}-content {
+          width: 100%;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
 .feature-post {
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: 20px;
   &::after {
-    content: "";
+    content: '';
+    border-radius: 20px;
     background: linear-gradient(
       20deg,
       rgba(37, 27, 63, 0.9) 25%,
@@ -15,6 +60,13 @@
     height: 100%;
   }
   padding: 45px 40px;
+  @media screen and (max-width: $medium-width) {
+    padding: 20px;
+    &-tag {
+      padding: 6px 10px !important;
+      margin-bottom: 20px !important;
+    }
+  }
 
   &-tag {
     background-color: $color-primary-dark;
@@ -22,8 +74,9 @@
     padding: 6px 15px;
     font-weight: 700;
     font-size: 16px;
-    margin-bottom: 80px;
-    width: 100px;
+    margin-bottom: 40px;
+    width: 130px;
+    border-radius: 10px;
     font-weight: bold;
   }
   &-info {
@@ -57,9 +110,12 @@
     }
   }
   &-content {
-    width: 85%;
-    color: $color-primary-light;
-	line-height: 20px;
+    width: 100%;
+    span {
+      color: $color-primary-light;
+      line-height: 20px;
+    }
+
     a {
       margin-left: 5px;
       color: $color-primary-light;

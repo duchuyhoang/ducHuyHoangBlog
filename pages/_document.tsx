@@ -7,6 +7,11 @@ const Document = () => {
       <Head>
         <meta property="custom" content="addaad" />
         <base href="/ducHuyHoangBlog/"></base>
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="/ducHuyHoangBlog/logo.png"
+        ></link>
       </Head>
 
       <body>

@@ -58,6 +58,7 @@ const PreTag = ({
 }) => {
   // eslint-disable-next-line react/display-name
   return preProps => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isCopied, setIsCopied] = useState<boolean>(false)
 
     const onCopySucceed = () => {
