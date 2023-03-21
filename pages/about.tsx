@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { AiOutlineMail } from 'react-icons/ai'
 import { FaFacebookSquare, FaGithub, FaLinkedin } from 'react-icons/fa'
 import HoverEffect from 'hover-effect'
+import useDocumentTitle from '../common/hooks/useDocumentTitle'
 
 enum Person {
   ME = 'ME',
@@ -13,6 +14,10 @@ const About = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [hoverEffect, setHoverEffect] = useState<any>(null)
   const [currentPerson, setCurrentPerson] = useState<Person>(Person.ME)
+
+  useDocumentTitle({
+    title: 'About me'
+  })
 
   const handleClick = useCallback(() => {
     if (currentPerson === Person.ME) {
@@ -36,7 +41,7 @@ const About = () => {
   }, [])
 
   return (
-    <section className="about w-100">
+    <section className="about w-100 mt-4">
       <div className="about-tab-container w-100 d-flex">
         <div className="about-content">
           <div
@@ -60,7 +65,9 @@ const About = () => {
                   đóng góp gì hãy liên lạc với mình qua thông tin bên dưới
                 </p>
                 <q>
-                  <i>To infinity and beyond 🚀</i>
+                  <i style={{ paddingRight: '2px' }}>
+                    To infinity and beyond 🚀
+                  </i>
                 </q>
                 <div className="col-12 row align-center social-wrapper mt-4">
                   <Link
@@ -100,7 +107,7 @@ const About = () => {
           )}
         </div>
 
-        <ul className="d-flex justify-center tab-header-container w-100 mt-5">
+        {/* <ul className="d-flex justify-center tab-header-container w-100 mt-5">
           <li
             className={`header-item ${
               currentPerson === Person.ME ? 'header-item-active' : ''
@@ -117,7 +124,7 @@ const About = () => {
           >
             About my love ❤️
           </li>
-        </ul>
+        </ul> */}
       </div>
     </section>
   )

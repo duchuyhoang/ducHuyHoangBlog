@@ -13,7 +13,7 @@ export interface IPostHeader {
   author: IAuthor
 }
 const Dot = (props = {}) => (
-  <div className="ml-1 mr-1" {...props}>
+  <div className="ml-1 mr-1 dot" {...props}>
     -
   </div>
 )
@@ -26,13 +26,13 @@ const PostHeader = ({
   author
 }: IPostHeader) => {
   return (
-    <div className="post-header mt-4">
+    <div className="post-header pt-4">
       <div className="tag-wrapper mb-3">
         {tags.map((tag, index) => (
           <Tag value={tag} key={`tag_${index}`} />
         ))}
       </div>
-      <h1 className="text-center col-9 col-sm-10">{title}</h1>
+      <h1 className="text-center col-12 post-header-title">{title}</h1>
       <div className="mt-4 d-flex align-center">
         <div className="d-flex align-center">
           <FaCalendarAlt
@@ -54,7 +54,7 @@ const PostHeader = ({
       <div className="mt-4">
         <Avatar src={author?.avatar || ''} width={90} height={90} />
       </div>
-      <div className="mt-4 d-flex align-center justify-center">
+      <div className="mt-4 d-flex align-center justify-center author">
         {author?.name || 'Anomyous'}
       </div>
     </div>

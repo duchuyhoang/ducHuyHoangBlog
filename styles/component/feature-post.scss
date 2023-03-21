@@ -1,11 +1,11 @@
 .feature-post-wrapper {
-  display: inline-flex;
+  display: inline-flex !important;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 12px;
   padding: 0px !important;
   @media screen and (min-width: $medium-width) {
-    display: grid;
+    display: grid !important;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-gap: 15px;
@@ -17,7 +17,7 @@
       &-tag {
       }
     }
-    .feature-post:not(:first-child) {
+    .child {
       & {
         $class: feature-post;
         height: 287px;
@@ -62,6 +62,7 @@
   padding: 45px 40px;
   @media screen and (max-width: $medium-width) {
     padding: 20px;
+    height: auto !important;
     &-tag {
       padding: 6px 10px !important;
       margin-bottom: 20px !important;
@@ -96,18 +97,18 @@
       font-weight: 500;
       cursor: pointer;
       text-decoration: none;
-
+      @include excerp(2);
+      height: 70px;
       &:hover {
         opacity: 0.7;
       }
-
-      .horizontalBar {
-        margin-top: 20px;
-        background-color: #7759c2;
-        height: 5px;
-        width: 95px;
-      }
     }
+  }
+  .horizontalBar {
+    margin: 10px 0px;
+    background-color: #7759c2;
+    height: 5px;
+    width: 95px;
   }
   &-content {
     width: 100%;

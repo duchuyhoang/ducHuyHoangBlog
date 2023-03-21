@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { THEME } from '../../common/enum'
 
 const ThemeContext = React.createContext<any>({
@@ -11,7 +11,11 @@ const ThemeContext = React.createContext<any>({
 export const useTheme = () => useContext(ThemeContext)
 
 const Theme = ({ children }: any) => {
-  const [theme, setTheme] = useState(THEME.LIGHT)
+  const [theme, setTheme] = useState(THEME.DARK)
+
+  useEffect(() => {
+    window.document.body.style.backgroundColor = 'var(--bg-primary)!important'
+  }, [theme])
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}

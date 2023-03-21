@@ -38,13 +38,13 @@ const HorizontalCardPost = ({
       <div className="image col-12 col-sm-3">
         <img src={image} alt="" className="horizontal-card-img" />
       </div>
-      <div className="p-2 p-sm-3">
+      <div className="p-2 p-sm-3 col-12 col-sm-9">
         <div className="horizontal-card-content-container ml-2 mr-2">
           <Link href={`/post/${slug}`} passHref>
             <a className="title">{title}</a>
           </Link>
           <div className="d-flex w-100 mb-1" style={{ flexWrap: 'wrap' }}>
-            <div className="col-lg-10 col-md-10 col-sm-12 col-12 info mt-1 mb-2">
+            <div className="col-md-10 col-12 info mb-2">
               <p>{author?.name}</p>
               <span className="ml-1 mr-1">on</span>
               {tags?.map((tag, index) => (
@@ -56,7 +56,7 @@ const HorizontalCardPost = ({
                 </>
               ))}
             </div>
-            <div className="col-lg-2 col-md-2 col-sm-12 col-12 d-flex align-center">
+            <div className="col-md-2 col-12 d-flex align-center">
               <span className="mr-1 mb-1">
                 <BiCalendar />
               </span>

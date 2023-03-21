@@ -33,7 +33,6 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
-        console.log(entries)
         setIsShowScrollTop(!entries[0].isIntersecting)
       },
       {
@@ -44,6 +43,7 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
     )
     observer.observe(document.getElementById('scroll-anchor')!)
   }, [])
+
   return (
     <Provider store={store}>
       <Theme>

@@ -1,4 +1,5 @@
 import { NextIncomingMessage } from 'next/dist/server/request-meta'
+import { PAGE_PREFIX } from './constants'
 
 export const buildHostUrl = (req: NextIncomingMessage | undefined): string => {
   if (!req) return ''
@@ -15,4 +16,21 @@ export const makeid = (length: number): string => {
     result += characters.charAt(Math.floor(Math.random() * charactersLength))
   }
   return result
+}
+
+export const getImageSrc = (src: string): string => {
+  if (src.startsWith('https://') || src.startsWith('http://')) {
+    return src
+  } else {
+    return `${PAGE_PREFIX}/${
+      src.startsWith('/') ? src.slice(0, src.length) : src
+    }`
+  }
+}
+
+export const getPostSrc = (slug: string): string => {
+  const POST_PREFIX = '/post'
+  return `${POST_PREFIX}/${
+    slug.startsWith('/') ? slug.slice(0, slug.length) : slug
+  }`
 }

@@ -17,10 +17,12 @@ html[theme='light'] {
   --color-text-primary: #252525;
   --color-text-primary-dark: #74717a;
   --bg-primary: #fff;
+  --bg-404:#f0f2f5;
   --color-body: #fff;
   --card-bg: #fff;
   --color-text: #141c3a;
-  --hover-primary: #00b8f2;
+  // --hover-primary: #00b8f2;
+  --hover-primary: #6b4fbb;
   $text-hover-primary: #171e22;
   --color-description: #7c7c7c
   $hover-shadow: 0 52px 30px -14px #d1d0d3;
@@ -40,7 +42,9 @@ html[theme='dark'] {
   --bg-primary: #070615;
   --color-body: #1b1b1d;
   --card-bg: #2c2c2e;
-  --hover-primary: #00b8f2;
+  --bg-404:#2c2c2e;
+  // --hover-primary: #00b8f2;
+  --hover-primary: #6b4fbb;
   --color-text: #dedddd;
   --color-description: #e8e8e8;
   $text-hover-primary: #171e22;

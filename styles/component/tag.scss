@@ -17,4 +17,7 @@
   & a {
     margin: 0px 5px;
   }
+  & * {
+    color: var(--color-text);
+  }
 }

@@ -18,14 +18,18 @@ import {
 import { getFirebase } from '../../services/firebase'
 import { useFirebaseContext } from '../../pages'
 import Input from '../shared/Input'
-import { AiFillInstagram, AiOutlineSearch } from 'react-icons/ai'
-import { GrFormClose } from 'react-icons/gr'
+import {
+  AiFillInstagram,
+  AiOutlineSearch,
+  AiOutlineClose
+} from 'react-icons/ai'
 import { Row, Col } from 'react-bootstrap'
 import { FiSun, FiMoon } from 'react-icons/fi'
 import { BsMoon, BsSun } from 'react-icons/bs'
 
 import { THEME } from '../../common/enum'
 import { useTheme } from '../shared/Theme'
+import useMediaQuery from '../../hooks/useMediaQuery'
 const Navbar = () => {
   const [currentWindowOffsetY, setWindowOffsetY] = useState(0)
   // const [isHideScrollBar, setIsHideScrollBar] = useState<boolean>(false);
@@ -38,6 +42,7 @@ const Navbar = () => {
   const context = useFirebaseContext()
   const [navbarHeight, setNavbarHeight] = useState<number>(0)
   const { theme, setTheme } = useTheme()
+  const isMatch = useMediaQuery('(min-width: 880px)')
 
   useLayoutEffect(() => {
     document.documentElement.setAttribute('theme', 'light')
@@ -159,14 +164,6 @@ const Navbar = () => {
               />
             </Col>
 
-            {/* <div
-              className="col-sm-3 d-sm-none d-md-none d-lg-none d-xl-none d-flex"
-              style={{
-                alignItems: 'center'
-                //   justifyContent: "center",
-              }}
-            ></div> */}
-
             <Col col="6" xs="10" md="3" lg="2" className="logo text-center">
               <Link href="/" passHref>
                 <Image
@@ -202,58 +199,71 @@ const Navbar = () => {
                   width: 'max-content'
                 }}
               >
-                <span
-                  className="nav-item"
-                  style={{ padding: '0px', margin: '0px 5px' }}
-                >
-                  <Link href="https://www.facebook.com/croong.hoang" passHref>
-                    <a target={'_blank'}>
-                      <FaFacebookSquare
-                        size={25}
-                        style={{
-                          fill: theme === THEME.DARK ? '#fff' : '#070615'
-                        }}
-                      />
-                    </a>
-                  </Link>
-                </span>
-                <span
-                  className="nav-item"
-                  style={{ padding: '0px', margin: '0px 5px' }}
-                >
-                  <Link href="https://github.com/duchuyhoang" passHref>
-                    <a target={'_blank'}>
-                      <FaGithub
-                        size={25}
-                        style={{
-                          fill: theme === THEME.DARK ? '#fff' : '#070615'
-                        }}
-                      />
-                    </a>
-                  </Link>
-                </span>
-                <span
-                  className="nav-item"
-                  style={{
-                    padding: '0px',
-                    margin: '0px 5px',
-                    marginRight: '30px'
-                  }}
-                >
-                  <Link
-                    href="https://www.instagram.com/duchuy_h/?hl=en"
-                    passHref
+                {isMatch && (
+                  <div
+                    className="p-0"
+                    style={{
+                      width: 'max-content'
+                    }}
                   >
-                    <a target={'_blank'}>
-                      <AiFillInstagram
-                        size={25}
-                        style={{
-                          fill: theme === THEME.DARK ? '#fff' : '#070615'
-                        }}
-                      />
-                    </a>
-                  </Link>
-                </span>
+                    <span
+                      className="nav-item"
+                      style={{ padding: '0px', margin: '0px 5px' }}
+                    >
+                      <Link
+                        href="https://www.facebook.com/croong.hoang"
+                        passHref
+                      >
+                        <a target={'_blank'}>
+                          <FaFacebookSquare
+                            size={25}
+                            style={{
+                              fill: theme === THEME.DARK ? '#fff' : '#070615'
+                            }}
+                          />
+                        </a>
+                      </Link>
+                    </span>
+                    <span
+                      className="nav-item"
+                      style={{ padding: '0px', margin: '0px 5px' }}
+                    >
+                      <Link href="https://github.com/duchuyhoang" passHref>
+                        <a target={'_blank'}>
+                          <FaGithub
+                            size={25}
+                            style={{
+                              fill: theme === THEME.DARK ? '#fff' : '#070615'
+                            }}
+                          />
+                        </a>
+                      </Link>
+                    </span>
+                    <span
+                      className="nav-item"
+                      style={{
+                        padding: '0px',
+                        margin: '0px 5px',
+                        marginRight: '30px'
+                      }}
+                    >
+                      <Link
+                        href="https://www.instagram.com/duchuy_h/?hl=en"
+                        passHref
+                      >
+                        <a target={'_blank'}>
+                          <AiFillInstagram
+                            size={25}
+                            style={{
+                              fill: theme === THEME.DARK ? '#fff' : '#070615'
+                            }}
+                          />
+                        </a>
+                      </Link>
+                    </span>
+                  </div>
+                )}
+
                 <span
                   style={{
                     padding: '0px 5px',
@@ -285,7 +295,6 @@ const Navbar = () => {
                     />
                   )}
                 </span>
-
                 <span
                   style={{
                     padding: '0px 5px',
@@ -404,7 +413,7 @@ const Navbar = () => {
                 }}
               ></div>
             </Link>
-            <GrFormClose
+            <AiOutlineClose
               className="icon"
               size={25}
               onClick={() => {

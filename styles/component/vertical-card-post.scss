@@ -32,6 +32,17 @@
 
   &-content {
     // padding: 20px;
+    .tag-container {
+      & a {
+        text-decoration: none;
+        color: var(--color-text);
+        font-size: 13px;
+        color: var(--hover-primary);
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 
   &-title {

@@ -1,9 +1,9 @@
 .about {
-  padding: 70px 0px;
+  padding: 100px 0px 0px 0px;
   min-height: 500px;
   display: flex;
   justify-content: center;
-  background-color: #f0f2f5;
+  background-color: var(--color-body);
   &-content {
     // @include large {
     //   min-height: 600px;
@@ -18,6 +18,7 @@
     justify-content: center;
     flex-wrap: wrap;
     align-items: stretch;
+    color: var(--color-text);
     & canvas {
       height: 100% !important;
       border-radius: 8px;
@@ -39,7 +40,7 @@
       }
     }
     .description {
-		min-height: 300px;
+      min-height: 300px;
       .name-wrapper {
         padding-bottom: 10px;
         border-bottom: 1px solid gray;
@@ -77,8 +78,12 @@
         }
         .social-wrapper {
           svg {
-            fill: black;
+            fill: var(--color-text);
             margin: 0px 2.5px;
+          }
+          a {
+            width: max-content;
+            padding: 0px 5px;
           }
         }
       }
@@ -95,9 +100,9 @@
       .header-item {
         font-size: 20px;
         padding: 8px 10px;
-		margin:0px 5px;
+        margin: 0px 5px;
         cursor: pointer;
-		border-radius: 8px;
+        border-radius: 8px;
         &:hover {
           background: black;
           color: #fff;

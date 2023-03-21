@@ -161,6 +161,7 @@
     top: 50%;
     cursor: pointer;
     transform: translate(-50%, -50%);
+    fill: var(--color-text);
   }
   .input {
     position: absolute;
@@ -181,12 +182,13 @@
   box-sizing: border-box;
   visibility: hidden;
   padding: 10px;
-  background-color: #fff;
-  //   & .icon{
-  // 	position: absolute;
-  // 	top:10px;
-  // 	right: 10px;
-  //   }
+  background-color: var(--color-body);
+  & .icon {
+    position: absolute;
+    fill: var(--color-text);
+    top: 20px;
+    right: 20px;
+  }
   & .title {
     text-align: center;
     color: $color-primary-dark;
@@ -194,7 +196,7 @@
   }
 
   & .item {
-    color: $color-primary-dark;
+    color: var(--color-text);
     padding: 10px;
     text-decoration: none;
     display: block;

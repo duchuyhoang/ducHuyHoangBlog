@@ -1,12 +1,25 @@
 .wrapper {
   @include flex(center, center);
-  top:0;
+  top: 0;
   left: 0;
   height: 100%;
   width: 100%;
+  background-color: var(--bg-404);
   flex-direction: column;
-  
+
   .image {
     // background
+  }
+  h2,
+  svg,
+  a {
+    color: var(--color-text);
+  }
+  & svg {
+    margin-top: 3px;
+  }
+  a:hover {
+    text-decoration: underline;
+    color: var(--hover-primary);
   }
 }

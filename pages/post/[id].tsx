@@ -22,6 +22,7 @@ import PostLink from '../../components/shared/post/PostLink'
 import Quote from '../../components/shared/post/Quote'
 import Comment from '../../components/shared/post/Comment'
 import Container from '../../components/layout/Container'
+import useDocumentTitle from '../../common/hooks/useDocumentTitle'
 
 export interface IPost {
   fileMetadata: { slug: string } & IPostHeader
@@ -98,11 +99,9 @@ export const components = {
 }
 const Post = (props: IPost) => {
   const { content, fileMetadata } = props
-  useEffect(() => {
-    if (fileMetadata?.title) {
-      document.title = fileMetadata.title
-    }
-  }, [fileMetadata])
+  useDocumentTitle({
+    title: fileMetadata.title
+  })
 
   const { slug, tags, ...rest } = fileMetadata
 

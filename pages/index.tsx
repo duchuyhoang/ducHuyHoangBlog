@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/indent */
 import React, { createContext, useContext, useMemo } from 'react'
@@ -19,7 +20,7 @@ import {
 } from 'firebase/firestore/lite'
 import Slider, { Settings } from 'react-slick'
 import { buildHostUrl } from '../common/utils'
-import FeaturePost, { IPost } from '../components/shared/FeaturePost'
+import FeaturePostList, { IPost } from '../components/shared/FeaturePost'
 import VerticalCardPost from '../components/shared/VerticalCardPost'
 import LeftSideBar from '../components/layout/LeftSideBar'
 import HorizontalCardPost from '../components/shared/HorizontalCardPost'
@@ -30,6 +31,11 @@ import matter from 'gray-matter'
 import useMediaQuery from '../hooks/useMediaQuery'
 import Theme from '../components/shared/Theme'
 import { Col, Container, Row } from 'react-bootstrap'
+import useDocumentTitle from '../common/hooks/useDocumentTitle'
+
+const FEATURE_POST_COUNT = 3
+const RECENT_POST_COUNT = 7
+
 // import { MDXProvider } from "@mdx-js/react";
 
 // export async function getStaticPaths() {}
@@ -93,55 +99,65 @@ export const useFirebaseContext = () => useContext(FirebaseContext)
 export const getStaticProps = async () => {
   const files = fs.readdirSync(path.join('posts'))
   const listPost: IPost[] = []
+  let listFeaturePost: IPost[] = []
+  const listRecentPost: IPost[] = []
   for (const file of files) {
     const fileContent = fs.readFileSync(path.join('posts', file), 'utf-8')
     const matterFileContent = matter(fileContent)
     listPost.push(matterFileContent.data as IPost)
   }
+  // Sort post by date
+  listPost.sort((a, b) => {
+    if (!a.date) return 1
+    if (!b.date) return -1
+    return new Date(b.date).getTime() - new Date(a.date).getTime()
+  })
+  listFeaturePost = listPost.filter(post => post.isFeature).slice(0, 3)
   return {
-    props: { listPost }
+    props: { listPost, listFeaturePost }
   }
 }
 
 const Home: NextPage = (props: any) => {
-  const { listPost } = props
+  const { listPost, listFeaturePost } = props
   const isSmall = useMediaQuery('(max-width: 650px)')
   const isMedium = useMediaQuery('(min-width: 650px) and (max-width: 1050px)')
   const isLarge = useMediaQuery('(min-width: 1050px) and (max-width: 1400px)')
   const isSuperLarge = useMediaQuery('(min-width: 1400px)')
-  // eslint-disable-next-line no-unneeded-ternary
-  console.log(isSmall ? false : isMedium ? false : true)
+  console.log('total', listPost)
+  console.log('list feature', listFeaturePost)
 
-  const settings = useMemo<Settings>(
-    () => ({
-      dots: true,
-      infinite: true,
-      speed: 500,
-      // eslint-disable-next-line no-unneeded-ternary
-      centerMode: isSmall ? false : isMedium ? false : true,
-      slidesToShow: isSmall ? 1 : isMedium ? 2 : 3,
-      slidesToScroll: 1,
-      // rows: 2,
-      // slidesPerRow: isSmall
-      //   ? 1
-      //   : isMedium
-      //   ? 2
-      //   : isLarge
-      //   ? 3
-      //   : isSuperLarge
-      //   ? 4
-      //   : 3,
-      arrows: false
-    }),
-    [isSmall, isMedium]
-  )
+  useDocumentTitle({
+    title: 'Home'
+  })
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    // eslint-disable-next-line no-unneeded-ternary
+    centerMode: isSmall ? false : isMedium ? false : true,
+    slidesToShow: isSmall ? 1 : isMedium ? 2 : 3,
+    slidesToScroll: 1,
+    // rows: 2,
+    // slidesPerRow: isSmall
+    //   ? 1
+    //   : isMedium
+    //   ? 2
+    //   : isLarge
+    //   ? 3
+    //   : isSuperLarge
+    //   ? 4
+    //   : 3,
+    arrows: false
+  }
   return (
     <>
       <section className="intro">
         <h1>I'm Huy</h1>
       </section>
       <Container fluid="lg pt-3">
-        <Row style={{ margin: '0px' }}>
+        <Row style={{ margin: '0px' }} className="p-0">
           {/* <section
           className="col-3 d-md-block d-sm-none d-none"
           style={{ background: '#f2f1f5' }}
@@ -160,7 +176,7 @@ const Home: NextPage = (props: any) => {
           />
         </section> */}
           {/* <Row> */}
-          <FeaturePost />
+          <FeaturePostList posts={listFeaturePost} />
           <div
             className="recent-post"
             style={{
@@ -168,7 +184,7 @@ const Home: NextPage = (props: any) => {
             }}
           >
             <h3 className="recent-post-title mt-4 pb-4">Recent post</h3>
-            <Slider {...settings}>
+            <Slider {...settings} centerMode={isSmall ? true : true}>
               <Col xs={3}>
                 <VerticalCardPost
                   title={
@@ -187,6 +203,7 @@ const Home: NextPage = (props: any) => {
                     'https://about.gitlab.com/images/blogimages/nobl9_1.jpeg'
                   }
                   tags={['News', 'Release', 'Algorithm']}
+                  isFeature={false}
                 />
               </Col>
 
@@ -208,6 +225,7 @@ const Home: NextPage = (props: any) => {
                     'https://about.gitlab.com/images/blogimages/nobl9_1.jpeg'
                   }
                   tags={[]}
+                  isFeature={false}
                 />
               </Col>
 
@@ -222,6 +240,7 @@ const Home: NextPage = (props: any) => {
                   date={new Date()}
                   slug={'hello1'}
                   tags={[]}
+                  isFeature={false}
                   image={'https://about.gitlab.com/images/blogimages/locks.jpg'}
                 />
               </Col>
@@ -239,6 +258,7 @@ const Home: NextPage = (props: any) => {
                   image={
                     'https://about.gitlab.com/images/blogimages/eosecurity.jpg'
                   }
+                  isFeature={false}
                 />
               </Col>
 
@@ -258,13 +278,14 @@ const Home: NextPage = (props: any) => {
                   image={
                     'https://about.gitlab.com/images/blogimages/eosecurity.jpg'
                   }
+                  isFeature={false}
                 />
               </Col>
             </Slider>
           </div>
 
-          <div className="older-post p-0">
-            <h3 className="older-post-title ml-4 mt-4">Older post</h3>
+          <div className="older-post pt-3">
+            <h3 className="older-post-title mt-4 mb-4">Older post</h3>
             <div className="older-post-container">
               {listPost.map((post: IPost, index: number) => (
                 <HorizontalCardPost {...post} key={`horizontal_${index}`} />

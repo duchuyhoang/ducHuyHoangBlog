@@ -3,3 +3,5 @@ export const ERROR_MAP = {
 }
 
 export const POST_FOLDER_NAME = 'posts'
+
+export const PAGE_PREFIX = '/ducHuyHoangBlog'

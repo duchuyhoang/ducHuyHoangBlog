@@ -9,7 +9,7 @@ const Footer = () => {
       <section className="footer">
         <div className="footer-wrapper">
           <div className="row justify-center mt-3" style={{ flexWrap: 'wrap' }}>
-            <div className="col-6 col-sm-12 d-sm-flex footer-info justify-center mb-2">
+            <div className="col-12 col-sm-6 d-flex footer-info justify-center mb-2">
               <h2 className="title">Duc Huy Hoang</h2>
               <p>To infinity and beyond 🚀</p>
               {/* <Image
@@ -20,7 +20,7 @@ const Footer = () => {
               height={100}
             /> */}
             </div>
-            <div className="col-6 col-sm-12 row justify-center align-center">
+            <div className="col-12 col-sm-6 row justify-center align-center">
               <Link href="https://www.instagram.com/duchuy_h/?hl=en" passHref>
                 <a target={'_blank'}>
                   <AiFillInstagram size={25} />
