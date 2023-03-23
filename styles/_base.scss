@@ -10,6 +10,7 @@ body {
 }
 html {
   scroll-behavior: smooth;
+  @include scrollbar();
 }
 .d-flex {
   display: flex;
@@ -36,10 +37,6 @@ html {
   margin-right: auto;
   margin-left: auto;
 }
-
-// a {
-//   color: var(--hover-primary) !important;
-// }
 
 @for $index from 0 through length($spaces)-1 {
   $value: nth($spaces, $index + 1);

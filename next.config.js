@@ -42,6 +42,29 @@ module.exports = withTM(
       ignoreDuringBuilds: true
     },
     webpack: config => {
+      config.module.rules.push({
+        test: /\.svg$/,
+        issuer: { and: [/\.(js|ts|md)x?$/] },
+        use: ({ resource }) => [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              prettier: false,
+              svgo: false,
+              svgoConfig: {
+                plugins: [
+                  {
+                    removeViewBox: false
+                  }
+                ]
+              },
+              titleProp: true,
+              ref: true
+            }
+          }
+        ]
+      })
+
       config.plugins.push(
         new ESLintPlugin({
           // Plugin options

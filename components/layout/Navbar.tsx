@@ -26,10 +26,13 @@ import {
 import { Row, Col } from 'react-bootstrap'
 import { FiSun, FiMoon } from 'react-icons/fi'
 import { BsMoon, BsSun } from 'react-icons/bs'
-
+import Logo from '../../public/logo.svg'
 import { THEME } from '../../common/enum'
 import { useTheme } from '../shared/Theme'
 import useMediaQuery from '../../hooks/useMediaQuery'
+import { useRouter } from 'next/router'
+import { ROUTERS } from '../../common/constants'
+
 const Navbar = () => {
   const [currentWindowOffsetY, setWindowOffsetY] = useState(0)
   // const [isHideScrollBar, setIsHideScrollBar] = useState<boolean>(false);
@@ -42,7 +45,8 @@ const Navbar = () => {
   const context = useFirebaseContext()
   const [navbarHeight, setNavbarHeight] = useState<number>(0)
   const { theme, setTheme } = useTheme()
-  const isMatch = useMediaQuery('(min-width: 880px)')
+  const isMatch = useMediaQuery('(min-width: 790px)')
+  const router = useRouter()
 
   useLayoutEffect(() => {
     document.documentElement.setAttribute('theme', 'light')
@@ -164,33 +168,55 @@ const Navbar = () => {
               />
             </Col>
 
-            <Col col="6" xs="10" md="3" lg="2" className="logo text-center">
+            <Col col="6" xs="10" md="2" lg="1" className="logo text-center">
               <Link href="/" passHref>
-                <Image
-                  src="/logo.png"
+                {/* <Image
+                  src="/logo.svg"
                   alt="logo"
                   //   layout="fill"
-                  width={150}
-                  height={100}
-                />
+                  width={80}
+                  height={120}
+                /> */}
+                <Logo width={70} height={60} fill={'var(--color-text)'} />
               </Link>
             </Col>
 
             <Col
               col="6"
               sm="9"
-              lg="10"
+              md="10"
+              lg="11"
               className="contentContainer d-none d-md-flex justify-content-end"
             >
               <Row className="d-flex">
-                <div className="nav-item">
-                  <Link href={'/'}> Home</Link>
+                <div
+                  className={`nav-item ${
+                    router.pathname === ROUTERS.HOME ? 'nav-active' : ''
+                  }`}
+                >
+                  <Link href={ROUTERS.HOME}> Home</Link>
                 </div>
-                <div className="nav-item">
-                  <Link href={'/about'}> About me</Link>
+                <div
+                  className={`nav-item ${
+                    router.pathname === ROUTERS.ABOUT ? 'nav-active' : ''
+                  }`}
+                >
+                  <Link href={ROUTERS.ABOUT}> About me</Link>
                 </div>
-                <div className="nav-item">Software</div>
-                <div className="nav-item">Tags</div>
+                <div
+                  className={`nav-item ${
+                    router.pathname === ROUTERS.SOFTWARE ? 'nav-active' : ''
+                  }`}
+                >
+                  <Link href={ROUTERS.SOFTWARE}> Software</Link>
+                </div>
+                <div
+                  className={`nav-item ${
+                    router.pathname === ROUTERS.TAGS ? 'nav-active' : ''
+                  }`}
+                >
+                  <Link href={ROUTERS.TAGS}> Tags</Link>
+                </div>
               </Row>
 
               <Row
@@ -401,21 +427,15 @@ const Navbar = () => {
       >
         <h2 className="title">
           <div className="d-flex justify-space-between align-center">
-            <Link href="/" passHref>
-              <div
-                style={{
-                  width: '120px',
-                  height: '80px',
-                  backgroundImage: 'url("/ducHuyHoangBlog/logo.png")',
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center center'
-                }}
-              ></div>
+            <Link href={ROUTERS.HOME} passHref>
+              <Logo width={70} height={70} fill={'var(--color-text)'} />
             </Link>
             <AiOutlineClose
               className="icon"
               size={25}
+              style={{
+                cursor: 'pointer'
+              }}
               onClick={() => {
                 setIsOpenSidebarOpen(false)
               }}
@@ -423,18 +443,49 @@ const Navbar = () => {
           </div>
         </h2>
         <div className="item-container">
-          <Link href="/about" passHref>
-            <a className="item" onClick={handleCloseHiddenSideBar}>
+          <Link href={ROUTERS.HOME} passHref>
+            <a
+              className={`item ${
+                router.pathname === ROUTERS.HOME ? 'item-active' : ''
+              }`}
+              onClick={handleCloseHiddenSideBar}
+            >
+              Home
+            </a>
+          </Link>
+
+          <Link href={ROUTERS.ABOUT} passHref>
+            <a
+              className={`item ${
+                router.pathname === ROUTERS.ABOUT ? 'item-active' : ''
+              }`}
+              onClick={handleCloseHiddenSideBar}
+            >
               About me
             </a>
           </Link>
 
-          <a href="" className="item">
-            Software
-          </a>
-          <a href="" className="item">
-            Tags
-          </a>
+          <Link href={ROUTERS.SOFTWARE} passHref>
+            <a
+              className={`item ${
+                router.pathname === ROUTERS.SOFTWARE ? 'item-active' : ''
+              }`}
+              onClick={handleCloseHiddenSideBar}
+            >
+              Software
+            </a>
+          </Link>
+
+          <Link href={ROUTERS.TAGS} passHref>
+            <a
+              className={`item ${
+                router.pathname === ROUTERS.TAGS ? 'item-active' : ''
+              }`}
+              onClick={handleCloseHiddenSideBar}
+            >
+              Tags
+            </a>
+          </Link>
         </div>
       </div>
     </>

@@ -1,0 +1,27 @@
+.tag-page {
+  margin-top: $header-height;
+  & > * {
+    color: var(--color-text);
+  }
+  .conditional-option-filter {
+    height: 30px;
+    width: 80px;
+    padding: 0px 5px;
+  }
+
+  &-title {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-text);
+    h1 {
+      margin-bottom: 0px;
+    }
+  }
+  .tag-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .post-container {
+    max-height: 600px;
+    overflow-y: auto;
+  }
+}

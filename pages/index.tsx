@@ -1,7 +1,14 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/indent */
-import React, { createContext, useContext, useMemo } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo
+} from 'react'
 
 import type { GetStaticProps, NextPage, NextPageContext } from 'next'
 import { getAuth, createUserWithEmailAndPassword, Auth } from 'firebase/auth'
@@ -35,10 +42,6 @@ import useDocumentTitle from '../common/hooks/useDocumentTitle'
 
 const FEATURE_POST_COUNT = 3
 const RECENT_POST_COUNT = 7
-
-// import { MDXProvider } from "@mdx-js/react";
-
-// export async function getStaticPaths() {}
 
 // export async function getServerSideProps(context: NextPageContext) {
 //   //   const session = await getSession(context);
@@ -112,33 +115,77 @@ export const getStaticProps = async () => {
     if (!b.date) return -1
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
-  listFeaturePost = listPost.filter(post => post.isFeature).slice(0, 3)
+  listFeaturePost = listPost
+    .filter(post => post.isFeature)
+    .slice(0, FEATURE_POST_COUNT)
+
+  const featurePostId = listFeaturePost.map(post => post.slug)
+
+  for (let i = 0; i < listPost.length; i++) {
+    const selectedPost = listPost[i]
+    if (!featurePostId.includes(selectedPost.slug)) {
+      listRecentPost.push(selectedPost)
+    }
+    if (listRecentPost.length === RECENT_POST_COUNT) {
+      break
+    }
+  }
   return {
-    props: { listPost, listFeaturePost }
+    props: { listPost, listFeaturePost, listRecentPost }
   }
 }
 
-const Home: NextPage = (props: any) => {
-  const { listPost, listFeaturePost } = props
+interface IHome {
+  listPost: IPost[]
+  listFeaturePost: IPost[]
+  listRecentPost: IPost[]
+  children?: ReactNode
+}
+
+const Home: NextPage<IHome, IHome> = props => {
+  const { listPost, listFeaturePost, listRecentPost } = props
   const isSmall = useMediaQuery('(max-width: 650px)')
   const isMedium = useMediaQuery('(min-width: 650px) and (max-width: 1050px)')
   const isLarge = useMediaQuery('(min-width: 1050px) and (max-width: 1400px)')
   const isSuperLarge = useMediaQuery('(min-width: 1400px)')
+  const totalRecent = listRecentPost.length
   console.log('total', listPost)
   console.log('list feature', listFeaturePost)
+  console.log('list recent', listRecentPost)
 
   useDocumentTitle({
     title: 'Home'
   })
 
-  const settings = {
+  // useEffect(() => {
+  //   document.querySelector('.slick-track')?.classList.add('init')
+  // }, [])
+
+  const settings: Settings = {
     dots: true,
-    infinite: true,
+    infinite: totalRecent > 2,
     speed: 500,
-    // eslint-disable-next-line no-unneeded-ternary
-    centerMode: isSmall ? false : isMedium ? false : true,
-    slidesToShow: isSmall ? 1 : isMedium ? 2 : 3,
+    // rtl: true,
+    // rtl: listRecentPost.length < 3 ? false : false,
+    centerMode: !(totalRecent > 2)
+      ? false
+      : isSmall
+      ? false
+      : isMedium
+      ? false
+      : true,
+    rtl: false,
+    // centerMode: true,
+    slidesToShow: isSmall
+      ? 1
+      : isMedium
+      ? Math.min(totalRecent, 2)
+      : isSuperLarge
+      ? Math.min(totalRecent, 4)
+      : Math.min(totalRecent, 3),
+    // slidesToShow: isSmall ? 1 : isMedium ? 2 : isSuperLarge ? 4 : 3,
     slidesToScroll: 1,
+
     // rows: 2,
     // slidesPerRow: isSmall
     //   ? 1
@@ -184,107 +231,25 @@ const Home: NextPage = (props: any) => {
             }}
           >
             <h3 className="recent-post-title mt-4 pb-4">Recent post</h3>
-            <Slider {...settings} centerMode={isSmall ? true : true}>
-              <Col xs={3}>
-                <VerticalCardPost
-                  title={
-                    'Learn Python with Pj! Part 4 - Dictionaries and Files adakdad akdakldad aklda;ldkad;ladk dâdjaj'
-                  }
-                  description={
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat itaque vitae, neque ullam sapiente dolor repudiandae accusamus optio consequatur repellat, voluptate praesentium, consequuntur quibusdam nostrum explicabo architecto? Impedit, cum illo. adadadnaldkad dajdakldjada kajdajkld dnada'
-                  }
-                  author={{
-                    name: 'Huy hoang',
-                    avatar: 'he'
-                  }}
-                  date={new Date()}
-                  slug={'hello'}
-                  image={
-                    'https://about.gitlab.com/images/blogimages/nobl9_1.jpeg'
-                  }
-                  tags={['News', 'Release', 'Algorithm']}
-                  isFeature={false}
-                />
-              </Col>
-
-              <Col xs={3}>
-                <VerticalCardPost
-                  title={
-                    'Learn Python with Pj! Part 4 - Dictionaries and Files adakdad akdakldad aklda;ldkad;ladk dâdjaj'
-                  }
-                  description={
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat itaque vitae, neque ullam sapiente dolor repudiandae accusamus optio consequatur repellat, voluptate praesentium, consequuntur quibusdam nostrum explicabo architecto? Impedit, cum illo. adadadnaldkad dajdakldjada kajdajkld dnada'
-                  }
-                  author={{
-                    name: 'Huy hoang',
-                    avatar: 'he'
-                  }}
-                  date={new Date()}
-                  slug={'hello'}
-                  image={
-                    'https://about.gitlab.com/images/blogimages/nobl9_1.jpeg'
-                  }
-                  tags={[]}
-                  isFeature={false}
-                />
-              </Col>
-
-              <Col xs={3}>
-                <VerticalCardPost
-                  title={'Hello world'}
-                  description={'dakdadlkadmalkdjalkjaclkajaad'}
-                  author={{
-                    name: 'Huy hoang 123',
-                    avatar: 'he'
-                  }}
-                  date={new Date()}
-                  slug={'hello1'}
-                  tags={[]}
-                  isFeature={false}
-                  image={'https://about.gitlab.com/images/blogimages/locks.jpg'}
-                />
-              </Col>
-              <Col xs={3}>
-                <VerticalCardPost
-                  title={'Hello world'}
-                  description={'dakdadlkadmalkdjalkjaclkajaad'}
-                  author={{
-                    name: 'Huy hoang 123',
-                    avatar: 'he'
-                  }}
-                  tags={[]}
-                  date={new Date()}
-                  slug={'hello2'}
-                  image={
-                    'https://about.gitlab.com/images/blogimages/eosecurity.jpg'
-                  }
-                  isFeature={false}
-                />
-              </Col>
-
-              <Col xs={3}>
-                <VerticalCardPost
-                  title={
-                    'Maximize Your eCommerce Potential with React Native Mobile Apps'
-                  }
-                  description={'hhhhh'}
-                  author={{
-                    name: 'Huy hoang 123',
-                    avatar: 'he'
-                  }}
-                  tags={[]}
-                  date={new Date()}
-                  slug={'hello2'}
-                  image={
-                    'https://about.gitlab.com/images/blogimages/eosecurity.jpg'
-                  }
-                  isFeature={false}
-                />
-              </Col>
+            <Slider {...settings}>
+              {listRecentPost.map(post => (
+                <Col xs={3} key={post.slug}>
+                  <VerticalCardPost
+                    title={post.title}
+                    description={post.description}
+                    author={post.author}
+                    date={post.date ? new Date(post.date) : null}
+                    slug={post.slug}
+                    tags={post.tags}
+                    isFeature={false}
+                    image={post.image}
+                  />
+                </Col>
+              ))}
             </Slider>
           </div>
 
-          <div className="older-post pt-3">
+          <div className="older-post pt-3 pb-4">
             <h3 className="older-post-title mt-4 mb-4">Older post</h3>
             <div className="older-post-container">
               {listPost.map((post: IPost, index: number) => (

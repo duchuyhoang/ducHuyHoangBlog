@@ -17,6 +17,8 @@ import store from '../redux'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { AiOutlineArrowUp } from 'react-icons/ai'
 import Theme from '../components/shared/Theme'
+import MobileThemeSwitch from '../components/shared/MobileThemeSwitch'
+
 const FirebaseContext = createContext(getFirebase())
 
 // const components = {
@@ -64,6 +66,8 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
               <AiOutlineArrowUp color="#fff" size={20} />
             </div>
           )}
+
+          <MobileThemeSwitch />
 
           <Footer />
         </FirebaseContext.Provider>

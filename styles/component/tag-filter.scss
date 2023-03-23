@@ -1,0 +1,23 @@
+.tag-special {
+  border: 2px solid transparent !important;
+  background-color: var(--hover-primary);
+  color: #fff !important;
+}
+
+.tag-filter {
+  padding: 1px 15px;
+  font-weight: 700;
+  border: 2px solid var(--color-text);
+  cursor: pointer;
+  border-radius: 50px;
+  margin: 10px 10px 0px 0px;
+  font-size: 14px;
+  color: var(--color-text);
+  &:hover {
+    // @extend .tag-special;
+  }
+}
+
+.tag-filter-active {
+  @extend .tag-special;
+}

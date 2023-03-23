@@ -39,15 +39,26 @@
     cursor: pointer;
   }
   &-info {
-    flex-direction: column;
+    // flex-direction: column;
     text-align: center;
     .title {
       font-family: Nunito, sans-serif;
       margin-block-start: 0px;
     }
+    .banner {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
     p {
       font-size: 0.9rem;
+      margin-bottom: 0px;
     }
+  }
+}
+.social {
+  & a {
+    padding: 0px 5px;
   }
 }
 .made-by {

@@ -9,8 +9,8 @@ const NotFound = () => {
     title: 'Not found'
   })
   return (
-    <div className="wrapper position-absolute">
-      <Image src="/404.png" width={300} height={300} />
+    <div className="wrapper position-absolute mt-5">
+      <Image src="/404.png" width={400} height={400} />
       <h2>Lạc trôi à ^^ .Quay lại nào</h2>
       <Link href="/" passHref>
         <a className="btn mb-3 ml-1 mr-1 d-flex">

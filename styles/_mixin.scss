@@ -38,3 +38,30 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin scrollbar(
+  $width: 8px,
+  $track-color: var(--scroll-bar-track),
+  $thumb-color: var(--scroll-bar-thumb),
+  $thumb-hover: var(--scroll-bar-thumb-hover)
+) {
+  ::-webkit-scrollbar {
+    width: $width;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: $track-color;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    cursor: pointer;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $thumb-hover;
+  }
+}

@@ -19,13 +19,15 @@
 @import './component/code-block.scss';
 @import './component/quote.scss';
 @import './component/container.scss';
+@import './component/tag-filter.scss';
 @import './component/scroll-to-top.scss';
-
+@import './component/mobile-theme.scss';
 
 @import './pages/home.scss';
 @import './pages/about.scss';
 @import './pages/404.scss';
 @import './pages/post.scss';
+@import './pages/tag.scss';
 
 body {
   // background-color: $color-primary-dark;

@@ -24,6 +24,7 @@
     & img {
       transition: all 0.5s;
       @media screen and (max-width: 576px) {
+        object-fit: cover;
         border-bottom-right-radius: 0px;
         border-bottom-left-radius: 0px;
       }
@@ -92,14 +93,21 @@
       max-height: 100px;
       line-height: 20px;
       @include excerp($lineCount: 4);
-      // @media screen and (max-width: 768px) {
-      //   @include excerp($lineCount: 3);
-      // }
+      @media screen and (max-width: 768px) {
+        @include excerp($lineCount: 3);
+      }
       font-size: 14px;
       @include medium {
         font-size: 16px;
       }
     }
+
+    & .tag-container {
+      & a {
+        color: var(--hover-primary);
+      }
+    }
+
     & svg {
       color: var(--color-text);
     }

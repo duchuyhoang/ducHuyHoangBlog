@@ -5,3 +5,10 @@ export const ERROR_MAP = {
 export const POST_FOLDER_NAME = 'posts'
 
 export const PAGE_PREFIX = '/ducHuyHoangBlog'
+
+export const ROUTERS = {
+  HOME: '/',
+  TAGS: '/tags',
+  ABOUT: '/about',
+  SOFTWARE: '/software'
+}

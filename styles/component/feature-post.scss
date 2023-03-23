@@ -46,6 +46,11 @@
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 20px;
+
+  & .show-more-less-clickable:hover a {
+    color: var(--hover-primary);
+  }
+
   &::after {
     content: '';
     border-radius: 20px;
@@ -100,7 +105,7 @@
       @include excerp(2);
       height: 70px;
       &:hover {
-        opacity: 0.7;
+        color: var(--hover-primary);
       }
     }
   }

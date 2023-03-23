@@ -6,7 +6,7 @@
   will-change: auto;
   z-index: 101;
   svg {
-    fill: $color-primary-dark;
+    fill: var(--color-text);
   }
   background-color: var(--bg-primary);
   box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%);
@@ -52,8 +52,45 @@
   .logo {
     cursor: pointer;
     height: 70px;
-    @media only screen and (max-width: $small-width) {
-      text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    svg {
+      @keyframes rotating {
+        // 0% {
+        //   transform: rotate(0deg);
+        // }
+        // 25% {
+        //   transform: rotate(-90deg);
+        // }
+        // 50% {
+        //   transform: rotate(-180deg);
+        // }
+        // 75% {
+        //   transform: rotate(-270deg);
+        // }
+        // 100% {
+        //   transform: rotate(-360deg);
+        // }
+
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+      // transition: all 1s ease-in-out;
+      animation: rotating 6s infinite linear;
+      // animation
+      // transition-duration: 1s;
+      // tra
+    }
+
+    // tran
+    @media only screen and (max-width: $medium-width) {
+      justify-content: center;
     }
     span {
       height: 100% !important;
@@ -74,8 +111,8 @@
       color: inherit;
     }
     // text-transform: uppercase;
-    &:hover {
-      color: $text-hover-primary;
+    &:hover a {
+      color: var(--hover-primary);
     }
     &:hover .dropDownMenu {
       display: block;
@@ -94,6 +131,11 @@
           color: $text-hover-primary;
         }
       }
+    }
+  }
+  &-active {
+    & a {
+      color: var(--hover-primary) !important;
     }
   }
 
@@ -201,8 +243,11 @@
     text-decoration: none;
     display: block;
     &:hover {
-      background-color: $border-color;
+      color: var(--hover-primary);
     }
     border-bottom: 1px solid $border-color;
+  }
+  & .item-active {
+    color: var(--hover-primary);
   }
 }

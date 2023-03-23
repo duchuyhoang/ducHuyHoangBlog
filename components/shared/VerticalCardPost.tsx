@@ -8,13 +8,15 @@ import { BiCalendar } from 'react-icons/bi'
 import ShowMoreText from './ShowMore'
 import Avatar from './Avatar'
 import { FaTags } from 'react-icons/fa'
+import { getImageSrc } from '../../common/utils'
 const VerticalCardPost = ({
   author,
   date,
   title,
   slug,
   description,
-  image
+  image,
+  tags
 }: IPost) => {
   const { theme } = useTheme()
   return (
@@ -31,7 +33,7 @@ const VerticalCardPost = ({
               backgroundColor: theme === THEME.LIGHT ? '#fff' : '#2c2c2e'
             }}
           >
-            <img src={image} alt="" />
+            <img src={getImageSrc(image!)} alt="" />
           </div>
         </a>
       </Link>
@@ -46,21 +48,25 @@ const VerticalCardPost = ({
               className="mr-2"
               size={'16px'}
               style={{
-                fill: 'var(--color-text)'
+                fill: 'var(--color-text)',
+                marginBottom: '2px'
               }}
             />
-            <Link href="/">
-              <a className="mr-1">#Hello</a>
-            </Link>
-            <Link href="/">
+            {tags.map(tags => (
+              <Link href="/" key={tags}>
+                <a className="mr-1">#{tags}</a>
+              </Link>
+            ))}
+
+            {/* <Link href="/">
               <a className="mr-1">#Hello 2</a>
-            </Link>
+            </Link> */}
           </div>
         </Row>
         <Row className="m-0 mt-2">
           <Col xs="7" className="pl-0 pr-0 d-flex">
             <Avatar
-              src="/ducHuyHoangBlog/selfAvatar.jpg"
+              src={author?.avatar}
               width={30}
               height={30}
               className="avatar mr-1"
@@ -75,7 +81,7 @@ const VerticalCardPost = ({
                     fontSize: '16px'
                   }}
                 >
-                  Đức Huy Hoàng
+                  {author.name}
                 </a>
               </Link>
             </div>
