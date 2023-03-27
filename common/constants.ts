@@ -31,3 +31,6 @@ export const FIREBASE_CONFIGS = {
   // appId: process.env.appId,
   // measurementId: process.env.measurementId,
 }
+
+export const GOOGLE_CLIENT_ID =
+  '1096120152389-dvjb0353hpoc5g13ml6dovgqkart6okb.apps.googleusercontent.com'

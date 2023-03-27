@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { AiFillFacebook } from 'react-icons/ai'
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa'
 // import { BsFacebook } from 'react-icons/bs'
 // import { FaFacebookSquare } from 'react-icons/fa'
 import GoogleLogin from 'react-google-login'
+import { gapi } from 'gapi-script'
+import { GOOGLE_CLIENT_ID } from '../../common/constants'
 const LoginModal = () => {
+  useEffect(() => {
+    gapi.load('client:auth2', () => {
+      gapi.auth2.init({ clientId: GOOGLE_CLIENT_ID })
+    })
+  }, [])
   return (
     <Modal
       show
@@ -29,7 +36,7 @@ const LoginModal = () => {
             />
             <FaGithub size={30} />
             <GoogleLogin
-              clientId="1096120152389-dvjb0353hpoc5g13ml6dovgqkart6okb.apps.googleusercontent.com"
+              clientId={GOOGLE_CLIENT_ID}
               buttonText="Google "
               onSuccess={response => {
                 console.log('succeed', response)
