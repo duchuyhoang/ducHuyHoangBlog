@@ -13,7 +13,7 @@ const LoginModal = () => {
       await import('gapi-script').then(pack => {
         const { gapi } = pack
         gapi.load('client:auth2', () => {
-          gapi.auth2.init({ clientId: GOOGLE_CLIENT_ID })
+          gapi.client.init({ clientId: GOOGLE_CLIENT_ID })
         })
       })
     }
