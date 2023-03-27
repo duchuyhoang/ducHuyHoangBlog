@@ -53,7 +53,6 @@ const FeaturePost = ({
   style?: React.CSSProperties
   className: string
 }) => {
-  console.log(getPostSrc(post.slug))
   return (
     <div
       className={`feature-post ${className}`}

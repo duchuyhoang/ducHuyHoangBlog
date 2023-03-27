@@ -16,6 +16,7 @@ html[theme='light'] {
   $color-text-primary-light: rgb(91, 105, 135);
   $color-text-primary-dark: #74717a;
   --color-text-primary: #252525;
+  --color-text-primary-reverse: #252525;
   --color-text-primary-dark: #74717a;
   --bg-primary: #fff;
   --bg-404: #f0f2f5;
@@ -23,12 +24,13 @@ html[theme='light'] {
   --card-bg: #fff;
   --color-text: #141c3a;
   --tag-special-color: #22b07d;
-  --tag-special-border: #badbcc;
+  --tag-special-text: #fff;
   // --hover-primary: #00b8f2;
   --hover-primary: #6b4fbb;
   --scroll-bar-thumb: #bab4b482;
   --scroll-bar-thumb-hover: #63636382;
   --scroll-bar-track: #f0f2f5;
+  --navbar-shadow: #b2aeae9e;
   $text-hover-primary: #171e22;
   --color-description: #7c7c7c;
   $hover-shadow: 0 52px 30px -14px #d1d0d3;
@@ -44,6 +46,7 @@ html[theme='dark'] {
   $color-text-primary-light: rgb(91, 105, 135);
   $color-text-primary-dark: red;
   --color-text-primary: #fff;
+  --color-text-primary-reverse: #252525;
   --color-text-primary-dark: red;
   --bg-primary: #070615;
   --color-body: #1b1b1d;
@@ -58,6 +61,7 @@ html[theme='dark'] {
   --scroll-bar-thumb: #63636382;
   --scroll-bar-thumb-hover: #bab4b482;
   --scroll-bar-track: #18191a;
+  --navbar-shadow: #282424ba;
 
   $text-hover-primary: #171e22;
   $hover-shadow: 0 52px 30px -14px #d1d0d3;

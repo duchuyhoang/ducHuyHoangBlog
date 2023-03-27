@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/indent */
 import React, { useMemo, useState } from 'react'
-import type { GetStaticProps, NextPage, NextPageContext } from 'next'
+import type { NextPage } from 'next'
 import TagFilter from '../components/shared/TagFilter'
 import { Container } from 'react-bootstrap'
 import fs from 'fs'
@@ -10,6 +13,29 @@ import matter from 'gray-matter'
 import { IPost } from '../components/shared/FeaturePost'
 import HorizontalCardPost from '../components/shared/HorizontalCardPost'
 import NothingFound from '../components/shared/NothingFound'
+
+// function imageUploaded() {
+//   return new Promise((resolve, reject) => {
+//     const file = ((document.querySelector('#file') as any)?.files as any)[0]
+
+//     const reader = new FileReader()
+//     console.log('next')
+
+//     reader.onload = function () {
+//       const base64String = (reader?.result as any)
+//       .replace(
+//         /^data:image\/png;base64,/,
+//         ''
+//       )
+
+//       const imageBase64Stringsep = base64String
+
+//       // alert(imageBase64Stringsep);
+//       resolve(imageBase64Stringsep)
+//     }
+//     reader.readAsDataURL(file)
+//   })
+// }
 
 export const getStaticProps = async () => {
   const files = fs.readdirSync(path.join('posts'))
@@ -76,6 +102,7 @@ const TagManagement: NextPage<
     if (selectedTags.length === 0 && condition === TagCondition.OR) return true
     if (selectedTags.length > 0 && filteredPost.length === 0) return true
   }, [filteredPost, selectedTags, condition])
+
   return (
     <section className="tag-page">
       <Container fluid="lg pt-3">

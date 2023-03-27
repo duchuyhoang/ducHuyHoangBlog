@@ -2,18 +2,10 @@
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/indent */
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo
-} from 'react'
+import React, { createContext, ReactNode, useContext } from 'react'
 
 import type { GetStaticProps, NextPage, NextPageContext } from 'next'
 import { getAuth, createUserWithEmailAndPassword, Auth } from 'firebase/auth'
-import Head from 'next/head'
-import Image from 'next/image'
 import { getFirebase } from '../services/firebase'
 import {
   doc,
@@ -33,10 +25,8 @@ import LeftSideBar from '../components/layout/LeftSideBar'
 import HorizontalCardPost from '../components/shared/HorizontalCardPost'
 import fs from 'fs'
 import path from 'path'
-import getConfig from 'next/config'
 import matter from 'gray-matter'
 import useMediaQuery from '../hooks/useMediaQuery'
-import Theme from '../components/shared/Theme'
 import { Col, Container, Row } from 'react-bootstrap'
 import useDocumentTitle from '../common/hooks/useDocumentTitle'
 
@@ -85,10 +75,6 @@ const RECENT_POST_COUNT = 7
 //     props,
 //   };
 // }
-
-const FirebaseContext = createContext(getFirebase())
-
-export const useFirebaseContext = () => useContext(FirebaseContext)
 
 // export const getServerSideProps: GetStaticProps = async (context: any) => {
 //   const data = await fetch(
@@ -149,9 +135,9 @@ const Home: NextPage<IHome, IHome> = props => {
   const isLarge = useMediaQuery('(min-width: 1050px) and (max-width: 1400px)')
   const isSuperLarge = useMediaQuery('(min-width: 1400px)')
   const totalRecent = listRecentPost.length
-  console.log('total', listPost)
-  console.log('list feature', listFeaturePost)
-  console.log('list recent', listRecentPost)
+  // console.log('total', listPost)
+  // console.log('list feature', listFeaturePost)
+  // console.log('list recent', listRecentPost)
 
   useDocumentTitle({
     title: 'Home'

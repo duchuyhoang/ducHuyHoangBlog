@@ -51,12 +51,15 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "rules": {
+    "react/prop-types": "off",
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
+
     "quotes": ["error", "single"],
     "multiline-ternary": ["off"],
     "space-before-function-paren": ["off"],

@@ -77,7 +77,9 @@ const PreTag = ({
       <section>
         <div className="language-wrapper d-flex align-center">
           <LanguageIcon size={20} />
-          <p className="ml-1">{fileName}</p>
+          <p className="ml-1" style={{ color: '#dedddd' }}>
+            {fileName}
+          </p>
         </div>
         <div className="code-wrapper">
           <div className="copy-wrappper">

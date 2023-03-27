@@ -41,6 +41,10 @@ module.exports = withTM(
     eslint: {
       ignoreDuringBuilds: true
     },
+    typescript: {
+      ignoreDuringBuilds: true,
+      ignoreBuildErrors: true
+    },
     webpack: config => {
       config.module.rules.push({
         test: /\.svg$/,

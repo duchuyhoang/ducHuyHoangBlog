@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, {
   useState,
   useEffect,
@@ -5,7 +6,6 @@ import React, {
   useCallback,
   useLayoutEffect
 } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import Modal from '../shared/Modal'
 import { VscThreeBars } from 'react-icons/vsc'
@@ -15,38 +15,105 @@ import {
   createUserWithEmailAndPassword,
   Auth
 } from 'firebase/auth'
-import { getFirebase } from '../../services/firebase'
-import { useFirebaseContext } from '../../pages'
+import { getFirebase, services } from '../../services/firebase'
 import Input from '../shared/Input'
 import {
   AiFillInstagram,
   AiOutlineSearch,
-  AiOutlineClose
+  AiOutlineClose,
+  AiOutlineLogin
 } from 'react-icons/ai'
 import { Row, Col } from 'react-bootstrap'
-import { FiSun, FiMoon } from 'react-icons/fi'
 import { BsMoon, BsSun } from 'react-icons/bs'
 import Logo from '../../public/logo.svg'
-import { THEME } from '../../common/enum'
+import {
+  COLLECTION_NAMES,
+  FIREBASE_LOADING_STATUS,
+  THEME
+} from '../../common/enum'
 import { useTheme } from '../shared/Theme'
 import useMediaQuery from '../../hooks/useMediaQuery'
 import { useRouter } from 'next/router'
 import { ROUTERS } from '../../common/constants'
+import { useFirebaseContext } from '../shared/FirebaseWrapper'
+
+import { addDoc, where, refEqual, orderBy } from 'firebase/firestore/lite'
+import { Datasource } from '../../services/Datasource'
+import useClickOutsideComponent from '../../common/hooks/useClickOutside'
+import { IoIosCloseCircle } from 'react-icons/io'
+import useIsMounted from '../../common/hooks/useIsMounted'
+import LoginModal from '../shared/LoginModal'
 
 const Navbar = () => {
-  const [currentWindowOffsetY, setWindowOffsetY] = useState(0)
-  // const [isHideScrollBar, setIsHideScrollBar] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState<boolean>(false)
   const [isSearchInputOpen, setIsSeachInputOpen] = useState<boolean>(false)
   const navRef = useRef<HTMLDivElement | null>(null)
   const [isHiddenSidebarOpen, setIsOpenSidebarOpen] = useState<boolean>(false)
-  const [searchKeyWord, setSearchKeyWord] = useState<string>()
-  const context = useFirebaseContext()
-  const [navbarHeight, setNavbarHeight] = useState<number>(0)
+  const [searchTabletKeyword, setSearchTabletKeyword] = useState<string>('')
+  const [searchMobileKeyword, setSearchMobileKeyword] = useState<string>('')
+  const [isSearchTabletActive, setIsSearchTabletActive] =
+    useState<boolean>(false)
+  const [isSearchMobileActive, setIsSearchMobileActive] =
+    useState<boolean>(false)
+  const searchTabletRef = useRef<any>(null)
+  const searchMobileRef = useRef<any>(null)
   const { theme, setTheme } = useTheme()
-  const isMatch = useMediaQuery('(min-width: 790px)')
+  const isMatch = useMediaQuery('(min-width: 768px)')
+  const isMounted = useIsMounted()
+  const isFullTextSearchBox = useMediaQuery(
+    '(min-width: 768px) and (max-width:1000px)'
+  )
   const router = useRouter()
+  const context = useFirebaseContext()
+
+  const handleClickOutsideSearchTablet = () => {
+    setIsSearchTabletActive(false)
+    setSearchTabletKeyword('')
+  }
+  const handleClickOutsideSearchMobile = () => {
+    setIsSearchMobileActive(false)
+    setSearchMobileKeyword('')
+  }
+  console.log(isSearchMobileActive)
+
+  useClickOutsideComponent(searchTabletRef, handleClickOutsideSearchTablet)
+  useClickOutsideComponent(searchMobileRef, handleClickOutsideSearchMobile)
+
+  useEffect(() => {
+    setIsSearchMobileActive(false)
+    setIsSearchTabletActive(false)
+  }, [isMatch])
+
+  useEffect(() => {
+    if (isSearchTabletActive && isFullTextSearchBox) {
+      const parent = searchTabletRef.current.parentElement
+      parent.style.transform = 'translate3d(-400px, 0px, 0px)'
+      document.getElementById('navItemContainer')?.classList.remove('d-md-flex')
+      setTimeout(() => {
+        parent.style.transform = 'translate3d(0px, 0px, 0px)'
+      }, 100)
+    } else {
+      document.getElementById('navItemContainer')?.classList.add('d-md-flex')
+    }
+  }, [isSearchTabletActive, isFullTextSearchBox])
+
+  // useEffect(() => {
+  //   const goi = async () => {
+  //     if (context.status === FIREBASE_LOADING_STATUS.SUCCEED) {
+  //       const repository = context.dataSource.getRepository(
+  //         COLLECTION_NAMES.COMMENT
+  //       )
+  //       const data = await repository?.addOne({
+  //         content: 'Hello world add new'
+  //       })
+  //       console.log(data)
+  //     }
+  //   }
+  //   goi().catch(e => {
+  //     console.log(e)
+  //   })
+  // }, [context])
 
   useLayoutEffect(() => {
     document.documentElement.setAttribute('theme', 'light')
@@ -56,10 +123,6 @@ const Navbar = () => {
     document.documentElement.setAttribute('theme', theme.toLowerCase())
   }, [theme])
 
-  useEffect(() => {
-    setNavbarHeight(navRef.current?.offsetHeight ?? 0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navRef.current])
   const handleCloseHiddenSideBar = useCallback(() => {
     setIsOpenSidebarOpen(false)
   }, [])
@@ -119,7 +182,7 @@ const Navbar = () => {
     <>
       <nav
         ref={navRef}
-        className="nav nav-dark w-100"
+        className="nav nav-dark w-100 pr-0"
         style={{
           boxSizing: 'border-box'
         }}
@@ -155,8 +218,8 @@ const Navbar = () => {
             justifyContent: 'space-between'
           }}
         >
-          <Row className="flex-nowrap">
-            <Col className="d-flex d-md-none align-items-center p-0" xs="1">
+          <Row className={`flex-nowrap ${isSearchMobileActive ? 'pr-0' : ''}`}>
+            {/* <Col className="d-flex d-md-none align-items-center p-0" xs="1">
               <AiOutlineSearch
                 size={25}
                 style={{
@@ -166,66 +229,229 @@ const Navbar = () => {
                   setIsSeachInputOpen(prev => !prev)
                 }}
               />
-            </Col>
+            </Col> */}
 
-            <Col col="6" xs="10" md="2" lg="1" className="logo text-center">
-              <Link href="/" passHref>
-                {/* <Image
-                  src="/logo.svg"
-                  alt="logo"
-                  //   layout="fill"
-                  width={80}
-                  height={120}
-                /> */}
-                <Logo width={70} height={60} fill={'var(--color-text)'} />
+            <div
+              className="d-flex d-md-none p-0 mb-1 align-items-center"
+              style={{
+                width: 'max-content',
+                zIndex: 1000
+              }}
+            >
+              <span style={{ padding: 5 }}>
+                <VscThreeBars
+                  size={33}
+                  style={{
+                    fill: theme === THEME.DARK ? '#fff' : '#070615'
+                  }}
+                  onClick={() => {
+                    setIsOpenSidebarOpen(true)
+                  }}
+                />
+              </span>
+            </div>
+
+            <Col
+              col="6"
+              xs="2"
+              sm="1"
+              md="1"
+              // md="1"
+              lg="1"
+              className="logo text-center p-0"
+              style={{
+                display: isSearchMobileActive ? 'none' : 'flex',
+                ...(!isMatch && isMounted
+                  ? {
+                      width: '57%',
+                      justifyContent: 'flex-end',
+                      position: 'fixed'
+                    }
+                  : {})
+              }}
+            >
+              {/* <button
+                onClick={async () => {
+                  const repository = context.dataSource.getRepository(
+                    COLLECTION_NAMES.USER
+                  )
+                  const newUser = await repository?.addOne({
+                    name: 'HUy hoang',
+                    email: 'huy@gmail.com',
+                    age: 123
+                  })
+                  console.log(newUser)
+                }}
+              >
+                Them user
+              </button>
+              <button
+                onClick={async () => {
+                  const repository = context.dataSource.getRepository(
+                    COLLECTION_NAMES.COMMENT
+                  )
+                  const userRepo = context.dataSource.getRepository(
+                    COLLECTION_NAMES.USER
+                  )
+                  console.log(Datasource.repositories)
+                  console.log(userRepo?.getReference)
+                  const userRef = await userRepo?.getReference(
+                    'PpZBzRDK16xaz3pKo6WK'
+                  )
+                  const data = await repository?.addOne({
+                    user: userRef,
+                    postSlug: 'abc-123',
+                    content: 'ABc 123'
+                  })
+                  console.log(data)
+                }}
+              >
+                Them comment
+              </button>
+              <button
+                onClick={async () => {
+                  const repository = context.dataSource.getRepository(
+                    COLLECTION_NAMES.COMMENT
+                  )
+                  const userRepo = context.dataSource.getRepository(
+                    COLLECTION_NAMES.USER
+                  )
+                  const userRef = await userRepo?.getReference(
+                    'PpZBzRDK16xaz3pKo6WK'
+                  )
+                  console.log('ref', userRef)
+                  const datas = await repository?.getAll(
+                    // where('user', '==', null)
+                    orderBy('user')
+                  )
+                  console.log(datas)
+                }}
+              >
+                Get all
+              </button>
+
+              <button
+                onClick={async () => {
+                  const repository = context.dataSource.getRepository(
+                    COLLECTION_NAMES.COMMENT
+                  )
+                  const data = await repository?.getById('Env6NXq3NcHIAporZu5a')
+                  console.log('d', data)
+                }}
+              >
+                Get by id
+              </button> */}
+              <Link href={ROUTERS.HOME} passHref>
+                <Logo width={70} height={70} fill={'var(--color-text)'} />
               </Link>
             </Col>
 
             <Col
-              col="6"
-              sm="9"
-              md="10"
-              lg="11"
-              className="contentContainer d-none d-md-flex justify-content-end"
+              sm="5"
+              md="9"
+              // lg="1"
+              xs={3}
+              className="contentContainer justify-content-md-between justify-content-end pr-0 pl-0 flex-grow-1"
+              style={{
+                display: isSearchMobileActive ? 'none' : 'flex'
+              }}
             >
-              <Row className="d-flex">
-                <div
-                  className={`nav-item ${
-                    router.pathname === ROUTERS.HOME ? 'nav-active' : ''
-                  }`}
-                >
-                  <Link href={ROUTERS.HOME}> Home</Link>
+              <section className="d-none d-md-flex mb-1" id="navItemContainer">
+                <div className="d-flex">
+                  <div
+                    className={`nav-item ${
+                      router.pathname === ROUTERS.HOME ? 'nav-active' : ''
+                    }`}
+                  >
+                    <Link href={ROUTERS.HOME}> Home</Link>
+                  </div>
+                  <div
+                    className={`nav-item ${
+                      router.pathname === ROUTERS.ABOUT ? 'nav-active' : ''
+                    }`}
+                  >
+                    <Link href={ROUTERS.ABOUT}> About me</Link>
+                  </div>
+                  <div
+                    className={`nav-item ${
+                      router.pathname === ROUTERS.SOFTWARE ? 'nav-active' : ''
+                    }`}
+                  >
+                    <Link href={ROUTERS.SOFTWARE}> Software</Link>
+                  </div>
+                  <div
+                    className={`nav-item ${
+                      router.pathname === ROUTERS.TAGS ? 'nav-active' : ''
+                    }`}
+                  >
+                    <Link href={ROUTERS.TAGS}> Tags</Link>
+                  </div>
                 </div>
-                <div
-                  className={`nav-item ${
-                    router.pathname === ROUTERS.ABOUT ? 'nav-active' : ''
-                  }`}
-                >
-                  <Link href={ROUTERS.ABOUT}> About me</Link>
-                </div>
-                <div
-                  className={`nav-item ${
-                    router.pathname === ROUTERS.SOFTWARE ? 'nav-active' : ''
-                  }`}
-                >
-                  <Link href={ROUTERS.SOFTWARE}> Software</Link>
-                </div>
-                <div
-                  className={`nav-item ${
-                    router.pathname === ROUTERS.TAGS ? 'nav-active' : ''
-                  }`}
-                >
-                  <Link href={ROUTERS.TAGS}> Tags</Link>
-                </div>
-              </Row>
+              </section>
 
-              <Row
-                className="d-flex flex-nowrap"
+              <span
                 style={{
-                  width: 'max-content'
+                  padding: '0px 10px',
+                  marginBottom: '3px',
+                  width: isMatch ? 'max-content' : 'auto',
+                  display: isSearchMobileActive ? 'none' : 'flex'
                 }}
+                className={`searchWrapper ${
+                  isSearchMobileActive || isSearchTabletActive
+                    ? 'searchTabletActive'
+                    : ''
+                }`}
               >
-                {isMatch && (
+                {isMatch ? (
+                  <>
+                    <div
+                      className="searchContainer"
+                      onClick={() => {
+                        setIsSearchTabletActive(true)
+                      }}
+                      ref={searchTabletRef}
+                    >
+                      <AiOutlineSearch
+                        style={{
+                          cursor: 'pointer'
+                          // fill: theme === THEME.DARK ? '#fff' : '#070615'
+                        }}
+                        size={23}
+                        onClick={() => {
+                          setIsSeachInputOpen(prev => !prev)
+                        }}
+                      />
+                      <Input
+                        value={searchTabletKeyword}
+                        onChange={e => {
+                          setSearchTabletKeyword(e.target.value)
+                        }}
+                        placeholder={'Search'}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <AiOutlineSearch
+                    style={{
+                      cursor: 'pointer',
+                      fill: theme === THEME.DARK ? '#fff' : '#070615'
+                    }}
+                    size={33}
+                    onClick={() => {
+                      setIsSearchMobileActive(prev => !prev)
+                    }}
+                  />
+                )}
+              </span>
+            </Col>
+
+            {/* <Row
+              className="d-flex flex-nowrap"
+              style={{
+                width: 'max-content'
+              }}
+            >
+              {isMatch && (
                   <div
                     className="p-0"
                     style={{
@@ -289,107 +515,130 @@ const Navbar = () => {
                     </span>
                   </div>
                 )}
+            </Row> */}
 
-                <span
-                  style={{
-                    padding: '0px 5px',
-                    width: '30px',
-                    marginBottom: '3px'
-                  }}
-                >
-                  {theme === THEME.DARK ? (
-                    <BsSun
-                      style={{
-                        cursor: 'pointer',
-                        fill: theme === THEME.DARK ? '#fff' : '#070615'
-                      }}
-                      size={21}
-                      onClick={() => {
-                        setTheme(THEME.LIGHT)
-                      }}
-                    />
-                  ) : (
-                    <BsMoon
-                      style={{
-                        cursor: 'pointer',
-                        fill: theme === THEME.DARK ? '#fff' : '#070615'
-                      }}
-                      size={19}
-                      onClick={() => {
-                        setTheme(THEME.DARK)
-                      }}
-                    />
-                  )}
-                </span>
-                <span
-                  style={{
-                    padding: '0px 5px',
-                    marginBottom: '3px',
-                    width: 'max-content'
-                  }}
-                >
-                  <AiOutlineSearch
+            <div
+              className="p-0 justify-content-end justify-content-md-start"
+              style={{
+                width: 'max-content',
+                display: isSearchMobileActive ? 'none' : 'flex'
+              }}
+            >
+              <span
+                style={{
+                  margin: '0px 10px',
+                  width: '30px',
+                  marginBottom: '3px',
+                  padding: '0px'
+                }}
+                className="d-none d-md-flex align-items-center justify-content-center"
+              >
+                {theme === THEME.DARK ? (
+                  <BsSun
                     style={{
                       cursor: 'pointer',
                       fill: theme === THEME.DARK ? '#fff' : '#070615'
                     }}
-                    size={23}
+                    size={33}
                     onClick={() => {
-                      setIsSeachInputOpen(prev => !prev)
+                      setTheme(THEME.LIGHT)
                     }}
                   />
-                </span>
-              </Row>
-            </Col>
-
-            <Col className="d-flex d-md-none p-0 align-items-center justify-content-end">
-              <div
-                className="accountContainer d-flex mt-2"
-                style={{ justifyContent: 'flex-end' }}
-              >
-                <div className="item">
-                  <span style={{ padding: 5 }} className="d-flex">
-                    <VscThreeBars
-                      size={25}
-                      style={{
-                        fill: theme === THEME.DARK ? '#fff' : '#070615'
-                      }}
-                      onClick={() => {
-                        setIsOpenSidebarOpen(true)
-                      }}
-                    />
-                  </span>
-                </div>
-              </div>
-            </Col>
-          </Row>
-
-          {/* <div className="col-lg-4 col-md-5 col-sm-3 d-flex flex-row-reverse">
-            <div
-              className="accountContainer d-flex mt-2"
-              style={{ justifyContent: 'flex-end' }}
-            >
-              <div className="item">
-                <span
-                  style={{ padding: 5 }}
-                  className="d-flex d-sm-none d-xl-none"
-                >
-                  <VscThreeBars
-                    size={25}
+                ) : (
+                  <BsMoon
                     style={{
+                      cursor: 'pointer',
                       fill: theme === THEME.DARK ? '#fff' : '#070615'
                     }}
+                    size={31}
                     onClick={() => {
-                      setIsOpenSidebarOpen(true)
+                      setTheme(THEME.DARK)
                     }}
                   />
-                </span>
-              </div>
+                )}
+              </span>
+
+              <span
+                style={{
+                  padding: '0px 10px',
+                  marginBottom: '3px',
+                  width: 'max-content'
+                }}
+                className="d-flex align-items-center justify-content-center pr-0"
+              >
+                <AiOutlineLogin
+                  style={{
+                    cursor: 'pointer',
+                    fill: theme === THEME.DARK ? '#fff' : '#070615'
+                  }}
+                  size={33}
+                  onClick={() => {
+                    setIsLoginModalOpen(true)
+                  }}
+                />
+              </span>
             </div>
-          </div> */}
+
+            <Col
+              xs="10"
+              style={{
+                display: isSearchMobileActive ? 'flex' : 'none'
+              }}
+              className="pr-1 flex-grow-1"
+            >
+              <span
+                style={{
+                  paddingLeft: '0px 10px',
+                  marginBottom: '3px',
+                  width: isMatch ? 'max-content' : 'auto',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+                className={'searchWrapper searchTabletActive'}
+              >
+                <>
+                  <div
+                    className="searchContainer"
+                    onClick={() => {
+                      setIsSearchTabletActive(true)
+                      // if(do)
+                    }}
+                    ref={searchMobileRef}
+                    style={{}}
+                  >
+                    <AiOutlineSearch
+                      style={{
+                        cursor: 'pointer'
+                        // fill: theme === THEME.DARK ? '#fff' : '#070615'
+                      }}
+                      size={23}
+                      onClick={() => {
+                        setIsSeachInputOpen(prev => !prev)
+                      }}
+                    />
+                    <Input
+                      value={searchMobileKeyword}
+                      onChange={e => {
+                        setSearchMobileKeyword(e.target.value)
+                      }}
+                      placeholder="Search"
+                    />
+                  </div>
+                </>
+                <IoIosCloseCircle
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  className="ml-3"
+                  size={30}
+                  onClick={handleClickOutsideSearchMobile}
+                />
+              </span>
+            </Col>
+          </Row>
         </section>
 
-        <Modal
+        {/* <Modal
           title={'Log in'}
           isOpen={isLoginModalOpen}
           handleClose={() => {
@@ -412,10 +661,11 @@ const Navbar = () => {
               onChange={e => {
                 console.log(e)
               }}
+              placeholder="Search"
             />
             <button onClick={signUp}>Sign up</button>
           </>
-        </Modal>
+        </Modal> */}
       </nav>
 
       <div
@@ -488,6 +738,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
+      {isLoginModalOpen && <LoginModal />}
     </>
   )
 }

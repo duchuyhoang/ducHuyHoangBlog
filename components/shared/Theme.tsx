@@ -11,7 +11,7 @@ const ThemeContext = React.createContext<any>({
 export const useTheme = () => useContext(ThemeContext)
 
 const Theme = ({ children }: any) => {
-  const [theme, setTheme] = useState(THEME.DARK)
+  const [theme, setTheme] = useState(THEME.LIGHT)
 
   useEffect(() => {
     window.document.body.style.backgroundColor = 'var(--bg-primary)!important'

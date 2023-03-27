@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import handler from './pages/api/hello'
 import reducers from './redux/reducer'
 
@@ -16,5 +17,8 @@ declare global {
   }
   interface IPerson {
     age: number
+  }
+  type Dictionary = {
+    [key: string]: any
   }
 }

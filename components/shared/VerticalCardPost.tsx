@@ -21,7 +21,7 @@ const VerticalCardPost = ({
   const { theme } = useTheme()
   return (
     <div className="vertical-card">
-      <Link href={'/'} passHref>
+      <Link href={`/post/${slug}`} passHref>
         <a>
           <div
             className="vertical-card-img"

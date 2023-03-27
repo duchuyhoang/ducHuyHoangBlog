@@ -18,14 +18,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { AiOutlineArrowUp } from 'react-icons/ai'
 import Theme from '../components/shared/Theme'
 import MobileThemeSwitch from '../components/shared/MobileThemeSwitch'
+import FirebaseWrapper from '../components/shared/FirebaseWrapper'
 
-const FirebaseContext = createContext(getFirebase())
-
-// const components = {
-//   p: Message
-// }
-
-export const useFirebaseContext = () => useContext(FirebaseContext)
 const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
   const [isShowScrollTop, setIsShowScrollTop] = useState(false)
   const handleScrollToTop = () => {
@@ -48,8 +42,8 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
 
   return (
     <Provider store={store}>
-      <Theme>
-        <FirebaseContext.Provider value={getFirebase()}>
+      <FirebaseWrapper>
+        <Theme>
           <Navbar />
           <div id="scroll-anchor"></div>
           <div
@@ -70,8 +64,8 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
           <MobileThemeSwitch />
 
           <Footer />
-        </FirebaseContext.Provider>
-      </Theme>
+        </Theme>
+      </FirebaseWrapper>
     </Provider>
   )
 }

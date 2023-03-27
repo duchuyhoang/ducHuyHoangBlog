@@ -81,9 +81,13 @@
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+    color: var(--color-text);
   }
 
   tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #f1f3f4;
+  }
+  tr:nth-child(even) td {
+    color: var(--color-text-primary-reverse);
   }
 }
