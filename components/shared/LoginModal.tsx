@@ -5,13 +5,20 @@ import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa'
 // import { BsFacebook } from 'react-icons/bs'
 // import { FaFacebookSquare } from 'react-icons/fa'
 import GoogleLogin from 'react-google-login'
-import { gapi } from 'gapi-script'
+// import { gapi } from 'gapi-script'
 import { GOOGLE_CLIENT_ID } from '../../common/constants'
 const LoginModal = () => {
   useEffect(() => {
-    gapi.load('client:auth2', () => {
-      gapi.auth2.init({ clientId: GOOGLE_CLIENT_ID })
-    })
+    const initGapi = async () => {
+      await import('gapi-script').then(pack => {
+        const { gapi } = pack
+        gapi.load('client:auth2', () => {
+          gapi.auth2.init({ clientId: GOOGLE_CLIENT_ID })
+        })
+      })
+    }
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    initGapi()
   }, [])
   return (
     <Modal
