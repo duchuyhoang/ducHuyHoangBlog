@@ -64,6 +64,7 @@
     "multiline-ternary": ["off"],
     "space-before-function-paren": ["off"],
     "strict": ["error", "global"],
-    "prefer-const": "error"
+    "prefer-const": "error",
+    "no-case-declarations": "off"
   }
 }

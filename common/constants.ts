@@ -1,3 +1,10 @@
+import {
+  FacebookAuthProvider,
+  GithubAuthProvider,
+  GoogleAuthProvider
+} from 'firebase/auth'
+import { LOGIN_METHOD } from './enum'
+
 export const ERROR_MAP = {
   'auth/email-already-in-use': 'Email exist'
 }
@@ -11,6 +18,11 @@ export const ROUTERS = {
   TAGS: '/tags',
   ABOUT: '/about',
   SOFTWARE: '/software'
+}
+
+export const LOCAL_STORAGE_KEYS = {
+  ACCESS_TOKEN: 'ACCESS_TOKEN',
+  LOGIN_METHOD: 'LOGIN_METHOD'
 }
 
 export const FIREBASE_CONFIGS = {
@@ -31,10 +43,21 @@ export const FIREBASE_CONFIGS = {
   // appId: process.env.appId,
   // measurementId: process.env.measurementId,
 }
-
+// https://duchuyhoangblog-5e5df.firebaseapp.com/__/auth/handler
 export const GOOGLE_CLIENT_ID =
   '1096120152389-dvjb0353hpoc5g13ml6dovgqkart6okb.apps.googleusercontent.com'
 
 export const GOOGLE_PERSON_API = 'https://www.googleapis.com/userinfo/v2/me'
 
 export const GITHUB_CLIENT_ID = 'ee8180a7c2700ed3a65b'
+
+export const GITHUB_CLIENT_SECRET = '9a39a5cbce41667b80c8019c55a80bbdd1005a7d'
+
+export const GITHUB_ACCESS_TOKEN_API =
+  'https://github.com/login/oauth/access_token'
+
+export const PROVIDERS = {
+  [LOGIN_METHOD.FACEBOOK]: FacebookAuthProvider,
+  [LOGIN_METHOD.GOOGLE]: GoogleAuthProvider,
+  [LOGIN_METHOD.GITHUB]: GithubAuthProvider
+}

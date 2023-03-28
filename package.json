@@ -4,14 +4,15 @@
   "private": true,
   "homepage": "ducHuyHoangBlog",
   "scripts": {
+    "lint": "eslint .",
     "dev": "next dev",
     "build": "next build",
     "export": "next export",
     "kill": "npx kill-port 3000 9099 8080 9000 9199 4000",
     "start": "npm run kill && npx concurrently \"next dev\" \"npm run emulator:start\"",
-    "lint": "next lint",
     "emulator:start": "firebase emulators:start --import=./export --export-on-exit",
-    "start:prod": "next start"
+    "start:prod": "next start",
+    "deploy-function": "firebase deploy --only functions"
   },
   "types": "type.d.ts",
   "dependencies": {
@@ -34,9 +35,6 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^17.0.2",
-    "react-facebook-login": "^4.1.1",
-    "react-github-login": "^1.0.3",
-    "react-google-login": "^5.2.2",
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
     "react-redux": "^8.0.4",
