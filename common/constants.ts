@@ -34,3 +34,5 @@ export const FIREBASE_CONFIGS = {
 
 export const GOOGLE_CLIENT_ID =
   '1096120152389-dvjb0353hpoc5g13ml6dovgqkart6okb.apps.googleusercontent.com'
+
+export const GOOGLE_PERSON_API = 'https://www.googleapis.com/userinfo/v2/me'
