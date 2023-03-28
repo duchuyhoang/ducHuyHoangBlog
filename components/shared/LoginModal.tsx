@@ -6,7 +6,7 @@ import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa'
 // import { FaFacebookSquare } from 'react-icons/fa'
 import GoogleLogin, { GoogleLoginResponse } from 'react-google-login'
 import FacebookLogin from 'react-facebook-login'
-import { GOOGLE_CLIENT_ID } from '../../common/constants'
+import { GITHUB_CLIENT_ID, GOOGLE_CLIENT_ID } from '../../common/constants'
 import { FcGoogle } from 'react-icons/fc'
 import GitHubLogin from 'react-github-login'
 import { LOGIN_METHOD } from '../../common/enum'
@@ -82,6 +82,7 @@ const LoginModal = () => {
 
             <GitHubLogin
               className="login-button github-btn"
+              clientId={GITHUB_CLIENT_ID}
               onSuccess={handleLoginSocialSucceed(LOGIN_METHOD.GITHUB)}
               onFailure={handleLoginSocialFailed(LOGIN_METHOD.GITHUB)}
             >
