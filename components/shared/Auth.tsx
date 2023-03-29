@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import React, { useContext, useEffect, useState } from 'react'
 import { UseFormUnregister } from 'react-hook-form'
@@ -90,6 +91,14 @@ export const Auth = ({ children }: IAuthContext) => {
     if (method === LOGIN_METHOD.GITHUB) {
       payload.email = result.user.providerData[0]?.email as string
       payload.name = (result.user as any).reloadUserInfo?.screenName
+    }
+    if (method === LOGIN_METHOD.FACEBOOK) {
+      payload.avatar =
+        payload.avatar +
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        `?access_token=${localStorage.getItem(
+          LOCAL_STORAGE_KEYS.ACCESS_TOKEN
+        )}}`
     }
     return payload
   }

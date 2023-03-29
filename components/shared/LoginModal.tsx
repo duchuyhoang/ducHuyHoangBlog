@@ -33,8 +33,13 @@ const LoginModal = (props: ILoginModal) => {
       const auth = getAuth()
       try {
         const provider = new Provider()
+        if (method === LOGIN_METHOD.FACEBOOK) {
+          provider.addScope('public_profile,email')
+          console.log('scope fb')
+        }
         setAuthStatus(AUTH_STATUS.LOADING)
         const result = await signInWithPopup(auth, provider)
+        console.log('rss', result)
         const credential = Provider.credentialFromResult(result)
         const accessToken = credential?.idToken || credential?.accessToken
         if (accessToken) {
