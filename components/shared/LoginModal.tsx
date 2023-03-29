@@ -35,7 +35,7 @@ const LoginModal = (props: ILoginModal) => {
         const provider = new Provider()
         if (method === LOGIN_METHOD.FACEBOOK) {
           provider.addScope('public_profile,email')
-          console.log('scope fb edited')
+          console.log('scope fb edited ada')
         }
         setAuthStatus(AUTH_STATUS.LOADING)
         const result = await signInWithPopup(auth, provider)
