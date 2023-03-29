@@ -21,7 +21,6 @@
     "@next/mdx": "^12.1.5",
     "bootstrap": "^5.2.3",
     "firebase": "^9.7.0",
-    "gapi-script": "^1.2.0",
     "gray-matter": "^4.0.3",
     "hover-effect": "^1.1.0",
     "i": "^0.3.7",

@@ -1,41 +1,31 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
-import { AiFillFacebook } from 'react-icons/ai'
-import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa'
-import {
-  GITHUB_ACCESS_TOKEN_API,
-  GITHUB_CLIENT_ID,
-  GITHUB_CLIENT_SECRET,
-  GOOGLE_CLIENT_ID,
-  LOCAL_STORAGE_KEYS,
-  PROVIDERS
-} from '../../common/constants'
+import { FaFacebook, FaGithub } from 'react-icons/fa'
+import { LOCAL_STORAGE_KEYS, PROVIDERS } from '../../common/constants'
 import { FcGoogle } from 'react-icons/fc'
-import { LOGIN_METHOD } from '../../common/enum'
-import {
-  GithubAuthProvider,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  getAuth,
-  signInWithPopup,
-  getAdditionalUserInfo,
-  signInWithCredential
-} from 'firebase/auth'
+import { AUTH_STATUS, LOGIN_METHOD, THEME } from '../../common/enum'
+import { getAuth, signInWithPopup } from 'firebase/auth'
+import { IoMdClose } from 'react-icons/io'
+import { useTheme } from '../shared/Theme'
+import { useAuth } from './Auth'
+import useMediaQuery from '../../hooks/useMediaQuery'
+import { Spinner } from 'react-bootstrap'
+import Loading from './Loading'
 
-const LoginModal = () => {
-  useEffect(() => {
-    const initGapi = async () => {
-      await import('gapi-script').then(pack => {
-        const { gapi } = pack
-        gapi.load('client:auth2', () => {
-          gapi.client.init({ clientId: GOOGLE_CLIENT_ID, scope: 'email' })
-        })
-      })
-    }
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    initGapi()
-  }, [])
+interface ILoginModal {
+  handleClose: () => void
+  show: boolean
+}
+
+const LoginModal = (props: ILoginModal) => {
+  const { show, handleClose } = props
+  const { theme } = useTheme()
+  const { authStatus, signIn, signOut, setAuthStatus, setIsOpenLoginModal } =
+    useAuth()
+  const isCentered = useMediaQuery('(max-width: 576px)')
 
   const handleLoginSocial = (method: LOGIN_METHOD) => {
     const Provider = PROVIDERS[method]
@@ -43,151 +33,99 @@ const LoginModal = () => {
       const auth = getAuth()
       try {
         const provider = new Provider()
-        // provider.addScope('repo')
+        setAuthStatus(AUTH_STATUS.LOADING)
         const result = await signInWithPopup(auth, provider)
         const credential = Provider.credentialFromResult(result)
-        const accessToken = credential?.accessToken
-        console.log(accessToken)
+        const accessToken = credential?.idToken || credential?.accessToken
         if (accessToken) {
-          localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, accessToken)
-          localStorage.setItem(LOCAL_STORAGE_KEYS.LOGIN_METHOD, method)
+          signIn({
+            accessToken,
+            method
+          })
+          setIsOpenLoginModal(false)
         }
       } catch (e) {
-        console.log(e)
+        console.log('login social failed', e)
+        signOut()
+        setAuthStatus(AUTH_STATUS.ERROR)
       }
     }
   }
 
-  const click = () => {
-    const provider = new GoogleAuthProvider()
-    // provider.addScope('repo,user')
-    const auth = getAuth()
-    signInWithPopup(auth, provider)
-      .then(result => {
-        console.log(result)
-        const cre2 = FacebookAuthProvider.credential(
-          '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'
-        )
-        console.log(cre2)
-        const dd = signInWithCredential(auth, cre2)
-          .then(result => {
-            console.log('re', result)
-            // Signed in
-            // ...
-          })
-          .catch(error => {
-            console.log('e', error)
-            // Handle Errors here.
-            const errorCode = error.code
-            const errorMessage = error.message
-            // The email of the user's account used.
-            const email = error.customData.email
-            // ...
-          })
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      })
-      .catch(error => {
-        // Handle Errors here.
-        const errorCode = error.code
-        const errorMessage = error.message
-        // The email of the user's account used.
-        const email = error.customData.email
-        // The AuthCredential type that was used.
-        const credential = GithubAuthProvider.credentialFromError(error)
-
-        // ...
-      })
-  }
   return (
     <Modal
-      show
-      // onHide={handleClose}
-      //   backdrop="static"
+      show={show}
+      onHide={handleClose}
+      className="login-modal"
+      backdrop="static"
       keyboard={false}
+      centered={isCentered}
     >
-      <Modal.Dialog>
-        {/* <Modal.Header closeButton>
-          <Modal.Title>Duc Huy Hoang</Modal.Title>
-        </Modal.Header> */}
-
-        <Modal.Body className="login-modal">
-          <h1 className="title">Duc Huy Hoang</h1>
-          <div className="social-wrapper">
-            <button
-              className="login-button facebook-btn"
-              onClick={handleLoginSocial(LOGIN_METHOD.FACEBOOK)}
+      <Modal.Body>
+        <IoMdClose
+          style={{
+            cursor: 'pointer',
+            fill: theme === THEME.DARK ? '#fff' : '#070615'
+          }}
+          className="close"
+          size={28}
+          onClick={handleClose}
+        />
+        <div
+          style={{
+            background: 'url(/ducHuyHoangBlog/loginImg.png)'
+          }}
+          className="image mt-5"
+        ></div>
+        <h1 className="title mb-5">Duc Huy Hoang's Blog</h1>
+        <div className="social-wrapper">
+          {authStatus === AUTH_STATUS.LOADING ? (
+            <div
+              className="w-100 d-flex align-center justify-content-center"
+              style={{
+                height: '200px'
+              }}
             >
-              <FaFacebook
-                size={30}
-                style={{
-                  fill: '#fff'
+              <Loading
+                iconProps={{
+                  width: '150px',
+                  height: '150px'
                 }}
               />
-              <h4>Continue with Facebook</h4>
-            </button>
-            {/* <FacebookLogin
-              appId="1088597931155576"
-              autoLoad={false}
-              fields="name,email,picture"
-              callback={handleLoginSocialSucceed(LOGIN_METHOD.FACEBOOK)}
-              cssClass="login-button facebook-btn"
-              textButton={'Continue with Facebook'}
-              icon={
+            </div>
+          ) : (
+            <>
+              <button
+                className="login-button facebook-btn"
+                onClick={handleLoginSocial(LOGIN_METHOD.FACEBOOK)}
+              >
                 <FaFacebook
                   size={30}
                   style={{
                     fill: '#fff'
                   }}
                 />
-              }
-            /> */}
+                <h4>Continue with Facebook</h4>
+              </button>
 
-            {/* <GoogleLogin
-              clientId={GOOGLE_CLIENT_ID}
-              icon={false}
-              className="login-button google-btn"
-              buttonText=""
-              onSuccess={handleLoginSocialSucceed(LOGIN_METHOD.GOOGLE)}
-              onFailure={handleLoginSocialFailed(LOGIN_METHOD.GOOGLE)}
-              cookiePolicy={'single_host_origin'}
-            >
-              <>
+              <button
+                className="login-button google-btn"
+                onClick={handleLoginSocial(LOGIN_METHOD.GOOGLE)}
+              >
                 <FcGoogle size={30} />
                 <h4>Continue with Google</h4>
-              </>
-            </GoogleLogin> */}
-            <button
-              className="login-button google-btn"
-              onClick={handleLoginSocial(LOGIN_METHOD.GOOGLE)}
-            >
-              <FcGoogle size={30} />
-              <h4>Continue with Google</h4>
-            </button>
-            <button
-              className="login-button github-btn"
-              onClick={handleLoginSocial(LOGIN_METHOD.GITHUB)}
-            >
-              <FaGithub size={30} />
-              <h4>Continue with Github</h4>
-            </button>
-            {/* 9a39a5cbce41667b80c8019c55a80bbdd1005a7d */}
-            {/* <GitHubLogin
-              className="login-button github-btn"
-              clientId={GITHUB_CLIENT_ID}
-              redirectUri={'http://localhost:3000'}
-              onSuccess={handleLoginSocialSucceed(LOGIN_METHOD.GITHUB)}
-              onFailure={handleLoginSocialFailed(LOGIN_METHOD.GITHUB)}
-            >
-              <FaGithub size={30} />
-              <h4>Continue with Github</h4>
-            </GitHubLogin> */}
-            {/* <button onClick={click}>Nhan</button> */}
-          </div>
-        </Modal.Body>
-
-        <Modal.Footer></Modal.Footer>
-      </Modal.Dialog>
+              </button>
+              <button
+                className="login-button github-btn"
+                onClick={handleLoginSocial(LOGIN_METHOD.GITHUB)}
+              >
+                <FaGithub size={30} />
+                <h4>Continue with Github</h4>
+              </button>
+            </>
+          )}
+        </div>
+      </Modal.Body>
     </Modal>
   )
 }

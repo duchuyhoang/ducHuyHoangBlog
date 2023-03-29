@@ -6,17 +6,13 @@
   width: 100%;
   background-color: var(--bg-404);
   flex-direction: column;
+  min-height: 73vh;
 
   .image {
     // background
   }
-  h2,
-  svg,
-  a {
+  h2 {
     color: var(--color-text);
-  }
-  & svg {
-    margin-top: 3px;
   }
   a:hover {
     text-decoration: underline;

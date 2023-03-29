@@ -19,3 +19,10 @@ export enum LOGIN_METHOD {
   GOOGLE = 'GOOGLE',
   GITHUB = 'GITHUB'
 }
+
+export enum AUTH_STATUS {
+  IDLE = 'IDLE',
+  LOADING = 'LOADING',
+  ERROR = 'ERROR',
+  SUCCEED = 'SUCCEED'
+}

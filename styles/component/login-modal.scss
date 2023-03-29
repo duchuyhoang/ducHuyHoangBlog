@@ -1,6 +1,49 @@
+.modal-backdrop {
+  height: 100% !important;
+}
 .login-modal {
+  .modal-dialog {
+    @media screen and (max-width: $small-width) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .spinner-border {
+    color: var(--color-text);
+    border-width: 5px;
+  }
+  .modal-content {
+    background-color: var(--bg-404);
+    border: none;
+    @media screen and (max-width: $small-width) {
+      max-width: 400px;
+    }
+    position: relative;
+    justify-content: center;
+  }
+  .modal-body {
+    padding-top: 0px;
+    max-height: 510px;
+  }
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    fill: var(--color-text);
+  }
+  .image {
+    height: 150px;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+  }
+  .modal-footer {
+    border: none;
+  }
   .title {
     text-align: center;
+    color: var(--color-text);
   }
   .social-text {
     font-weight: 400;
@@ -15,13 +58,13 @@
   }
   width: $button-width;
 
-  @media screen and (min-width: 768px) {
-    $button-width: 345px;
-    & > span {
-      width: $button-width;
-    }
-    width: $button-width;
-  }
+  // @media screen and (min-width: 768px) {
+  //   $button-width: 345px;
+  //   & > span {
+  //     width: $button-width;
+  //   }
+  //   width: $button-width;
+  // }
 
   @include flex(center, space-between);
   flex-wrap: wrap;
@@ -60,7 +103,7 @@
   background-color: #fff;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168) !important;
   // color: #E5E5E5 !important;
-  opacity: 1!important;
+  opacity: 1 !important;
   & > span {
     padding: 0px !important;
   }

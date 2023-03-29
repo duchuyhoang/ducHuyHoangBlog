@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 import { PAGE_PREFIX } from '../../common/constants'
 export interface IAvatar extends React.ImgHTMLAttributes<'img'> {
-  src: string
+  src: string | undefined
   width?: number
   height?: number
   style?: React.CSSProperties

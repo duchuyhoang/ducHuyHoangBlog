@@ -1,0 +1,57 @@
+#user-info-popover {
+  background-color: var(--card-bg);
+  $border-color: #bebebe69;
+  .popover-arrow::after {
+    // display: none;
+    border-bottom-color: var(--card-bg);
+  }
+  .social-icon {
+    position: absolute;
+    right: 10px;
+  }
+  .name {
+    @include excerp(1);
+  }
+  .spinner-border {
+    color: var(--color-text);
+    border-width: 3px;
+  }
+
+  .popover-header {
+    color: var(--color-text);
+    background-color: var(--card-bg);
+    border-bottom: 1px solid $border-color;
+    font-size: 22px;
+    min-height: 100px;
+    text-align: center;
+    position: relative;
+
+    & > div {
+      position: absolute;
+      right: 50%;
+      bottom: -30%;
+      transform: translate(50%, 0px);
+    }
+  }
+  .popover-body {
+    color: var(--color-text);
+    padding-top: 30px;
+    min-height: 70px;
+    .email {
+      text-align: center;
+      color: var(--color-text);
+    }
+    border-bottom: 1px solid $border-color;
+  }
+  .sign-out {
+    min-height: 20px;
+    padding: 5px 16px;
+    display: flex;
+    color: var(--color-text);
+    align-items: center;
+    & p {
+      font-size: 18px;
+    }
+    // justify-content: space-around;
+  }
+}

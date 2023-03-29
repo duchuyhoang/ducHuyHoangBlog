@@ -62,6 +62,7 @@
     height: 65px;
     box-sizing: border-box;
     @include excerp(3);
+    margin-top: 10px;
     &:hover {
       // opacity: 0.6;
       color: var(--hover-primary);

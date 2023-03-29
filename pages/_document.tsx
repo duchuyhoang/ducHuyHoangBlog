@@ -16,8 +16,8 @@ const Document = () => {
 
       <body>
         <Main />
-        <NextScript />
       </body>
+      <NextScript />
     </Html>
   )
 }

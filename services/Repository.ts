@@ -14,6 +14,7 @@ import {
   deleteDoc,
   updateDoc
 } from 'firebase/firestore/lite'
+import { BaseModel } from './model/BaseModel'
 
 // interface IRepository<T> {
 //   db: Firestore
@@ -26,10 +27,12 @@ export class Repository<T extends Dictionary> {
     private readonly collection: CollectionReference<T>
   ) {}
 
-  public async getAll(...queryConstraints: QueryConstraint[]): Promise<T[]> {
+  public async getAll(
+    ...queryConstraints: QueryConstraint[]
+  ): Promise<Array<DocData<T>>> {
     const q = query(this.collection, ...queryConstraints)
     const snapshot = await getDocs<T>(q)
-    return snapshot.docs.map(doc => doc.data())
+    return snapshot.docs.map(doc => ({ docId: doc.id, ...doc.data() }))
   }
 
   public async getById(id: string): Promise<Maybe<DocumentSnapshot<T>>> {

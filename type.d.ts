@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import handler from './pages/api/hello'
 import reducers from './redux/reducer'
+import { BaseModel } from './services/model/BaseModel'
 
 declare global {
   type Maybe<T> = T | null
@@ -21,4 +22,5 @@ declare global {
   type Dictionary = {
     [key: string]: any
   }
+  type DocData<T> = T & BaseModel
 }

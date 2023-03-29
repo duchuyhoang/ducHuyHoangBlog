@@ -41,6 +41,10 @@
       background-color: #d1d0d3;
     }
   }
+  .spinner-border {
+    color: var(--color-text);
+    border-width: 3px;
+  }
   .row {
     margin: 0px !important;
     box-sizing: border-box;
@@ -74,9 +78,6 @@
       }
       // transition: all 1s ease-in-out;
       animation: rotating 6s infinite linear;
-      // animation
-      // transition-duration: 1s;
-      // tra
     }
 
     // tran

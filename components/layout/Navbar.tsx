@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, {
   useState,
@@ -27,6 +28,7 @@ import { Row, Col } from 'react-bootstrap'
 import { BsMoon, BsSun } from 'react-icons/bs'
 import Logo from '../../public/logo.svg'
 import {
+  AUTH_STATUS,
   COLLECTION_NAMES,
   FIREBASE_LOADING_STATUS,
   THEME
@@ -42,11 +44,12 @@ import { Datasource } from '../../services/Datasource'
 import useClickOutsideComponent from '../../common/hooks/useClickOutside'
 import { IoIosCloseCircle } from 'react-icons/io'
 import useIsMounted from '../../common/hooks/useIsMounted'
-import LoginModal from '../shared/LoginModal'
+import { useAuth } from '../shared/Auth'
+import UserInfo from '../shared/UserInfo'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Navbar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState<boolean>(false)
   const [isSearchInputOpen, setIsSeachInputOpen] = useState<boolean>(false)
   const navRef = useRef<HTMLDivElement | null>(null)
   const [isHiddenSidebarOpen, setIsOpenSidebarOpen] = useState<boolean>(false)
@@ -66,6 +69,7 @@ const Navbar = () => {
   )
   const router = useRouter()
   const context = useFirebaseContext()
+  const { setIsOpenLoginModal, user, signOut, authStatus } = useAuth()
 
   const handleClickOutsideSearchTablet = () => {
     setIsSearchTabletActive(false)
@@ -75,7 +79,6 @@ const Navbar = () => {
     setIsSearchMobileActive(false)
     setSearchMobileKeyword('')
   }
-  console.log(isSearchMobileActive)
 
   useClickOutsideComponent(searchTabletRef, handleClickOutsideSearchTablet)
   useClickOutsideComponent(searchMobileRef, handleClickOutsideSearchMobile)
@@ -97,23 +100,6 @@ const Navbar = () => {
       document.getElementById('navItemContainer')?.classList.add('d-md-flex')
     }
   }, [isSearchTabletActive, isFullTextSearchBox])
-
-  // useEffect(() => {
-  //   const goi = async () => {
-  //     if (context.status === FIREBASE_LOADING_STATUS.SUCCEED) {
-  //       const repository = context.dataSource.getRepository(
-  //         COLLECTION_NAMES.COMMENT
-  //       )
-  //       const data = await repository?.addOne({
-  //         content: 'Hello world add new'
-  //       })
-  //       console.log(data)
-  //     }
-  //   }
-  //   goi().catch(e => {
-  //     console.log(e)
-  //   })
-  // }, [context])
 
   useLayoutEffect(() => {
     document.documentElement.setAttribute('theme', 'light')
@@ -188,30 +174,6 @@ const Navbar = () => {
         }}
         id="navbar"
       >
-        {/* <div className="row d-none d-sm-block d-md-block d-lg-block d-xl-block">
-          <div
-            className="accountContainer col-12 d-flex"
-            style={{ justifyContent: 'flex-end' }}
-          >
-            <div className="item">
-              <p
-                onClick={() => {
-                  setIsLoginModalOpen(true)
-                }}
-              >
-                Login
-              </p>
-              <span className="divide"> / </span>
-              <p
-                onClick={() => {
-                  setIsSignUpModalOpen(true)
-                }}
-              >
-                Sign up
-              </p>
-            </div>
-          </div>
-        </div> */}
         <section
           className="row"
           style={{
@@ -566,16 +528,33 @@ const Navbar = () => {
                 }}
                 className="d-flex align-items-center justify-content-center pr-0"
               >
-                <AiOutlineLogin
-                  style={{
-                    cursor: 'pointer',
-                    fill: theme === THEME.DARK ? '#fff' : '#070615'
-                  }}
-                  size={33}
-                  onClick={() => {
-                    setIsLoginModalOpen(true)
-                  }}
-                />
+                {authStatus === AUTH_STATUS.IDLE ||
+                authStatus === AUTH_STATUS.ERROR ? (
+                  <AiOutlineLogin
+                    style={{
+                      cursor: 'pointer',
+                      fill: theme === THEME.DARK ? '#fff' : '#070615'
+                    }}
+                    size={33}
+                    onClick={() => {
+                      setIsOpenLoginModal(true)
+                    }}
+                  />
+                ) : (
+                  <>
+                    {' '}
+                    {authStatus === AUTH_STATUS.LOADING && user === null ? (
+                      <Spinner animation="border" />
+                    ) : (
+                      <UserInfo
+                        user={user!}
+                        signOut={() => {
+                          signOut()
+                        }}
+                      />
+                    )}
+                  </>
+                )}
               </span>
             </div>
 
@@ -637,35 +616,6 @@ const Navbar = () => {
             </Col>
           </Row>
         </section>
-
-        {/* <Modal
-          title={'Log in'}
-          isOpen={isLoginModalOpen}
-          handleClose={() => {
-            setIsLoginModalOpen(false)
-          }}
-        >
-          <>Hello</>
-        </Modal>
-
-        <Modal
-          title={'Sign up'}
-          isOpen={isSignUpModalOpen}
-          handleClose={() => {
-            setIsSignUpModalOpen(false)
-          }}
-        >
-          <>
-            <Input
-              value={'ddd'}
-              onChange={e => {
-                console.log(e)
-              }}
-              placeholder="Search"
-            />
-            <button onClick={signUp}>Sign up</button>
-          </>
-        </Modal> */}
       </nav>
 
       <div
@@ -738,7 +688,6 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      {isLoginModalOpen && <LoginModal />}
     </>
   )
 }
