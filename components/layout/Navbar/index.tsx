@@ -446,9 +446,10 @@ const Navbar = () => {
                 style={{
                   padding: '0px 10px',
                   marginBottom: '3px',
-                  width: 'max-content'
+                  width: 'max-content',
+                  cursor: 'pointer'
                 }}
-                className="d-flex align-items-center justify-content-center pr-0"
+                className="d-flex d-md-none align-items-center justify-content-center pr-0"
               >
                 <VscThreeBars
                   size={24}

@@ -4,11 +4,11 @@ import { Col, Row } from 'react-bootstrap'
 import { THEME } from '../../common/enum'
 import { IPost } from './FeaturePost'
 import { useTheme } from './Theme'
-import { BiCalendar } from 'react-icons/bi'
 import ShowMoreText from './ShowMore'
 import Avatar from './Avatar'
 import { FaTags } from 'react-icons/fa'
-import { getImageSrc } from '../../common/utils'
+import { getDateStringText, getImageSrc } from '../../common/utils'
+
 const VerticalCardPost = ({
   author,
   date,
@@ -54,9 +54,9 @@ const VerticalCardPost = ({
             className="tag-container d-flex align-items-center"
             style={{ fontSize: '14px' }}
           >
-            {tags.map(tags => (
-              <Link href="/" key={tags}>
-                <a className="mr-1">#{tags}</a>
+            {tags.map(tag => (
+              <Link href={`/tags?tags[]=${tag}`} key={tag}>
+                <a className="mr-1">#{tag}</a>
               </Link>
             ))}
           </div>
@@ -83,7 +83,7 @@ const VerticalCardPost = ({
                 </a>
               </Link>
               <p className="vertical-card-date d-flex align-items-center">
-                May 5, 2022 - {minuteRead} min read
+                {getDateStringText(date)} - {minuteRead} min read
               </p>
             </div>
           </Col>
@@ -91,7 +91,6 @@ const VerticalCardPost = ({
         <Link href="/" passHref>
           <a href="" className="vertical-card-title">
             {title}
-            {/* Learn Python with Pj! Part 4 - Dictionaries and Files */}
           </a>
         </Link>
 
@@ -101,7 +100,7 @@ const VerticalCardPost = ({
             lines={4}
             expandByClick={false}
             more={
-              <Link href="/" passHref>
+              <Link href={`/post/${slug}`} passHref>
                 <a>Show more</a>
               </Link>
             }

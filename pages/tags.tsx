@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/indent */
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import type { NextPage } from 'next'
 import TagFilter from '../components/shared/TagFilter'
 import { Container } from 'react-bootstrap'
@@ -13,6 +13,7 @@ import matter from 'gray-matter'
 import { IPost } from '../components/shared/FeaturePost'
 import HorizontalCardPost from '../components/shared/HorizontalCardPost'
 import NothingFound from '../components/shared/NothingFound'
+import { useRouter } from 'next/router'
 
 // function imageUploaded() {
 //   return new Promise((resolve, reject) => {
@@ -76,6 +77,17 @@ const TagManagement: NextPage<
 
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [condition, setCondition] = useState<TagCondition>(TagCondition.AND)
+  const router = useRouter()
+  useEffect(() => {
+    if (router.query['tags[]']) {
+      const datas = router.query['tags[]']
+      if (Array.isArray(datas)) {
+        setSelectedTags(datas.filter(tag => tags.includes(tag)))
+      } else {
+        setSelectedTags(tags.includes(datas) ? [datas] : [])
+      }
+    }
+  }, [router, tags])
   const handleToggle = (value: any, isActive: boolean) => {
     const tagsSet = new Set(selectedTags)
     if (isActive) {

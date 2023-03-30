@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { NextIncomingMessage } from 'next/dist/server/request-meta'
 import { PAGE_PREFIX } from './constants'
 
@@ -33,4 +34,28 @@ export const getPostSrc = (slug: string): string => {
   return `${POST_PREFIX}/${
     slug.startsWith('/') ? slug.slice(0, slug.length) : slug
   }`
+}
+
+export const getDateStringText = (date: moment.MomentInput): string => {
+  const month = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+  const momentObj = moment(date)
+  if (momentObj.isValid()) {
+    const date = momentObj.toDate()
+    return `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+  } else {
+    return 'Unknown'
+  }
 }
