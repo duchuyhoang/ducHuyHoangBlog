@@ -55,11 +55,12 @@ const UserInfo = ({ user, signOut }: IUserInfo) => {
                   ? 'justify-content-center'
                   : ''
               }`}
+              onClick={signOut}
             >
               {authStatus === AUTH_STATUS.LOADING ? (
                 <Spinner animation="border"></Spinner>
               ) : (
-                <div className="d-flex align-center" onClick={signOut}>
+                <div className="d-flex align-center">
                   <AiOutlinePoweroff size={20} />
                   <p className="ml-2">Sign out</p>
                 </div>

@@ -83,15 +83,17 @@ const Auth = ({ children }: IAuthContext) => {
     result: UserCredential,
     method: LOGIN_METHOD
   ) => {
-    // Google
     const payload: User = {
+      uid: result.user.providerData[0].uid,
       email: result.user.email ?? '',
       method,
       avatar: result.user.photoURL,
       name: result.user.displayName
     }
+    if (method === LOGIN_METHOD.GITHUB || method === LOGIN_METHOD.FACEBOOK) {
+      payload.email = result.user.providerData[0]?.email ?? ''
+    }
     if (method === LOGIN_METHOD.GITHUB) {
-      payload.email = result.user.providerData[0]?.email as string
       payload.name = (result.user as any).reloadUserInfo?.screenName
     }
     if (method === LOGIN_METHOD.FACEBOOK) {
@@ -131,7 +133,7 @@ const Auth = ({ children }: IAuthContext) => {
                 method as LOGIN_METHOD
               )
               queries = [
-                where('email', '==', payload.email),
+                where('uid', '==', payload.uid),
                 where('method', '==', method),
                 limit(1)
               ]

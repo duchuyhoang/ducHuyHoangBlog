@@ -49,8 +49,13 @@
     display: flex;
     color: var(--color-text);
     align-items: center;
+    cursor: pointer;
     & p {
       font-size: 18px;
+    }
+    &:hover {
+      // background-color: #fff;
+      // color: var(--color-text-primary-reverse);
     }
     // justify-content: space-around;
   }
