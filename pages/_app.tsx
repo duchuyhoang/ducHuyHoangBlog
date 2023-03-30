@@ -13,6 +13,7 @@ import Theme from '../components/shared/Theme'
 import MobileThemeSwitch from '../components/shared/MobileThemeSwitch'
 import FirebaseWrapper from '../components/shared/FirebaseWrapper'
 import Auth from '../components/shared/Auth'
+import FacebookLogin from 'react-facebook-login'
 const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
   const [isShowScrollTop, setIsShowScrollTop] = useState(false)
   const handleScrollToTop = () => {
@@ -45,6 +46,15 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
               style={{ minHeight: 'calc(100vh - 270px)' }}
             >
               <Component {...pageProps} />
+              <FacebookLogin
+                appId="667591108325117"
+                autoLoad={false}
+                fields="name,email,picture"
+                // onClick={componentClicked}
+                callback={response => {
+                  console.log('new res', response)
+                }}
+              />
             </div>
             {isShowScrollTop && (
               <div

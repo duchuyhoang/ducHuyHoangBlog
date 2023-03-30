@@ -20,23 +20,25 @@ import {
 import { where, limit } from 'firebase/firestore/lite'
 import LoginModal from './LoginModal'
 
-interface IAuthContext {
+interface IAuthContextValue {
   user: Maybe<DocData<User>>
   setUser: React.Dispatch<React.SetStateAction<Maybe<DocData<User>>>>
-  authStatus: AUTH_STATUS
   signOut: () => void
-  signIn: (params: { accessToken: string; method: LOGIN_METHOD }) => void
+  signIn: (payload: { accessToken: string; method: LOGIN_METHOD }) => void
+  authStatus: AUTH_STATUS
   setIsOpenLoginModal: React.Dispatch<React.SetStateAction<boolean>>
   setAuthStatus: React.Dispatch<React.SetStateAction<AUTH_STATUS>>
 }
 
-const AuthContext = React.createContext<IAuthContext>({} as IAuthContext)
+const AuthContext = React.createContext<IAuthContextValue>(
+  {} as IAuthContextValue
+)
 
 interface IAuthContext {
   children?: React.ReactNode
 }
 
-export const Auth = ({ children }: IAuthContext) => {
+const Auth = ({ children }: IAuthContext) => {
   const [user, setUser] = useState<Maybe<DocData<User>>>(null)
   const [authStatus, setAuthStatus] = useState<AUTH_STATUS>(AUTH_STATUS.IDLE)
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false)
