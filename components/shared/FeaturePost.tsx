@@ -13,6 +13,7 @@ export interface IPost {
   isFeature: boolean
   image?: string
   tags: string[]
+  minuteRead: string
 }
 
 const FeaturePostList = ({ posts }: { posts: IPost[] }) => {

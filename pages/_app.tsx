@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import type { AppProps } from 'next/app'
 import React, { ReactElement, useState, useEffect } from 'react'
-import Navbar from '../components/layout/Navbar'
+import Navbar from '../components/layout/Navbar/index'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Footer from '../components/layout/Footer'
@@ -46,7 +46,7 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
               style={{ minHeight: 'calc(100vh - 270px)' }}
             >
               <Component {...pageProps} />
-              <FacebookLogin
+              {/* <FacebookLogin
                 appId="667591108325117"
                 autoLoad={false}
                 fields="name,email,picture"
@@ -54,7 +54,7 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactElement => {
                 callback={response => {
                   console.log('new res', response)
                 }}
-              />
+              /> */}
             </div>
             {isShowScrollTop && (
               <div

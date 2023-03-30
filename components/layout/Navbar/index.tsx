@@ -8,7 +8,7 @@ import React, {
   useLayoutEffect
 } from 'react'
 import Link from 'next/link'
-import Modal from '../shared/Modal'
+import Modal from '../../shared/Modal'
 import { VscThreeBars } from 'react-icons/vsc'
 import { FaGithub, FaFacebookSquare } from 'react-icons/fa'
 import {
@@ -16,8 +16,7 @@ import {
   createUserWithEmailAndPassword,
   Auth
 } from 'firebase/auth'
-import { getFirebase, services } from '../../services/firebase'
-import Input from '../shared/Input'
+import Input from '../../shared/Input'
 import {
   AiFillInstagram,
   AiOutlineSearch,
@@ -25,31 +24,29 @@ import {
   AiOutlineLogin
 } from 'react-icons/ai'
 import { Row, Col } from 'react-bootstrap'
-import { BsMoon, BsSun } from 'react-icons/bs'
-import Logo from '../../public/logo.svg'
+import Logo from '../../../public/logo.svg'
 import {
   AUTH_STATUS,
   COLLECTION_NAMES,
   FIREBASE_LOADING_STATUS,
   THEME
-} from '../../common/enum'
-import { useTheme } from '../shared/Theme'
-import useMediaQuery from '../../hooks/useMediaQuery'
+} from '../../../common/enum'
+import { useTheme } from '../../shared/Theme'
+import useMediaQuery from '../../../hooks/useMediaQuery'
 import { useRouter } from 'next/router'
-import { ROUTERS } from '../../common/constants'
-import { useFirebaseContext } from '../shared/FirebaseWrapper'
+import { ROUTERS } from '../../../common/constants'
+import { useFirebaseContext } from '../../shared/FirebaseWrapper'
 
-import { addDoc, where, refEqual, orderBy } from 'firebase/firestore/lite'
-import { Datasource } from '../../services/Datasource'
-import useClickOutsideComponent from '../../common/hooks/useClickOutside'
+import useClickOutsideComponent from '../../../common/hooks/useClickOutside'
 import { IoIosCloseCircle } from 'react-icons/io'
-import useIsMounted from '../../common/hooks/useIsMounted'
-import { useAuth } from '../shared/Auth'
-import UserInfo from '../shared/UserInfo'
+import useIsMounted from '../../../common/hooks/useIsMounted'
+import { useAuth } from '../../shared/Auth'
+import UserInfo from '../../shared/UserInfo'
 import Spinner from 'react-bootstrap/Spinner'
+import Sidebar from './Sidebar'
+import { BiMoon, BiSun } from 'react-icons/bi'
 
 const Navbar = () => {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
   const [isSearchInputOpen, setIsSeachInputOpen] = useState<boolean>(false)
   const navRef = useRef<HTMLDivElement | null>(null)
   const [isHiddenSidebarOpen, setIsOpenSidebarOpen] = useState<boolean>(false)
@@ -88,6 +85,16 @@ const Navbar = () => {
     setIsSearchTabletActive(false)
   }, [isMatch])
 
+  // Disable scroll if sidebar open
+  useEffect(() => {
+    document.documentElement.classList[isHiddenSidebarOpen ? 'add' : 'remove'](
+      'disable-scroll'
+    )
+    document.body.classList[isHiddenSidebarOpen ? 'add' : 'remove'](
+      'disable-scroll'
+    )
+  }, [isHiddenSidebarOpen])
+
   useEffect(() => {
     if (isSearchTabletActive && isFullTextSearchBox) {
       const parent = searchTabletRef.current.parentElement
@@ -113,57 +120,6 @@ const Navbar = () => {
     setIsOpenSidebarOpen(false)
   }, [])
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", function (e: any) {
-  //     if (!firstTimeLoadNav.current) {
-  //       let windowScrollY = this.scrollY;
-  //       if (windowScrollY <= currentWindowOffsetY) {
-  //         setIsHideScrollBar(false);
-  //       } else {
-  //         setIsHideScrollBar(true);
-  //       }
-  //       setWindowOffsetY(windowScrollY);
-  //     } else firstTimeLoadNav.current = false;
-  //   });
-  //   return () => {
-  //     window.removeEventListener("scroll", function (e: any) {
-  //       let windowScrollY = this.scrollY;
-  //       if (windowScrollY <= currentWindowOffsetY) {
-  //         setIsHideScrollBar(false);
-  //       } else {
-  //         setIsHideScrollBar(true);
-  //       }
-  //     });
-  //   };
-  // }, [currentWindowOffsetY]);
-
-  const signUp = () => {
-    // console.log(context);
-    const services = getFirebase()
-    // console.log("hello", services);
-
-    // if (services?.auth)
-    //   createUserWithEmailAndPassword(
-    //     services?.auth,
-    //     'huyhoang10032000@gmail.com',
-    //     '10032000'
-    //   )
-    //     .then(userCredential => {
-    //       // Signed in
-    //       const user = userCredential.user
-    //       console.log(userCredential)
-    //       // ...
-    //     })
-    //     .catch(error => {
-    //       console.log(error, error.code)
-    //       console.log(error.message)
-
-    //       const errorCode = error.code
-    //       const errorMessage = error.message
-    //       // ..
-    //     })
-  }
-
   return (
     <>
       <nav
@@ -182,18 +138,18 @@ const Navbar = () => {
         >
           <Row className={`flex-nowrap ${isSearchMobileActive ? 'pr-0' : ''}`}>
             {/* <Col className="d-flex d-md-none align-items-center p-0" xs="1">
-              <AiOutlineSearch
-                size={25}
-                style={{
-                  fill: theme === THEME.DARK ? '#fff' : '#070615'
-                }}
-                onClick={() => {
-                  setIsSeachInputOpen(prev => !prev)
-                }}
-              />
-            </Col> */}
+                <AiOutlineSearch
+                  size={25}
+                  style={{
+                    fill: theme === THEME.DARK ? '#fff' : '#070615'
+                  }}
+                  onClick={() => {
+                    setIsSeachInputOpen(prev => !prev)
+                  }}
+                />
+              </Col> */}
 
-            <div
+            {/* <div
               className="d-flex d-md-none p-0 mb-1 align-items-center"
               style={{
                 width: 'max-content',
@@ -211,98 +167,27 @@ const Navbar = () => {
                   }}
                 />
               </span>
-            </div>
+            </div> */}
 
             <Col
               col="6"
               xs="2"
-              sm="1"
+              sm="2"
               md="1"
               // md="1"
               lg="1"
               className="logo text-center p-0"
-              style={{
-                display: isSearchMobileActive ? 'none' : 'flex',
-                ...(!isMatch && isMounted
-                  ? {
-                      width: '57%',
-                      justifyContent: 'flex-end',
-                      position: 'fixed'
-                    }
-                  : {})
-              }}
+              //   style={{
+              //     display: isSearchMobileActive ? 'none' : 'flex',
+              //     ...(!isMatch && isMounted
+              //       ? {
+              //           width: '57%',
+              //           justifyContent: 'flex-end',
+              //           position: 'fixed'
+              //         }
+              //       : {})
+              //   }}
             >
-              {/* <button
-                onClick={async () => {
-                  const repository = context.dataSource.getRepository(
-                    COLLECTION_NAMES.USER
-                  )
-                  const newUser = await repository?.addOne({
-                    name: 'HUy hoang',
-                    email: 'huy@gmail.com',
-                    age: 123
-                  })
-                  console.log(newUser)
-                }}
-              >
-                Them user
-              </button>
-              <button
-                onClick={async () => {
-                  const repository = context.dataSource.getRepository(
-                    COLLECTION_NAMES.COMMENT
-                  )
-                  const userRepo = context.dataSource.getRepository(
-                    COLLECTION_NAMES.USER
-                  )
-                  console.log(Datasource.repositories)
-                  console.log(userRepo?.getReference)
-                  const userRef = await userRepo?.getReference(
-                    'PpZBzRDK16xaz3pKo6WK'
-                  )
-                  const data = await repository?.addOne({
-                    user: userRef,
-                    postSlug: 'abc-123',
-                    content: 'ABc 123'
-                  })
-                  console.log(data)
-                }}
-              >
-                Them comment
-              </button>
-              <button
-                onClick={async () => {
-                  const repository = context.dataSource.getRepository(
-                    COLLECTION_NAMES.COMMENT
-                  )
-                  const userRepo = context.dataSource.getRepository(
-                    COLLECTION_NAMES.USER
-                  )
-                  const userRef = await userRepo?.getReference(
-                    'PpZBzRDK16xaz3pKo6WK'
-                  )
-                  console.log('ref', userRef)
-                  const datas = await repository?.getAll(
-                    // where('user', '==', null)
-                    orderBy('user')
-                  )
-                  console.log(datas)
-                }}
-              >
-                Get all
-              </button>
-
-              <button
-                onClick={async () => {
-                  const repository = context.dataSource.getRepository(
-                    COLLECTION_NAMES.COMMENT
-                  )
-                  const data = await repository?.getById('Env6NXq3NcHIAporZu5a')
-                  console.log('d', data)
-                }}
-              >
-                Get by id
-              </button> */}
               <Link href={ROUTERS.HOME} passHref>
                 <Logo width={70} height={70} fill={'var(--color-text)'} />
               </Link>
@@ -353,13 +238,13 @@ const Navbar = () => {
 
               <span
                 style={{
-                  padding: '0px 10px',
+                  padding: '0px',
                   marginBottom: '3px',
                   width: isMatch ? 'max-content' : 'auto',
                   display: isSearchMobileActive ? 'none' : 'flex'
                 }}
                 className={`searchWrapper ${
-                  isSearchMobileActive || isSearchTabletActive
+                  isSearchMobileActive || (isSearchTabletActive && isMatch)
                     ? 'searchTabletActive'
                     : ''
                 }`}
@@ -398,7 +283,7 @@ const Navbar = () => {
                       cursor: 'pointer',
                       fill: theme === THEME.DARK ? '#fff' : '#070615'
                     }}
-                    size={33}
+                    size={24}
                     onClick={() => {
                       setIsSearchMobileActive(prev => !prev)
                     }}
@@ -408,76 +293,76 @@ const Navbar = () => {
             </Col>
 
             {/* <Row
-              className="d-flex flex-nowrap"
-              style={{
-                width: 'max-content'
-              }}
-            >
-              {isMatch && (
-                  <div
-                    className="p-0"
-                    style={{
-                      width: 'max-content'
-                    }}
-                  >
-                    <span
-                      className="nav-item"
-                      style={{ padding: '0px', margin: '0px 5px' }}
-                    >
-                      <Link
-                        href="https://www.facebook.com/croong.hoang"
-                        passHref
-                      >
-                        <a target={'_blank'}>
-                          <FaFacebookSquare
-                            size={25}
-                            style={{
-                              fill: theme === THEME.DARK ? '#fff' : '#070615'
-                            }}
-                          />
-                        </a>
-                      </Link>
-                    </span>
-                    <span
-                      className="nav-item"
-                      style={{ padding: '0px', margin: '0px 5px' }}
-                    >
-                      <Link href="https://github.com/duchuyhoang" passHref>
-                        <a target={'_blank'}>
-                          <FaGithub
-                            size={25}
-                            style={{
-                              fill: theme === THEME.DARK ? '#fff' : '#070615'
-                            }}
-                          />
-                        </a>
-                      </Link>
-                    </span>
-                    <span
-                      className="nav-item"
+                className="d-flex flex-nowrap"
+                style={{
+                  width: 'max-content'
+                }}
+              >
+                {isMatch && (
+                    <div
+                      className="p-0"
                       style={{
-                        padding: '0px',
-                        margin: '0px 5px',
-                        marginRight: '30px'
+                        width: 'max-content'
                       }}
                     >
-                      <Link
-                        href="https://www.instagram.com/duchuy_h/?hl=en"
-                        passHref
+                      <span
+                        className="nav-item"
+                        style={{ padding: '0px', margin: '0px 5px' }}
                       >
-                        <a target={'_blank'}>
-                          <AiFillInstagram
-                            size={25}
-                            style={{
-                              fill: theme === THEME.DARK ? '#fff' : '#070615'
-                            }}
-                          />
-                        </a>
-                      </Link>
-                    </span>
-                  </div>
-                )}
-            </Row> */}
+                        <Link
+                          href="https://www.facebook.com/croong.hoang"
+                          passHref
+                        >
+                          <a target={'_blank'}>
+                            <FaFacebookSquare
+                              size={25}
+                              style={{
+                                fill: theme === THEME.DARK ? '#fff' : '#070615'
+                              }}
+                            />
+                          </a>
+                        </Link>
+                      </span>
+                      <span
+                        className="nav-item"
+                        style={{ padding: '0px', margin: '0px 5px' }}
+                      >
+                        <Link href="https://github.com/duchuyhoang" passHref>
+                          <a target={'_blank'}>
+                            <FaGithub
+                              size={25}
+                              style={{
+                                fill: theme === THEME.DARK ? '#fff' : '#070615'
+                              }}
+                            />
+                          </a>
+                        </Link>
+                      </span>
+                      <span
+                        className="nav-item"
+                        style={{
+                          padding: '0px',
+                          margin: '0px 5px',
+                          marginRight: '30px'
+                        }}
+                      >
+                        <Link
+                          href="https://www.instagram.com/duchuy_h/?hl=en"
+                          passHref
+                        >
+                          <a target={'_blank'}>
+                            <AiFillInstagram
+                              size={25}
+                              style={{
+                                fill: theme === THEME.DARK ? '#fff' : '#070615'
+                              }}
+                            />
+                          </a>
+                        </Link>
+                      </span>
+                    </div>
+                  )}
+              </Row> */}
 
             <div
               className="p-0 justify-content-end justify-content-md-start"
@@ -496,23 +381,23 @@ const Navbar = () => {
                 className="d-none d-md-flex align-items-center justify-content-center"
               >
                 {theme === THEME.DARK ? (
-                  <BsSun
+                  <BiSun
                     style={{
                       cursor: 'pointer',
                       fill: theme === THEME.DARK ? '#fff' : '#070615'
                     }}
-                    size={33}
+                    size={24}
                     onClick={() => {
                       setTheme(THEME.LIGHT)
                     }}
                   />
                 ) : (
-                  <BsMoon
+                  <BiMoon
                     style={{
                       cursor: 'pointer',
                       fill: theme === THEME.DARK ? '#fff' : '#070615'
                     }}
-                    size={31}
+                    size={24}
                     onClick={() => {
                       setTheme(THEME.DARK)
                     }}
@@ -522,7 +407,7 @@ const Navbar = () => {
 
               <span
                 style={{
-                  padding: '0px 10px',
+                  paddingLeft: isMatch ? '0px' : '10px',
                   marginBottom: '3px',
                   width: 'max-content'
                 }}
@@ -535,7 +420,7 @@ const Navbar = () => {
                       cursor: 'pointer',
                       fill: theme === THEME.DARK ? '#fff' : '#070615'
                     }}
-                    size={33}
+                    size={24}
                     onClick={() => {
                       setIsOpenLoginModal(true)
                     }}
@@ -556,6 +441,25 @@ const Navbar = () => {
                   </>
                 )}
               </span>
+
+              <span
+                style={{
+                  padding: '0px 10px',
+                  marginBottom: '3px',
+                  width: 'max-content'
+                }}
+                className="d-flex align-items-center justify-content-center pr-0"
+              >
+                <VscThreeBars
+                  size={24}
+                  style={{
+                    fill: theme === THEME.DARK ? '#fff' : '#070615'
+                  }}
+                  onClick={() => {
+                    setIsOpenSidebarOpen(true)
+                  }}
+                />
+              </span>
             </div>
 
             <Col
@@ -563,7 +467,7 @@ const Navbar = () => {
               style={{
                 display: isSearchMobileActive ? 'flex' : 'none'
               }}
-              className="pr-1 flex-grow-1"
+              className="flex-grow-1"
             >
               <span
                 style={{
@@ -618,76 +522,12 @@ const Navbar = () => {
         </section>
       </nav>
 
-      <div
-        className="hideSidebar"
-        style={{
-          width: isHiddenSidebarOpen ? '100vw' : '0px',
-          visibility: isHiddenSidebarOpen ? 'visible' : 'hidden'
+      <Sidebar
+        show={isHiddenSidebarOpen}
+        onClose={() => {
+          setIsOpenSidebarOpen(false)
         }}
-      >
-        <h2 className="title">
-          <div className="d-flex justify-space-between align-center">
-            <Link href={ROUTERS.HOME} passHref>
-              <Logo width={70} height={70} fill={'var(--color-text)'} />
-            </Link>
-            <AiOutlineClose
-              className="icon"
-              size={25}
-              style={{
-                cursor: 'pointer'
-              }}
-              onClick={() => {
-                setIsOpenSidebarOpen(false)
-              }}
-            />
-          </div>
-        </h2>
-        <div className="item-container">
-          <Link href={ROUTERS.HOME} passHref>
-            <a
-              className={`item ${
-                router.pathname === ROUTERS.HOME ? 'item-active' : ''
-              }`}
-              onClick={handleCloseHiddenSideBar}
-            >
-              Home
-            </a>
-          </Link>
-
-          <Link href={ROUTERS.ABOUT} passHref>
-            <a
-              className={`item ${
-                router.pathname === ROUTERS.ABOUT ? 'item-active' : ''
-              }`}
-              onClick={handleCloseHiddenSideBar}
-            >
-              About me
-            </a>
-          </Link>
-
-          <Link href={ROUTERS.SOFTWARE} passHref>
-            <a
-              className={`item ${
-                router.pathname === ROUTERS.SOFTWARE ? 'item-active' : ''
-              }`}
-              onClick={handleCloseHiddenSideBar}
-            >
-              Software
-            </a>
-          </Link>
-
-          <Link href={ROUTERS.TAGS} passHref>
-            <a
-              className={`item ${
-                router.pathname === ROUTERS.TAGS ? 'item-active' : ''
-              }`}
-              onClick={handleCloseHiddenSideBar}
-            >
-              Tags
-            </a>
-          </Link>
-        </div>
-      </div>
+      />
     </>
   )
 }

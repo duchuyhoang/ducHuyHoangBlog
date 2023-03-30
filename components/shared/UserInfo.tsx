@@ -37,7 +37,7 @@ const UserInfo = ({ user, signOut }: IUserInfo) => {
       <OverlayTrigger
         trigger="click"
         container={ref}
-        placement={'bottom'}
+        placement={'bottom-end'}
         rootClose
         overlay={
           <Popover id="user-info-popover">
@@ -71,8 +71,8 @@ const UserInfo = ({ user, signOut }: IUserInfo) => {
         <div ref={ref}>
           <Avatar
             src={user.avatar ?? undefined}
-            width={35}
-            height={33}
+            width={24}
+            height={24}
             style={{
               cursor: 'pointer'
             }}

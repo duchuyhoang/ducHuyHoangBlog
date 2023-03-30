@@ -215,3 +215,8 @@ html {
 .modal-open {
   transform: none !important;
 }
+.disable-scroll {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}

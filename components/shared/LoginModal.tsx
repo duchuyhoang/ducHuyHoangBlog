@@ -100,7 +100,7 @@ const LoginModal = (props: ILoginModal) => {
             </div>
           ) : (
             <>
-              <button
+              {/* <button
                 className="login-button facebook-btn"
                 onClick={handleLoginSocial(LOGIN_METHOD.FACEBOOK)}
               >
@@ -111,7 +111,7 @@ const LoginModal = (props: ILoginModal) => {
                   }}
                 />
                 <h4>Continue with Facebook</h4>
-              </button>
+              </button> */}
 
               <button
                 className="login-button google-btn"

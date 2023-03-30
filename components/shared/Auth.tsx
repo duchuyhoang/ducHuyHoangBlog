@@ -167,6 +167,7 @@ const Auth = ({ children }: IAuthContext) => {
           .catch(error => {
             console.log(error)
             clearCredential()
+            setAuthStatus(AUTH_STATUS.ERROR)
           })
       }
     }

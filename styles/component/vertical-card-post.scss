@@ -3,7 +3,7 @@
   // padding: 10px;
   border-radius: 20px;
   & .show-more-less-clickable a {
-    color: var(--color-text);
+    color: $link-color;
     &:hover {
       color: var(--hover-primary);
     }
@@ -37,10 +37,13 @@
   }
 
   &-content {
-    // padding: 20px;
     .tag-container {
+      flex-wrap: wrap;
+      width: calc(100% - 40px);
+      padding: 0px;
       & a {
         text-decoration: none;
+        margin-bottom: 3px;
         color: var(--color-text);
         font-size: 13px;
         color: var(--hover-primary);
@@ -57,9 +60,10 @@
     font-weight: 600;
     box-sizing: border-box;
     display: block;
+    line-height: 24px;
     width: 100%;
     text-decoration: none;
-    height: 65px;
+    height: 85px;
     box-sizing: border-box;
     @include excerp(3);
     margin-top: 10px;
@@ -72,10 +76,9 @@
   &-date {
     font-weight: 400;
     display: block;
-    font-size: 15px;
+    font-size: 13px;
     text-decoration: none;
     margin: 8px 0px;
-    font-style: italic;
     color: var(--color-text);
   }
   &-author:hover {
@@ -93,6 +96,7 @@
       color: var(--color-description);
       font-size: 17px;
       font-weight: 400;
+      line-height: 20px;
     }
     height: 105px;
   }

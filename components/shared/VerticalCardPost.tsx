@@ -16,7 +16,8 @@ const VerticalCardPost = ({
   slug,
   description,
   image,
-  tags
+  tags,
+  minuteRead
 }: IPost) => {
   const { theme } = useTheme()
   return (
@@ -40,65 +41,51 @@ const VerticalCardPost = ({
 
       <div className="vertical-card-content">
         <Row className="mt-3">
+          <FaTags
+            className="flex-wrap"
+            size={'16px'}
+            style={{
+              fill: 'var(--color-text)',
+              marginBottom: '2px',
+              width: 'max-content'
+            }}
+          />
           <div
             className="tag-container d-flex align-items-center"
             style={{ fontSize: '14px' }}
           >
-            <FaTags
-              className="mr-2"
-              size={'16px'}
-              style={{
-                fill: 'var(--color-text)',
-                marginBottom: '2px'
-              }}
-            />
             {tags.map(tags => (
               <Link href="/" key={tags}>
                 <a className="mr-1">#{tags}</a>
               </Link>
             ))}
-
-            {/* <Link href="/">
-              <a className="mr-1">#Hello 2</a>
-            </Link> */}
           </div>
         </Row>
         <Row className="m-0 mt-2">
-          <Col xs="7" className="pl-0 pr-0 d-flex">
+          <Col xs="12" className="pl-0 pr-0 d-flex">
             <Avatar
               src={author?.avatar}
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               className="avatar mr-1"
             />
-            <div className="ml-1">
+            <div className="ml-2">
               <Link href="/" passHref>
                 <a
                   href=""
                   className="vertical-card-author p-0"
                   style={{
-                    marginBlockStart: '4px',
+                    marginBlockStart: '3px',
                     fontSize: '16px'
                   }}
                 >
                   {author.name}
                 </a>
               </Link>
+              <p className="vertical-card-date d-flex align-items-center">
+                May 5, 2022 - {minuteRead} min read
+              </p>
             </div>
-          </Col>
-          <Col xs="5" className="pr-0">
-            <p
-              className="vertical-card-date d-flex align-items-center justify-content-end"
-              style={{ textAlign: 'right' }}
-            >
-              <BiCalendar
-                style={{
-                  marginBottom: '2px',
-                  marginRight: '5px'
-                }}
-              />
-              May 5, 2022
-            </p>
           </Col>
         </Row>
         <Link href="/" passHref>

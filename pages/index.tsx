@@ -107,17 +107,17 @@ export const getStaticProps = async () => {
 
   const featurePostId = listFeaturePost.map(post => post.slug)
 
-  for (let i = 0; i < listPost.length; i++) {
-    const selectedPost = listPost[i]
-    if (!featurePostId.includes(selectedPost.slug)) {
-      listRecentPost.push(selectedPost)
-    }
-    if (listRecentPost.length === RECENT_POST_COUNT) {
-      break
-    }
-  }
+  // for (let i = 0; i < listPost.length; i++) {
+  //   const selectedPost = listPost[i]
+  //   if (!featurePostId.includes(selectedPost.slug)) {
+  //     listRecentPost.push(selectedPost)
+  //   }
+  //   if (listRecentPost.length === RECENT_POST_COUNT) {
+  //     break
+  //   }
+  // }
   return {
-    props: { listPost, listFeaturePost, listRecentPost }
+    props: { listPost, listFeaturePost, listRecentPost: listPost }
   }
 }
 
@@ -153,13 +153,13 @@ const Home: NextPage<IHome, IHome> = props => {
     speed: 500,
     // rtl: true,
     // rtl: listRecentPost.length < 3 ? false : false,
-    centerMode: !(totalRecent > 2)
-      ? false
-      : isSmall
-      ? false
-      : isMedium
-      ? false
-      : true,
+    // centerMode: !(totalRecent > 2)
+    //   ? false
+    //   : isSmall
+    //   ? false
+    //   : isMedium
+    //   ? false
+    //   : true,
     rtl: false,
     // centerMode: true,
     slidesToShow: isSmall
@@ -229,6 +229,7 @@ const Home: NextPage<IHome, IHome> = props => {
                     tags={post.tags}
                     isFeature={false}
                     image={post.image}
+                    minuteRead={post.minuteRead}
                   />
                 </Col>
               ))}
