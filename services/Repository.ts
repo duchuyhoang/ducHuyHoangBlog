@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/return-await */
 import {
   CollectionReference,
   QueryConstraint,
@@ -12,7 +13,8 @@ import {
   DocumentReference,
   DocumentSnapshot,
   deleteDoc,
-  updateDoc
+  updateDoc,
+  UpdateData
 } from 'firebase/firestore/lite'
 import { BaseModel } from './model/BaseModel'
 
@@ -21,7 +23,7 @@ import { BaseModel } from './model/BaseModel'
 //   collection: CollectionReference<T>
 // }
 
-export class Repository<T extends Dictionary> {
+export class Repository<T extends DocumentData> {
   constructor(
     private readonly db: Firestore,
     private readonly collection: CollectionReference<T>
@@ -51,8 +53,12 @@ export class Repository<T extends Dictionary> {
 
   public async getReference(
     ...pathSegment: string[]
-  ): Promise<DocumentReference<DocumentData>> {
-    return doc(this.db, this.collection.id, ...pathSegment)
+  ): Promise<DocumentReference<T>> {
+    return (await doc(
+      this.db,
+      this.collection.id,
+      ...pathSegment
+    )) as DocumentReference<T>
   }
 
   public async getDataByReference(
@@ -75,7 +81,7 @@ export class Repository<T extends Dictionary> {
     return await deleteDoc(docRef)
   }
 
-  public async updateOne(id: string, data: T): Promise<void> {
+  public async updateOne(id: string, data: UpdateData<T>): Promise<void> {
     const docRef = await this.getReference(id)
     return await updateDoc(docRef, data)
   }

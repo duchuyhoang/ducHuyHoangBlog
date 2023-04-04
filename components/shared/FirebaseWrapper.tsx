@@ -23,9 +23,6 @@ const FirebaseWrapper = ({ children }: IFirebaseWrapper) => {
   )
 
   useEffect(() => {
-    // Object.values(COLLECTION_NAMES).forEach(collectionName => {
-
-    // })
     dataSource.addRepository<Comment>(COLLECTION_NAMES.COMMENT)
     dataSource.addRepository<User>(COLLECTION_NAMES.USER)
     setStatus(FIREBASE_LOADING_STATUS.SUCCEED)

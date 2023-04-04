@@ -227,15 +227,17 @@
   }
   input {
     padding: 8px 8px 8px 40px;
-    background-color: #f1f3f4;
-    border: none;
-    color: #5f6368;
+    // background-color: #f1f3f4;
+    background-color: transparent;
+    border: 1px solid var(--navbar-search-border-color);
+    // color: #5f6368;
+    color: var(--color-text);
     font-size: 16px;
     border-radius: 8px;
   }
-  &:hover input {
-    background-color: #e8eaed;
-  }
+  // &:hover input {
+  //   background-color: #e8eaed;
+  // }
 }
 
 .hideSidebar {

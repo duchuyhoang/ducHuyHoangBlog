@@ -17,7 +17,8 @@ export const ROUTERS = {
   HOME: '/',
   TAGS: '/tags',
   ABOUT: '/about',
-  SOFTWARE: '/software'
+  SOFTWARE: '/software',
+  SEARCH: '/search'
 }
 
 export const LOCAL_STORAGE_KEYS = {

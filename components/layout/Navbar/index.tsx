@@ -8,29 +8,13 @@ import React, {
   useLayoutEffect
 } from 'react'
 import Link from 'next/link'
-import Modal from '../../shared/Modal'
 import { VscThreeBars } from 'react-icons/vsc'
-import { FaGithub, FaFacebookSquare } from 'react-icons/fa'
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  Auth
-} from 'firebase/auth'
+
 import Input from '../../shared/Input'
-import {
-  AiFillInstagram,
-  AiOutlineSearch,
-  AiOutlineClose,
-  AiOutlineLogin
-} from 'react-icons/ai'
+import { AiOutlineSearch, AiOutlineLogin } from 'react-icons/ai'
 import { Row, Col } from 'react-bootstrap'
 import Logo from '../../../public/logo.svg'
-import {
-  AUTH_STATUS,
-  COLLECTION_NAMES,
-  FIREBASE_LOADING_STATUS,
-  THEME
-} from '../../../common/enum'
+import { AUTH_STATUS, THEME } from '../../../common/enum'
 import { useTheme } from '../../shared/Theme'
 import useMediaQuery from '../../../hooks/useMediaQuery'
 import { useRouter } from 'next/router'
@@ -47,7 +31,6 @@ import Sidebar from './Sidebar'
 import { BiMoon, BiSun } from 'react-icons/bi'
 
 const Navbar = () => {
-  const [isSearchInputOpen, setIsSeachInputOpen] = useState<boolean>(false)
   const navRef = useRef<HTMLDivElement | null>(null)
   const [isHiddenSidebarOpen, setIsOpenSidebarOpen] = useState<boolean>(false)
   const [searchTabletKeyword, setSearchTabletKeyword] = useState<string>('')
@@ -65,7 +48,6 @@ const Navbar = () => {
     '(min-width: 768px) and (max-width:1000px)'
   )
   const router = useRouter()
-  const context = useFirebaseContext()
   const { setIsOpenLoginModal, user, signOut, authStatus } = useAuth()
 
   const handleClickOutsideSearchTablet = () => {
@@ -98,10 +80,12 @@ const Navbar = () => {
   useEffect(() => {
     if (isSearchTabletActive && isFullTextSearchBox) {
       const parent = searchTabletRef.current.parentElement
-      parent.style.transform = 'translate3d(-400px, 0px, 0px)'
+      parent.style.transform = 'translate3d(-300px, 0px, 0px)'
+      parent.style.marginLeft = '50px'
       document.getElementById('navItemContainer')?.classList.remove('d-md-flex')
       setTimeout(() => {
         parent.style.transform = 'translate3d(0px, 0px, 0px)'
+        parent.style.marginLeft = '10px'
       }, 100)
     } else {
       document.getElementById('navItemContainer')?.classList.add('d-md-flex')
@@ -115,10 +99,6 @@ const Navbar = () => {
   useEffect(() => {
     document.documentElement.setAttribute('theme', theme.toLowerCase())
   }, [theme])
-
-  const handleCloseHiddenSideBar = useCallback(() => {
-    setIsOpenSidebarOpen(false)
-  }, [])
 
   return (
     <>
@@ -137,38 +117,6 @@ const Navbar = () => {
           }}
         >
           <Row className={`flex-nowrap ${isSearchMobileActive ? 'pr-0' : ''}`}>
-            {/* <Col className="d-flex d-md-none align-items-center p-0" xs="1">
-                <AiOutlineSearch
-                  size={25}
-                  style={{
-                    fill: theme === THEME.DARK ? '#fff' : '#070615'
-                  }}
-                  onClick={() => {
-                    setIsSeachInputOpen(prev => !prev)
-                  }}
-                />
-              </Col> */}
-
-            {/* <div
-              className="d-flex d-md-none p-0 mb-1 align-items-center"
-              style={{
-                width: 'max-content',
-                zIndex: 1000
-              }}
-            >
-              <span style={{ padding: 5 }}>
-                <VscThreeBars
-                  size={33}
-                  style={{
-                    fill: theme === THEME.DARK ? '#fff' : '#070615'
-                  }}
-                  onClick={() => {
-                    setIsOpenSidebarOpen(true)
-                  }}
-                />
-              </span>
-            </div> */}
-
             <Col
               col="6"
               xs="2"
@@ -249,120 +197,55 @@ const Navbar = () => {
                     : ''
                 }`}
               >
-                {isMatch ? (
-                  <>
-                    <div
-                      className="searchContainer"
-                      onClick={() => {
-                        setIsSearchTabletActive(true)
-                      }}
-                      ref={searchTabletRef}
-                    >
-                      <AiOutlineSearch
-                        style={{
-                          cursor: 'pointer'
-                          // fill: theme === THEME.DARK ? '#fff' : '#070615'
-                        }}
-                        size={23}
+                {router.pathname !== ROUTERS.SEARCH ? (
+                  isMatch ? (
+                    <>
+                      <div
+                        className="searchContainer ml-1"
                         onClick={() => {
-                          setIsSeachInputOpen(prev => !prev)
+                          setIsSearchTabletActive(true)
                         }}
-                      />
-                      <Input
-                        value={searchTabletKeyword}
-                        onChange={e => {
-                          setSearchTabletKeyword(e.target.value)
-                        }}
-                        placeholder={'Search'}
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <AiOutlineSearch
-                    style={{
-                      cursor: 'pointer',
-                      fill: theme === THEME.DARK ? '#fff' : '#070615'
-                    }}
-                    size={24}
-                    onClick={() => {
-                      setIsSearchMobileActive(prev => !prev)
-                    }}
-                  />
-                )}
+                        ref={searchTabletRef}
+                      >
+                        <AiOutlineSearch
+                          style={{
+                            cursor: 'pointer'
+                            // fill: theme === THEME.DARK ? '#fff' : '#070615'
+                          }}
+                          size={23}
+                        />
+                        <Input
+                          value={searchTabletKeyword}
+                          onChange={e => {
+                            setSearchTabletKeyword(e.target.value)
+                          }}
+                          onKeyDown={e => {
+                            const keyword = searchTabletKeyword.trim()
+                            if (keyword && e.key === 'Enter') {
+                              router.push(
+                                `/${ROUTERS.SEARCH}?keyword=${keyword}`
+                              )
+                            }
+                          }}
+                          placeholder={'Search'}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <AiOutlineSearch
+                      style={{
+                        cursor: 'pointer',
+                        fill: theme === THEME.DARK ? '#fff' : '#070615'
+                      }}
+                      size={24}
+                      onClick={() => {
+                        setIsSearchMobileActive(prev => !prev)
+                      }}
+                    />
+                  )
+                ) : null}
               </span>
             </Col>
-
-            {/* <Row
-                className="d-flex flex-nowrap"
-                style={{
-                  width: 'max-content'
-                }}
-              >
-                {isMatch && (
-                    <div
-                      className="p-0"
-                      style={{
-                        width: 'max-content'
-                      }}
-                    >
-                      <span
-                        className="nav-item"
-                        style={{ padding: '0px', margin: '0px 5px' }}
-                      >
-                        <Link
-                          href="https://www.facebook.com/croong.hoang"
-                          passHref
-                        >
-                          <a target={'_blank'}>
-                            <FaFacebookSquare
-                              size={25}
-                              style={{
-                                fill: theme === THEME.DARK ? '#fff' : '#070615'
-                              }}
-                            />
-                          </a>
-                        </Link>
-                      </span>
-                      <span
-                        className="nav-item"
-                        style={{ padding: '0px', margin: '0px 5px' }}
-                      >
-                        <Link href="https://github.com/duchuyhoang" passHref>
-                          <a target={'_blank'}>
-                            <FaGithub
-                              size={25}
-                              style={{
-                                fill: theme === THEME.DARK ? '#fff' : '#070615'
-                              }}
-                            />
-                          </a>
-                        </Link>
-                      </span>
-                      <span
-                        className="nav-item"
-                        style={{
-                          padding: '0px',
-                          margin: '0px 5px',
-                          marginRight: '30px'
-                        }}
-                      >
-                        <Link
-                          href="https://www.instagram.com/duchuy_h/?hl=en"
-                          passHref
-                        >
-                          <a target={'_blank'}>
-                            <AiFillInstagram
-                              size={25}
-                              style={{
-                                fill: theme === THEME.DARK ? '#fff' : '#070615'
-                              }}
-                            />
-                          </a>
-                        </Link>
-                      </span>
-                    </div>
-                  )}
-              </Row> */}
 
             <div
               className="p-0 justify-content-end justify-content-md-start"
@@ -407,7 +290,7 @@ const Navbar = () => {
 
               <span
                 style={{
-                  paddingLeft: isMatch ? '0px' : '10px',
+                  paddingLeft: isMatch && isMounted ? '0px' : '10px',
                   marginBottom: '3px',
                   width: 'max-content'
                 }}
@@ -496,9 +379,6 @@ const Navbar = () => {
                         // fill: theme === THEME.DARK ? '#fff' : '#070615'
                       }}
                       size={23}
-                      onClick={() => {
-                        setIsSeachInputOpen(prev => !prev)
-                      }}
                     />
                     <Input
                       value={searchMobileKeyword}
@@ -506,6 +386,12 @@ const Navbar = () => {
                         setSearchMobileKeyword(e.target.value)
                       }}
                       placeholder="Search"
+                      onKeyDown={e => {
+                        const keyword = searchMobileKeyword.trim()
+                        if (keyword && e.key === 'Enter') {
+                          router.push(`/${ROUTERS.SEARCH}?keyword=${keyword}`)
+                        }
+                      }}
                     />
                   </div>
                 </>

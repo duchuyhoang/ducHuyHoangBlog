@@ -36,7 +36,7 @@ const PostHeader = ({
       <div className="mt-4 d-flex align-center">
         <div className="d-flex align-center">
           <FaCalendarAlt
-            className="mr-2"
+            className="mr-1 mb-1"
             style={{ fill: '#171e22' }}
             size={17}
           />
@@ -49,7 +49,11 @@ const PostHeader = ({
         <Dot />
         <p>{minuteRead} minutes read</p>
         <Dot />
-        <Link href="#comment">Bình luận</Link>
+        <Link href="#comment" passHref>
+          <a href="" style={{ marginTop: '1px' }}>
+            Bình luận
+          </a>
+        </Link>
       </div>
       <div className="mt-4">
         <Avatar src={author?.avatar || ''} width={90} height={90} />

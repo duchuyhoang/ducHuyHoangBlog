@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import moment from 'moment'
 import { NextIncomingMessage } from 'next/dist/server/request-meta'
 import { PAGE_PREFIX } from './constants'
@@ -57,5 +58,56 @@ export const getDateStringText = (date: moment.MomentInput): string => {
     return `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
   } else {
     return 'Unknown'
+  }
+}
+
+interface DescribableFunction {
+  (): void
+  cancel: () => void
+}
+
+export const debounce = (
+  cb: () => void,
+  timeout: number
+): DescribableFunction => {
+  let timer
+
+  const describeFunc = (): void => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      cb()
+    }, timeout)
+  }
+  describeFunc.cancel = () => {
+    clearTimeout(timer)
+  }
+  return describeFunc
+}
+
+export const throttle = (
+  cb: () => void,
+  timeout: number,
+  count: number
+): any => {
+  let executedCount = 0
+  setTimeout(() => {
+    executedCount = 0
+  }, timeout)
+  return () => {
+    if (executedCount + 1 <= count) {
+      executedCount++
+      cb()
+    }
+  }
+}
+
+export const wrapperAsync = async <T>(
+  asyncFunc: Promise<any>
+): Promise<any> => {
+  try {
+    const rs = await asyncFunc
+    return [rs, null]
+  } catch (e) {
+    return [null, e]
   }
 }

@@ -49,9 +49,9 @@ html {
   .mr-#{$index} {
     margin-right: $value !important;
   }
-  .mb-#{$index} {
-    margin-bottom: $value !important;
-  }
+  // .mb-#{$index} {
+  //   margin-bottom: $value !important;
+  // }
   .ml-#{$index} {
     margin-left: $value !important;
   }

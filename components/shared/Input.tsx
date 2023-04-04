@@ -1,27 +1,25 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 
-export interface IInputProps {
+export interface IInputProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
   value: any
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
-  inputProps?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 }
 
-const Input = ({
-  placeholder,
-  value,
-  onChange,
-  inputProps = {}
-}: IInputProps) => {
+const Input = ({ placeholder, value, onChange, ...rest }: IInputProps) => {
   return (
     <>
       <input
         className="input"
         type="text"
-        {...inputProps}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        {...rest}
       />
     </>
   )

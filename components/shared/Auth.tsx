@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import React, { useContext, useEffect, useState } from 'react'
-import { UseFormUnregister } from 'react-hook-form'
 import { LOCAL_STORAGE_KEYS, PROVIDERS } from '../../common/constants'
 import {
   AUTH_STATUS,
@@ -158,7 +157,6 @@ const Auth = ({ children }: IAuthContext) => {
                 })
               }
               setAuthStatus(AUTH_STATUS.SUCCEED)
-              console.log('users', users)
             } catch (e) {
               setAuthStatus(AUTH_STATUS.ERROR)
               console.log(e)

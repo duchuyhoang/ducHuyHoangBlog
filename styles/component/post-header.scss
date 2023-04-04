@@ -23,5 +23,8 @@
     font-size: 48px;
     font-weight: 400;
     margin-block-start: 0px;
+    @media screen and (max-width: $medium-width) {
+      font-size: 30px;
+    }
   }
 }

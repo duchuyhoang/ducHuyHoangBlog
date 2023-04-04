@@ -50,54 +50,55 @@
     margin-left: 10px;
     margin-bottom: 0px;
   }
-}
-.social-wrapper {
-  $button-width: 100%;
-  & > span {
-    width: $button-width;
-  }
-  width: $button-width;
-
-  // @media screen and (min-width: 768px) {
-  //   $button-width: 345px;
-  //   & > span {
-  //     width: $button-width;
-  //   }
-  //   width: $button-width;
-  // }
-
-  @include flex(center, space-between);
-  flex-wrap: wrap;
-  // For facebook
-
-  .login-button {
-    @include flex(center, flex-start);
-    display: flex;
-    height: 54px;
-    border: none;
-    width: 100%;
-    border-radius: 10px !important;
-    padding: 15px !important;
-    margin-bottom: 15px;
+  .social-wrapper {
+    $button-width: 100%;
     & > span {
-      @include flex(center, center);
-      display: flex !important;
+      width: $button-width;
     }
-    // background-color: #4285f4;
-    transition: background-color 0.2s ease-in-out;
-    .icon {
-      @include flex(center, center);
-      width: 40px;
-      height: 40px;
-    }
-    svg {
-      cursor: pointer;
-    }
-    h4 {
-      @extend .social-text;
+    width: $button-width;
+
+    // @media screen and (min-width: 768px) {
+    //   $button-width: 345px;
+    //   & > span {
+    //     width: $button-width;
+    //   }
+    //   width: $button-width;
+    // }
+
+    @include flex(center, space-between);
+    flex-wrap: wrap;
+    // For facebook
+
+    .login-button {
+      @include flex(center, flex-start);
+      display: flex;
+      height: 54px;
+      border: none;
+      width: 100%;
+      border-radius: 10px !important;
+      padding: 15px !important;
+      margin-bottom: 15px;
+      & > span {
+        @include flex(center, center);
+        display: flex !important;
+      }
+      // background-color: #4285f4;
+      transition: background-color 0.2s ease-in-out;
+      .icon {
+        @include flex(center, center);
+        width: 40px;
+        height: 40px;
+      }
+      svg {
+        cursor: pointer;
+      }
+      h4 {
+        @extend .social-text;
+      }
     }
   }
 }
+
 .google-btn {
   box-shadow: none !important;
   background-color: #fff;

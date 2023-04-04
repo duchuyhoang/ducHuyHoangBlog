@@ -79,7 +79,7 @@ const Sidebar = ({ show, onClose }: ISidebar) => {
             Tags
           </a>
         </Link>
-        <p className="item">Search</p>
+        {/* <p className="item">Search</p> */}
       </div>
     </div>
   )

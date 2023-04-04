@@ -1,0 +1,110 @@
+#comment {
+  h2 {
+    color: var(--color-text);
+  }
+  .text-area-wrapper {
+    padding: 10px;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+  }
+  .submit-btn-wrapper {
+    @include flex(center, flex-end);
+    button {
+      background-color: var(--hover-primary);
+      margin-top: 10px;
+      border: none;
+      svg {
+        margin-left: 10px;
+      }
+      .loading {
+        display: inline-block;
+        height: max-content;
+        svg {
+          fill: currentColor;
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+    .login-btn {
+      width: 100%;
+      color: #fff !important;
+
+      svg {
+        width: 25px !important;
+        height: 25px !important;
+      }
+    }
+    .send-comment-btn {
+      color: #fff !important;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+  .loading {
+    justify-content: center;
+    height: 150px;
+    svg {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  .text-send-area {
+    width: 100%;
+    min-height: 150px;
+    overflow-y: hidden;
+    resize: none;
+    line-height: 18px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--color-text);
+    transition: height cubic-bezier(0.7, 1, 0.7, 1);
+  }
+  .comment-item {
+    display: flex;
+    margin-bottom: 20px;
+    & .content {
+      display: flex;
+      flex-direction: column;
+      margin-left: 16px;
+      color: var(--color-text);
+      max-width: calc(100% - 46px - 16px);
+      .author {
+        @include flex(center, flex-start);
+        h5 {
+          font-size: 14px;
+          font-weight: 700;
+          margin-bottom: 0px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          @media screen and(max-width:$medium-width) {
+            max-width: 65%;
+          }
+          @media screen and(min-width:$medium-width) {
+            max-width: 700px;
+          }
+        }
+        .date {
+          margin-left: 5px;
+          font-size: 14px;
+        }
+      }
+      .text {
+        padding: 10px;
+        line-height: 22px;
+        width: max-content;
+        font-size: 1rem;
+        background-color: var(--color-box-bg);
+        border: 1px solid var(--gray);
+        border-radius: 5px;
+        max-width: 100%;
+      }
+    }
+  }
+  // .load-more-btn {
+  //   padding: 0px 16px;
+  // }
+}

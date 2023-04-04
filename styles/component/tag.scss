@@ -14,6 +14,7 @@
 
 .tag-wrapper {
   @include flex(center, center);
+  padding-bottom: 8px;
   & a {
     margin: 0px 5px;
   }

@@ -61,6 +61,8 @@
     "@typescript-eslint/space-before-function-paren": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
 
     "quotes": ["error", "single"],
     "multiline-ternary": ["off"],
