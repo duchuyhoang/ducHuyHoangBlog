@@ -21,7 +21,10 @@ import Line from '../../components/shared/post/Line'
 import PostLink from '../../components/shared/post/PostLink'
 import Quote from '../../components/shared/post/Quote'
 import Comment from '../../components/shared/post/Comment'
+
 import useDocumentTitle from '../../common/hooks/useDocumentTitle'
+import FullSizeImage from '../../components/shared/post/FullSizeImage'
+import SubChildHeader from '../../components/shared/SubChildHeader'
 
 export interface IPost {
   fileMetadata: { slug: string } & IPostHeader
@@ -86,8 +89,10 @@ export const components = {
   Layout,
   PostHeader,
   PostImage,
+  FullSizeImage,
   img: PostImage,
   h2: SubHeader,
+  h3: SubChildHeader,
   a: PostLink,
   pre: CodeBlock,
   CodeBlock,

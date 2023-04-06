@@ -1,6 +1,6 @@
 import React from 'react'
 import Avatar from '../Avatar'
-import Tag, { ITag } from './Tag'
+import Tag from './Tag'
 import moment from 'moment'
 import { FaCalendarAlt } from 'react-icons/fa'
 import { IAuthor } from '../../def/author'
@@ -40,6 +40,7 @@ const PostHeader = ({
             style={{ fill: '#171e22' }}
             size={17}
           />
+
           <p>
             {moment(date).isValid()
               ? `${moment(date).format('DD-MM-YYYY')}`

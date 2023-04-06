@@ -88,9 +88,11 @@ const VerticalCardPost = ({
             </div>
           </Col>
         </Row>
-        <Link href={`/post/${slug}`} passHref>
-          <a className="vertical-card-title">{title}</a>
-        </Link>
+        <div className="vertical-card-title">
+          <Link href={`/post/${slug}`} passHref>
+            <a>{title}</a>
+          </Link>
+        </div>
 
         <div className="vertical-card-bar"></div>
         <p className="vertical-card-description">

@@ -1,6 +1,6 @@
 ---
-slug: voc-vach-code-thu-1-con-crawler-blockchain
-title: Vọc vạch code thử 1 crawler event trên mạng blockchain
+slug: voc-vach-code-thu-1-con-crawler-blockchain-phan-1
+title: Vọc vạch code thử 1 crawler event trên mạng blockchain phần 1
 date: 04/04/2023
 image: blockchain-crawler/bg.jpeg
 author: { name: Đức Huy Hoàng, avatar: selfAvatar.jpg }
@@ -24,19 +24,13 @@ minuteRead: 20
 - [Core concepts](#blockchainCrawlerCore)
   - [Tổng quan](#blockchainCrawlerOverview)
     - [Thiết kế database](#blockchainCrawlerDb)
+    - [Công nghệ sử dụng](#blockchainTech)
     - [Các base class trong ứng dụng](#blockchainCrawlerBaseClass)
       - [BaseIntevalWorker](#blockchainCrawlerIntervalWorker)
       - [BaseEventCrawler](#blockchainCrawlerEventCrawler)
       - [Processor](#blockchainCrawlerProcessor)
       - [BaseLauncher](#blockchainLauncher)
-  - [Pseudo elements](#tailwindUtilityPseudoElements)
-  - [Media queries](#tailwindUtilityMediaQuery)
-  - [Attribute selectors](#tailwindUtilityAttributeSelector)
-  - [Responsive design](#tailwindResponsive)
-    - [Default break points của Tailwind CSS](#tailwindResponsiveDefault)
-    - [Điều chỉnh breakpoints Tailwind CSS](#tailwindResponsiveCustomizingConfig)
-  - [Dark Mode](#tailwindDarkMode)
-  - [Tái sử dụng style](#tailwindReusingStyles)
+- [Tổng kết](#blockchainCrawlerSummary)
 
 ---
 
@@ -71,12 +65,26 @@ minuteRead: 20
 
     </article>
 
+    <article id="blockchainTech">
+      ## [<img src="hashtag.svg" width="20px" height="20px" />](#blockchainTech) Công nghệ sử dụng và các gói quan trọng
+        - `Typescript`
+        - `Nodejs`
+        - `Express`
+        - `PostgreSQL`
+        - `Redis`
+        - `Moralis`
+        - `bull` (gói quan trọng dùng cho Queue pattern)
+        - `web3`
+        - `ethers`
+        - `typeorm`
+    </article>
+
     <article id="blockchainCrawlerBaseClass">
       <section id="blockchainCrawlerIntervalWorker">
       ## [<img src="hashtag.svg" width="20px" height="20px" />](#blockchainCrawlerBaseClass) Các base class trong ứng dụng
         <div class="ml-4">
         ### [<img src="hashtag.svg" width="20px" height="20px"/>](#blockchainCrawlerIntervalWorker) BaseIntevalWorker
-        </div>  
+        </div>
         - `BaseIntevalWorker` : Một cái "khuôn" để thực hiện 1 action nhất định trong 1 khoảng thời gian. Phương thức `prepare` và `doProcess` sẽ được các lớp kế thừa lớp này viết vào thực hiện action nhất định
 
     ```ts filename="BaseIntevalWorker.ts"
@@ -148,7 +156,7 @@ minuteRead: 20
 
     <hr class="mb-4 mt-4" />
       </section>
-      
+
       <section id="blockchainCrawlerEventCrawler">
         <div class="ml-4">
           ### [<img src="hashtag.svg" width="20px" height="20px"/>](#blockchainCrawlerEventCrawler) BaseEventCrawler
@@ -502,9 +510,18 @@ minuteRead: 20
             }
           }
         ```
+
+        ---
       </section>
 
     </article>
 
   </article>
+</div>
+
+<div id="blockchainCrawlerSummary" class="mt-4">
+## [<img src="hashtag.svg" width="20px" height="20px" />](#blockchainCrawlerSummary) Tổng kết
+
+Như vậy là mình đã giới thiệu cho các bạn về phần 1 về 1 con crawler blockchain rồi. Hẹn các bạn phần sau để implement các lớp base mà hôm nay mình đã giới thiệu các bạn nhé
+
 </div>

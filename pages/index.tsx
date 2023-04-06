@@ -2,26 +2,12 @@
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/indent */
-import React, { createContext, ReactNode, useContext } from 'react'
+import React, { ReactNode } from 'react'
 
-import type { GetStaticProps, NextPage, NextPageContext } from 'next'
-import { getAuth, createUserWithEmailAndPassword, Auth } from 'firebase/auth'
-import { getFirebase } from '../services/firebase'
-import {
-  doc,
-  getDoc,
-  getDocs,
-  addDoc,
-  query,
-  where,
-  startAt,
-  endAt
-} from 'firebase/firestore/lite'
+import type { NextPage } from 'next'
 import Slider, { Settings } from 'react-slick'
-import { buildHostUrl } from '../common/utils'
 import FeaturePostList, { IPost } from '../components/shared/FeaturePost'
 import VerticalCardPost from '../components/shared/VerticalCardPost'
-import LeftSideBar from '../components/layout/LeftSideBar'
 import HorizontalCardPost from '../components/shared/HorizontalCardPost'
 import fs from 'fs'
 import path from 'path'
@@ -32,58 +18,6 @@ import useDocumentTitle from '../common/hooks/useDocumentTitle'
 
 const FEATURE_POST_COUNT = 3
 const RECENT_POST_COUNT = 7
-
-// export async function getServerSideProps(context: NextPageContext) {
-//   //   const session = await getSession(context);
-
-//   // context.res.
-//   let props: {
-//     comments: any[];
-//     auth: Maybe<Auth>;
-//     // signIn: (email: string, password: string) => void;
-//     // signUp: (email: string, password: string) => void;
-//   } = {
-//     comments: [],
-//     auth: null,
-//     // signIn: (email: string, password: string) => {},
-//     // signUp: (email: string, password: string) => {},
-//   };
-//   try {
-//     const firebase = getFirebase();
-//     if (firebase) {
-//       // firebase.auth
-//       const q = query(firebase.database.comment);
-//       const data = await (await getDocs(q)).docs;
-//       //   const data1 = await addDoc(firebase.database.comment, {
-//       //     id: "ddddd",
-//       //     vallue: "hy",
-//       //   });
-//       props.comments = data.map((d) => d.data());
-//       //   console.log(props)
-//       //   props.signIn=(email:string,password:string)=>{
-
-//       //   }
-//     } else {
-//       console.log("wrong");
-//     }
-
-//     // console.log("lll", props);
-//   } catch (e) {
-//     console.log(e);
-//   }
-//   return {
-//     props,
-//   };
-// }
-
-// export const getServerSideProps: GetStaticProps = async (context: any) => {
-//   const data = await fetch(
-//     `${buildHostUrl((context as NextPageContext).req)}/api/hello`
-//   );
-//   return {
-//     props: {},
-//   };
-// };
 
 export const getStaticProps = async () => {
   const files = fs.readdirSync(path.join('posts'))
@@ -107,17 +41,17 @@ export const getStaticProps = async () => {
 
   const featurePostId = listFeaturePost.map(post => post.slug)
 
-  // for (let i = 0; i < listPost.length; i++) {
-  //   const selectedPost = listPost[i]
-  //   if (!featurePostId.includes(selectedPost.slug)) {
-  //     listRecentPost.push(selectedPost)
-  //   }
-  //   if (listRecentPost.length === RECENT_POST_COUNT) {
-  //     break
-  //   }
-  // }
+  for (let i = 0; i < listPost.length; i++) {
+    const selectedPost = listPost[i]
+    if (!featurePostId.includes(selectedPost.slug)) {
+      listRecentPost.push(selectedPost)
+    }
+    if (listRecentPost.length === RECENT_POST_COUNT) {
+      break
+    }
+  }
   return {
-    props: { listPost, listFeaturePost, listRecentPost: listPost }
+    props: { listPost, listFeaturePost, listRecentPost }
   }
 }
 
@@ -170,7 +104,8 @@ const Home: NextPage<IHome, IHome> = props => {
       ? Math.min(totalRecent, 4)
       : Math.min(totalRecent, 3),
     // slidesToShow: isSmall ? 1 : isMedium ? 2 : isSuperLarge ? 4 : 3,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
+    autoplay: true,
 
     // rows: 2,
     // slidesPerRow: isSmall

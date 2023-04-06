@@ -54,21 +54,25 @@
   }
 
   &-title {
-    color: var(--color-text-primary);
-    font-size: 22px;
-    font-weight: 600;
-    box-sizing: border-box;
     display: block;
-    line-height: 24px;
     width: 100%;
     text-decoration: none;
     height: 85px;
     box-sizing: border-box;
-    @include excerp(3);
     margin-top: 10px;
-    &:hover {
-      // opacity: 0.6;
-      color: var(--hover-primary);
+
+    & a {
+      color: var(--color-text-primary);
+      font-size: 22px;
+      font-weight: 600;
+      box-sizing: border-box;
+      @include excerp(3);
+      line-height: 24px;
+
+      &:hover {
+        // opacity: 0.6;
+        color: var(--hover-primary);
+      }
     }
   }
   &-author,

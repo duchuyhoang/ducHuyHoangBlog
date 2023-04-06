@@ -30,15 +30,8 @@
       }
     }
   }
-  .subHeader {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 36px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    color: var(--color-text);
 
+  .headerSvg {
     &:hover a {
       opacity: 1;
     }
@@ -49,10 +42,32 @@
       opacity: 0;
       cursor: pointer;
       text-decoration: none;
+      display: flex;
+      align-items: center;
       &:hover {
         opacity: 1;
       }
     }
+  }
+  .headerStyle {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: var(--color-text);
+  }
+
+  .subHeader {
+    @extend .headerSvg;
+    @extend .headerStyle;
+    font-size: 24px;
+  }
+  .subChildHeader {
+    @extend .headerSvg;
+    @extend .headerStyle;
+    font-size: 18px;
   }
   div[id],
   section[id],

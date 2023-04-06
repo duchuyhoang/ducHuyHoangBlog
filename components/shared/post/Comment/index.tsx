@@ -12,7 +12,7 @@ import {
   COLLECTION_NAMES,
   FIREBASE_LOADING_STATUS
 } from '../../../../common/enum'
-import { DocumentReference, where } from 'firebase/firestore/lite'
+import { where } from 'firebase/firestore/lite'
 import { wrapperAsync } from '../../../../common/utils'
 import { Repository } from '../../../../services/Repository'
 import { User } from '../../../../services/model/User'
@@ -20,6 +20,8 @@ import CommentItem from './CommentItem'
 import Loading from '../../Loading'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import moment from 'moment'
+import NoComment from './NoComment'
+
 interface IComment {
   slug: string
 }
@@ -78,7 +80,7 @@ const Comments = ({ slug, ...rest }: IComment) => {
                   comment.user as any
                 )
               }
-              const [data, err] = await wrapperAsync(handleGetUser())
+              const [data] = await wrapperAsync(handleGetUser())
               return { ...comment, user: data }
             })
           )
@@ -133,6 +135,7 @@ const Comments = ({ slug, ...rest }: IComment) => {
         setIsSending(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, dataSource, cmtValue, setListComment])
 
   return (
@@ -195,9 +198,17 @@ const Comments = ({ slug, ...rest }: IComment) => {
         <Loading />
       ) : (
         <div className="mt-3">
-          {listSortedComment.slice(0, page * ITEMS_PER_PAGE).map(comment => (
-            <CommentItem comment={comment} key={comment.docId} />
-          ))}
+          {listSortedComment.length !== 0 ? (
+            listSortedComment
+              .slice(0, page * ITEMS_PER_PAGE)
+              .map(comment => (
+                <CommentItem comment={comment} key={comment.docId} />
+              ))
+          ) : (
+            <div className="mt-4">
+              <NoComment />
+            </div>
+          )}
         </div>
       )}
       {isShowLoadMore && (
