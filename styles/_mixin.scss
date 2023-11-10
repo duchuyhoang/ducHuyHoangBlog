@@ -52,12 +52,14 @@
   /* Track */
   ::-webkit-scrollbar-track {
     background: $track-color;
+    border-radius: 5px;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: $thumb-color;
     cursor: pointer;
+    border-radius: 5px;
   }
 
   /* Handle on hover */

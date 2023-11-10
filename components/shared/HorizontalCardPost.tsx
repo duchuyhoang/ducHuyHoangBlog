@@ -49,7 +49,11 @@ const HorizontalCardPost = ({
               <span className="ml-1 mr-1">on</span>
               {tags?.map((tag, index) => (
                 <>
-                  <Link href={`/tag?tag=${tag}`} passHref key={`tag_${index}`}>
+                  <Link
+                    href={`/tag?tag=${tag}`}
+                    passHref
+                    key={`${slug}_tag_${index}`}
+                  >
                     <a>{tag}</a>
                   </Link>
                   {index !== tags.length - 1 && <span>,</span>}

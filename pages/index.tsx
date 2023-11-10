@@ -172,44 +172,11 @@ const Home: NextPage<IHome, IHome> = props => {
           </div>
 
           <div className="older-post pt-3 pb-4">
-            <h3 className="older-post-title mt-4 mb-4">Older post</h3>
+            <h3 className="older-post-title mt-4 pb-4 mb-4">Older post</h3>
             <div className="older-post-container">
               {listPost.map((post: IPost, index: number) => (
-                <HorizontalCardPost {...post} key={`horizontal_${index}`} />
+                <HorizontalCardPost {...post} key={post.slug} />
               ))}
-
-              {/* <HorizontalCardPost
-                title={"Learn Python with Pj! Part 4 - Dictionaries and Files"}
-                description={
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat itaque vitae, neque ullam sapiente dolor repudiandae accusamus optio consequatur repellat, voluptate praesentium, consequuntur quibusdam nostrum explicabo architecto? Impedit, cum illo. adadadnaldkad dajdakldjada kajdajkld dnada"
-                }
-                author={{
-                  name: "Huy hoang",
-                  avatar: "he",
-                }}
-                date={new Date()}
-                slug={"hello"}
-                image={
-                  "https://about.gitlab.com/images/blogimages/nobl9_1.jpeg"
-                }
-                tags={["News", "Release", "Algorithm"]}
-              />
-              <HorizontalCardPost
-                title={"Learn Python with Pj! Part 4 - Dictionaries and Files"}
-                description={
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat itaque vitae, neque ullam sapiente dolor repudiandae accusamus optio consequatur repellat, voluptate praesentium, consequuntur quibusdam nostrum explicabo architecto? Impedit, cum illo. adadadnaldkad dajdakldjada kajdajkld dnada"
-                }
-                author={{
-                  name: "Huy hoang",
-                  avatar: "he",
-                }}
-                date={new Date()}
-                slug={"hello"}
-                image={
-                  "https://about.gitlab.com/images/blogimages/nobl9_1.jpeg"
-                }
-                tags={["News", "Release"]}
-              /> */}
             </div>
           </div>
           {/* </Row> */}

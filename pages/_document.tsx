@@ -6,7 +6,7 @@ const Document = () => {
     <Html>
       <Head>
         <meta property="custom" content="addaad" />
-        <base href="/ducHuyHoangBlog/"></base>
+        {/* <base href="/ducHuyHoangBlog/"></base> */}
         <link
           rel="icon"
           type="image/x-icon"
